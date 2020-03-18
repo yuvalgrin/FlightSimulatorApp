@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <Controls:FSMap Grid.Column="0" Grid.RowSpan="2"/>
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <Controls:Joystick Margin="10"/>
+            <Controls:Joystick Margin="8"/>
             <Controls:Sliders Margin="0"/>
         </StackPanel>
         <Controls:FSDataView Grid.Column="1" Grid.Row="0"/>

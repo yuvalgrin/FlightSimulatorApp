@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Maps.MapControl.WPF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,13 @@ namespace FlightSimulatorGui.Views
         public FSMap()
         {
             InitializeComponent();
-        }
+
+            myMap.Mode = new AerialMode();
+
+            myPolyline.Locations = new LocationCollection() {
+                new Location(47.6424,-122.3219),
+                new Location(47.8424,-102.1747),
+                new Location(47.67856,-112.130994)};
+                }
     }
 }
