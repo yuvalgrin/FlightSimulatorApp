@@ -11,13 +11,19 @@ namespace FlightSimulatorGui.server
     // Get updates from FS into the data map
     class DatabaseManager
     {
-        public Queue<string> getCommandsQueue() { return null; }
+        private Queue<Command> queue;
+
+        public DatabaseManager(){
+            this.queue = new Queue<Command>();
+        }
+
+        public Queue<Command> getCommandsQueue() { return null; }
 
         // If set command had value more than max (same for less than min) put the closest valid value
-        public void addCommandToQueue() { return; }
+        public void addCommandToQueue(Command c) { return; }
 
         // before sending to queue
-        public string createSetCommand(string type, string value) { return null; }
+        public string createSetCommand(string request) { return null; }
 
 
         // If value is error (equals ERR) throw exception?

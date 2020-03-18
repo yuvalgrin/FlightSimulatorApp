@@ -11,6 +11,7 @@ namespace FlightSimulatorGui.server
     // 2. Read data from server and update DB manager map
     class FSConnector
     {
+        public static DatabaseManager db = new DatabaseManager();
         public static void initlizeBackgroundThread() { }
 
         public void runCommandToFS() { }
