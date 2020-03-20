@@ -61,6 +61,7 @@ public class TcpServer
                         //////push command to db
                         Command c = FSConnector.db.createsSetComand(msg);
                         FSConnector.db.addCommandToQueue(c);
+                    
 
 
                         // Send back a response.
