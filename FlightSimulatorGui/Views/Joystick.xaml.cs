@@ -105,15 +105,19 @@ namespace FlightSimulatorGui.Views
         /// <summary>This event fires once the joystick is captured</summary>
         public event EmptyJoystickEventHandler Captured;
 
-        private Point _startPos;
-        private double _prevAileron, _prevElevator;
+        private Point startPoint;
+        private double lastAileron, lastElevator;
         private double canvasWidth, canvasHeight;
-        private readonly Storyboard centerKnob;
+        private Storyboard centerKnob;
 
         public Joystick()
         {
             InitializeComponent();
+            initKnob();
+        }
 
+        private void initKnob()
+        {
             Knob.MouseLeftButtonDown += Knob_MouseLeftButtonDown;
             Knob.MouseLeftButtonUp += Knob_MouseLeftButtonUp;
             Knob.MouseMove += Knob_MouseMove;
@@ -123,8 +127,8 @@ namespace FlightSimulatorGui.Views
 
         private void Knob_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _startPos = e.GetPosition(Base);
-            _prevAileron = _prevElevator = 0;
+            startPoint = e.GetPosition(Base);
+            lastAileron = lastElevator = 0;
             canvasWidth = Base.ActualWidth - KnobBase.ActualWidth;
             canvasHeight = Base.ActualHeight - KnobBase.ActualHeight;
             Captured?.Invoke(this);
@@ -135,14 +139,10 @@ namespace FlightSimulatorGui.Views
 
         private void Knob_MouseMove(object sender, MouseEventArgs e)
         {
-            ///!!!!!!!!!!!!!!!!!
-            /// YOU MUST CHANGE THE FUNCTION!!!!
-            ///!!!!!!!!!!!!!!
             if (!Knob.IsMouseCaptured) return;
 
-            Point newPos = e.GetPosition(Base);
-
-            Point deltaPos = new Point(newPos.X - _startPos.X, newPos.Y - _startPos.Y);
+            Point newPoint = e.GetPosition(Base);
+            Point deltaPos = new Point(newPoint.X - startPoint.X, newPoint.Y - startPoint.Y);
 
             double distance = Math.Round(Math.Sqrt(deltaPos.X * deltaPos.X + deltaPos.Y * deltaPos.Y));
             if (distance >= canvasWidth / 2 || distance >= canvasHeight / 2)
@@ -158,12 +158,13 @@ namespace FlightSimulatorGui.Views
             knobPosition.Y = deltaPos.Y;
 
             if (Moved == null ||
-                (!(Math.Abs(_prevAileron - Aileron) > AileronStep) && !(Math.Abs(_prevElevator - Elevator) > ElevatorStep)))
+               ( !(Math.Abs(lastAileron - Aileron) > AileronStep) && 
+                 !(Math.Abs(lastElevator - Elevator) > ElevatorStep)  ))
                 return;
 
             Moved?.Invoke(this, new VirtualJoystickEventArgs { Aileron = Aileron, Elevator = Elevator });
-            _prevAileron = Aileron;
-            _prevElevator = Elevator;
+            lastAileron = Aileron;
+            lastElevator = Elevator;
 
         }
 
@@ -175,7 +176,10 @@ namespace FlightSimulatorGui.Views
 
         private void centerKnob_Completed(object sender, EventArgs e)
         {
-            Aileron = Elevator = _prevAileron = _prevElevator = 0;
+            Aileron = 0;
+            Elevator = 0;
+            lastAileron = 0;
+            lastElevator = 0;
             Released?.Invoke(this);
         }
 

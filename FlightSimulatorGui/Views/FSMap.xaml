@@ -8,10 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="700">
     <Grid>
-        <wpf:Map x:Name="myMap" CredentialsProvider="ArDB7RhJSbZdyAMtrdWN~CNbcKs-2JNs8Gw3L973AFg~ArCGagiQZokrDkBolFa_KhcBDBJNtVQlkGHhO6_h0JJG-zLrCY3_qN2gW0E5FcS7" Mode="Aerial">
-            <wpf:MapPolyline Stroke="Blue" StrokeThickness="5" Name="myPolyline"
-                 Opacity="0.7"/>
-
+        <wpf:Map x:Name="myMap" CredentialsProvider="ArDB7RhJSbZdyAMtrdWN~CNbcKs-2JNs8Gw3L973AFg~ArCGagiQZokrDkBolFa_KhcBDBJNtVQlkGHhO6_h0JJG-zLrCY3_qN2gW0E5FcS7" Mode="AerialWithLabels"
+                 Center="31.643854,34.920341" ZoomLevel="9">
         </wpf:Map>
     </Grid>
 </UserControl>

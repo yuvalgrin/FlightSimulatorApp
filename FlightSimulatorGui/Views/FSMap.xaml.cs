@@ -21,16 +21,32 @@ namespace FlightSimulatorGui.Views
     /// </summary>
     public partial class FSMap : UserControl
     {
+        Image airplane = new Image();
+        MapLayer mapLayer = new MapLayer();
+        Location airplaneLocation = new Location();
         public FSMap()
         {
             InitializeComponent();
+            initAirplane();
+        }
 
-            myMap.Mode = new AerialMode();
+        private void initAirplane()
+        {
+            airplane.Source = new BitmapImage(new Uri("/FlightSimulatorGui;component/Resources/airplane.png", UriKind.Relative));
+            airplane.Width = 128;
+            airplane.Height = 128;
 
-            myPolyline.Locations = new LocationCollection() {
-                new Location(47.6424,-122.3219),
-                new Location(47.8424,-102.1747),
-                new Location(47.67856,-112.130994)};
-                }
+            mapLayer.AddChild(airplane, airplaneLocation, PositionOrigin.Center);
+            myMap.Children.Add(mapLayer);
+
+            setAirplaneLocation(31.643854, 34.920341);
+        }
+
+        public void setAirplaneLocation(double lat, double lon)
+        {
+            airplaneLocation.Latitude = lat;
+            airplaneLocation.Longitude = lon;
+
+        }
     }
 }

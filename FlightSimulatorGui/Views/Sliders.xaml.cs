@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSimulatorGui.server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace FlightSimulatorGui.Views
         public Sliders()
         {
             InitializeComponent();
+        }
+
+        private void sldAilronValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            //DatabaseManager.addCommandToQueue(sldAilron.Value);
+        }
+
+        private void sldReronValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            //DatabaseManager.addCommandToQueue(sldAilron.Value);
         }
     }
 }
