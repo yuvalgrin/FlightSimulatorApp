@@ -19,12 +19,12 @@ namespace FlightSimulatorGui.Views
     /// <summary>
     /// Interaction logic for FSMap.xaml
     /// </summary>
-    public partial class FSMap : UserControl
+    public partial class Map : UserControl
     {
         Image airplane = new Image();
         MapLayer mapLayer = new MapLayer();
         Location airplaneLocation = new Location();
-        public FSMap()
+        public Map()
         {
             InitializeComponent();
             initAirplane();

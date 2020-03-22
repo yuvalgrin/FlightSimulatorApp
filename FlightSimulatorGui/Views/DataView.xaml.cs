@@ -18,9 +18,9 @@ namespace FlightSimulatorGui.Views
     /// <summary>
     /// Interaction logic for FSDataView.xaml
     /// </summary>
-    public partial class FSDataView : UserControl
+    public partial class DataView : UserControl
     {
-        public FSDataView()
+        public DataView()
         {
             InitializeComponent();
         }
