@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightSimulatorGui.server
+namespace FlightSimulatorGui.Model
 {
     // Runs a thread that accesses the FS and:
     // 1. Executes the command from DB manager queue
     // 2. Read data from server and update DB manager map
     class FSConnector
     {
-        public static DatabaseManager db = new DatabaseManager();
         public static void initlizeBackgroundThread() { }
 
         public void runCommandToFS() { }

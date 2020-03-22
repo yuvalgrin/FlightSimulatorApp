@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Net.Sockets;
+using FlightSimulatorGui.Model;
 
-public class TcpClient
+public class MyTcpClient
 {
-    public TcpClient()
+    public MyTcpClient()
     {
     }
 
@@ -16,6 +18,9 @@ public class TcpClient
             // connected to the same address as specified by the server, port
             // combination.
             Int32 port = 5402;
+            char[] message = null;
+            string server = "";
+
             TcpClient client = new TcpClient(server, port);
 
             // Translate the passed message into ASCII and store it as a Byte array.

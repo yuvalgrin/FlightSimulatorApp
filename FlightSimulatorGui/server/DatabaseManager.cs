@@ -4,17 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightSimulatorGui.server
+namespace FlightSimulatorGui.Model
 {
     // Hold the data from FS
     // Hold and update queue of queries to be sent
     // Get updates from FS into the data map
     class DatabaseManager
     {
+        private static DatabaseManager instance = null;
         private Queue<Command> queue;
 
-        public DatabaseManager(){
+        private DatabaseManager(){
             this.queue = new Queue<Command>();
+        }
+
+        public static DatabaseManager get()
+        {
+            if (instance == null)
+                instance = new DatabaseManager();
+            return instance;
         }
 
         public Queue<Command> getCommandsQueue() { return null; }
@@ -23,7 +31,7 @@ namespace FlightSimulatorGui.server
         public void addCommandToQueue(Command c) { return; }
 
         // before sending to queue
-        public string createSetCommand(string request) { return null; }
+        public Command createSetCommand(string request) { return null; }
 
 
         // If value is error (equals ERR) throw exception?

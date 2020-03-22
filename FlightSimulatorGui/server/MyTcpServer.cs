@@ -3,17 +3,20 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using FlightSimulatorGui.Model;
 
-public class TcpServer
+public class MyTcpServer
 {
-    public TcpServer()
+    private DatabaseManager dbManager = DatabaseManager.get();
+
+
+    public MyTcpServer()
     {
     }
 
 
     //create a tcp server with the default port and ip
-    public void createAndRunServer() { 
-        
+    public void createAndRunServer() {
 
 
             TcpListener server = null;
@@ -59,8 +62,8 @@ public class TcpServer
                         byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
 
                         //////push command to db
-                        Command c = FSConnector.db.createsSetComand(msg);
-                        FSConnector.db.addCommandToQueue(c);
+                        Command c = dbManager.createSetCommand(msg.ToString());
+                        dbManager.addCommandToQueue(c);
                     
 
 

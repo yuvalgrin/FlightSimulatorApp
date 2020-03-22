@@ -3,12 +3,12 @@
 
 interface Command
 {
-	public void execute(String[] args);
+	void execute(String[] args);
 }
 
-public class Set : Command
+public class SetCommand : Command
 {
-	public Set()
+	public SetCommand()
 	{
 	}
 
@@ -16,9 +16,9 @@ public class Set : Command
 }
 
 
-public class Get : Command
+public class GetCommand : Command
 {
-	public Get()
+	public GetCommand()
     {
 
     }
