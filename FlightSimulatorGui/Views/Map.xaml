@@ -9,7 +9,7 @@
              d:DesignHeight="500" d:DesignWidth="700">
     <Grid>
         <wpf:Map x:Name="myMap" CredentialsProvider="ArDB7RhJSbZdyAMtrdWN~CNbcKs-2JNs8Gw3L973AFg~ArCGagiQZokrDkBolFa_KhcBDBJNtVQlkGHhO6_h0JJG-zLrCY3_qN2gW0E5FcS7" Mode="AerialWithLabels"
-                 Center="31.643854,34.920341" ZoomLevel="9">
+                 Center="31.643854,34.920341" ZoomLevel="8">
         </wpf:Map>
     </Grid>
 </UserControl>
