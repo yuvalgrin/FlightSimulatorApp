@@ -20,6 +20,8 @@ namespace FlightSimulatorGui.Views
     /// </summary>
     public partial class ControlRoom : UserControl
     {
+        const String error = "ERR";
+
         public ControlRoom()
         {
             InitializeComponent();
@@ -27,7 +29,11 @@ namespace FlightSimulatorGui.Views
 
         private void btnData_Click(object sender, RoutedEventArgs e)
         {
-            string data = tbInput.Text;
+            Command cmd = Command.parseRawCommand(tbInput.Text);
+            if (cmd == null)
+                tbOutputData.Text = error;
+            else
+                tbOutputData.Text = "Loading...";
         }
     }
 }

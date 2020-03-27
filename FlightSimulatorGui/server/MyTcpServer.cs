@@ -62,7 +62,7 @@ public class MyTcpServer
                         byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
 
                         //////push command to db
-                        Command c = dbManager.createSetCommand(msg.ToString());
+                        Command c = Command.parseRawCommand(msg.ToString());
                         dbManager.addCommandToQueue(c);
                     
 

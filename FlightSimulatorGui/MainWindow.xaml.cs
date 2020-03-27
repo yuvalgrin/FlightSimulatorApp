@@ -23,6 +23,7 @@ namespace FlightSimulatorGui
         public MainWindow()
         {
             InitializeComponent();
+            tbErrors.IsEnabled = false;
         }
     }
 }

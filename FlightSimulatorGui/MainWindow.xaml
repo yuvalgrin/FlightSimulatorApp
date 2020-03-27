@@ -17,6 +17,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Controls:Map Grid.Column="0" Grid.RowSpan="2"/>
+        <RichTextBox Name="tbErrors" Grid.Column="0" Grid.Row="1" Margin="0,379,0,0"/>
         <StackPanel Grid.Column="1" Grid.Row="1">
             <Controls:Joystick Margin="8"/>
             <Controls:Sliders Margin="0"/>

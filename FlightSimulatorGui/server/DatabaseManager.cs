@@ -30,10 +30,6 @@ namespace FlightSimulatorGui.Model
         // If set command had value more than max (same for less than min) put the closest valid value
         public void addCommandToQueue(Command c) { return; }
 
-        // before sending to queue
-        public Command createSetCommand(string request) { return null; }
-
-
         // If value is error (equals ERR) throw exception?
         public string getDataByKey(string key) { return null; }
         public void putDataByKey(string key, string value) { return; }

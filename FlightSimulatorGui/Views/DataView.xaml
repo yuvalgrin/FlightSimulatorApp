@@ -22,14 +22,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label x:Name="lblIHG" Grid.Row="0" Grid.Column="0" Margin="0,-4,0,0">indicated-heading-deg:</Label>
-        <Label x:Name="lblGIVS" Grid.Row="1" Grid.Column="0" Margin="0,-4,0,0">gps_indicated-vertical-speed:</Label>
-        <Label x:Name="lblGIGSK" Grid.Row="2" Grid.Column="0" Margin="0,-4,0,0">gps_indicated-ground-speed-kt:</Label>
-        <Label x:Name="lblAIISK" Grid.Row="3" Grid.Column="0" Margin="0,-4,0,0">airspeed-indicator_indicated-speed-kt:</Label>
-        <Label x:Name="lblGIAF" Grid.Row="4" Grid.Column="0" Margin="0,-4,0,0">gps_indicated-altitude-ft:</Label>
-        <Label x:Name="lblAIIRD" Grid.Row="5" Grid.Column="0" Margin="0,-4,0,0">attitude-indicator_internal-roll-deg:</Label>
-        <Label x:Name="lblAIIPD" Grid.Row="6" Grid.Column="0" Margin="0,-4,0,0">attitude-indicator_internal-pitch-deg:</Label>
-        <Label x:Name="lblAIAF" Grid.Row="7" Grid.Column="0" Margin="0,-4,0,0">altimeter_indicated-altitude-ft:</Label>
+        <TextBlock x:Name="lblIHG" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">indicated-heading-deg:</TextBlock>
+        <TextBlock x:Name="lblGIVS" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">gps_indicated-vertical-speed:</TextBlock>
+        <TextBlock x:Name="lblGIGSK" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">gps_indicated-ground-speed-kt:</TextBlock>
+        <TextBlock x:Name="lblAIISK" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">airspeed-indicator_indicated-speed-kt:</TextBlock>
+        <TextBlock x:Name="lblGIAF" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">gps_indicated-altitude-ft:</TextBlock>
+        <TextBlock x:Name="lblAIIRD" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">attitude-indicator_internal-roll-deg:</TextBlock>
+        <TextBlock x:Name="lblAIIPD" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center">attitude-indicator_internal-pitch-deg:</TextBlock>
+        <TextBlock x:Name="lblAIAF" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">altimeter_indicated-altitude-ft:</TextBlock>
 
         <Label x:Name="lblIHG_data" Grid.Row="0" Grid.Column="1" Margin="0,-4,0,0">0</Label>
         <Label x:Name="lblGIVS_data" Grid.Row="1" Grid.Column="1" Margin="0,-4,0,0">0</Label>
