@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FlightSimulatorGui.Model;
+using System.Threading;
 
 namespace FlightSimulatorGui
 {
@@ -23,6 +25,16 @@ namespace FlightSimulatorGui
         public MainWindow()
         {
             InitializeComponent();
+            MyTcpServer server = new MyTcpServer();
+            //Thread a = new Thread(server.createAndRunServer);
+           /// a.Start();
+            MyTcpClient client = new MyTcpClient();
+            //Thread b = new Thread(client.createAndRunClient);
+            //b.Start();
+
+            server.createAndRunServer();
+
+
         }
     }
 }

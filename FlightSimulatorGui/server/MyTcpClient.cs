@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Net.Sockets;
 using FlightSimulatorGui.Model;
+using System.Collections.Generic;
 
 public class MyTcpClient
 {
     public MyTcpClient()
     {
     }
+
+    private static bool runClient = true;
 
     //create a tcp server with the default port and ip
     public void createAndRunClient()
@@ -18,37 +21,23 @@ public class MyTcpClient
             // connected to the same address as specified by the server, port
             // combination.
             Int32 port = 5402;
-            char[] message = null;
-            string server = "";
+            string server = "127.0.0.1";
 
             TcpClient client = new TcpClient(server, port);
 
-            // Translate the passed message into ASCII and store it as a Byte array.
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
 
+            Byte[] data = null;
             // Get a client stream for reading and writing.
             //  Stream stream = client.GetStream();
 
             NetworkStream stream = client.GetStream();
-
-            // Send the message to the connected TcpServer. 
-            stream.Write(data, 0, data.Length);
-
-            Console.WriteLine("Sent: {0}", message);
-
-            // Receive the TcpServer.response.
-
-            // Buffer to store the response bytes.
-            data = new Byte[256];
-
-            // String to store the response ASCII representation.
-            String responseData = String.Empty;
-
-            // Read the first batch of the TcpServer response bytes.
-            Int32 bytes = stream.Read(data, 0, data.Length);
-            responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-            Console.WriteLine("Received: {0}", responseData);
-
+            while (runClient)
+            {
+                // Translate the passed message into ASCII and store it as a Byte array.
+                data = System.Text.Encoding.ASCII.GetBytes(this.message());
+                // Send the message to the connected TcpServer. 
+                stream.Write(data, 0, data.Length);
+            }
             // Close everything.
             stream.Close();
             client.Close();
@@ -61,12 +50,28 @@ public class MyTcpClient
         {
             Console.WriteLine("SocketException: {0}", e);
         }
+    }
 
-        Console.WriteLine("\n Press Enter to continue...");
-        Console.Read();
+    private char[] message()
+    {
+        List<char> sentValues = new List<char>();
+        foreach (string value in DatabaseManager.get().getValueMap().Values)
+        {
+            char[] arr = value.ToCharArray();
+            foreach (char chr in arr)
+            {
+                sentValues.Add(chr);
+            }
+            sentValues.Add(',');
+        }
+        sentValues.Add('\n');
+        return sentValues.ToArray();
     }
 
     //the function that will be run in a thread
-    public void killClient() { return; }
+    public static void killClient()
+    {
+        MyTcpClient.runClient = false;
+    }
 
 }
