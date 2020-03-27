@@ -21,6 +21,14 @@
             <Controls:Joystick Margin="8"/>
             <Controls:Sliders Margin="0"/>
         </StackPanel>
-        <Controls:DataView Grid.Column="1" Grid.Row="0"/>
+        
+        <TabControl Grid.Column="1" Grid.Row="0">
+            <TabItem Header="DataView">
+                <Controls:DataView/>
+            </TabItem>
+            <TabItem Header="ControlRoom">
+                <Controls:ControlRoom/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

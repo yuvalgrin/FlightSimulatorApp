@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\ControlRoom.xaml.cs">
+      <DependentUpon>ControlRoom.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DataView.xaml.cs">
       <DependentUpon>DataView.xaml</DependentUpon>
     </Compile>
@@ -73,6 +76,10 @@
     <Compile Include="Views\Sliders.xaml.cs">
       <DependentUpon>Sliders.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ControlRoom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\DataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
