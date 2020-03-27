@@ -4,20 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightSimulatorGui.server
+namespace FlightSimulatorGui.Model
 {
     // Hold the data from FS
     // Hold and update queue of queries to be sent
     // Get updates from FS into the data map
     class DatabaseManager
     {
-        public Queue<string> getCommandsQueue() { return null; }
+        private static DatabaseManager instance = null;
+        private Queue<Command> queue;
+
+        private DatabaseManager(){
+            this.queue = new Queue<Command>();
+        }
+
+        public static DatabaseManager get()
+        {
+            if (instance == null)
+                instance = new DatabaseManager();
+            return instance;
+        }
+
+        public Queue<Command> getCommandsQueue() { return null; }
 
         // If set command had value more than max (same for less than min) put the closest valid value
-        public void addCommandToQueue() { return; }
+        public void addCommandToQueue(Command c) { return; }
 
         // before sending to queue
-        public string createSetCommand(string type, string value) { return null; }
+        public Command createSetCommand(string request) { return null; }
 
 
         // If value is error (equals ERR) throw exception?

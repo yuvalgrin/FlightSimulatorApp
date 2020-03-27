@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightSimulatorGui.server
+namespace FlightSimulatorGui.Model
 {
     // Runs a thread that accesses the FS and:
     // 1. Executes the command from DB manager queue
