@@ -13,17 +13,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FlightSimulatorGui
+namespace FlightSimulatorGui.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for FSDataView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ControlRoom : UserControl
     {
-        public MainWindow()
+        const String error = "ERR";
+
+        public ControlRoom()
         {
             InitializeComponent();
-            tbErrors.IsEnabled = false;
+        }
+
+        private void btnData_Click(object sender, RoutedEventArgs e)
+        {
+            Command cmd = Command.parseRawCommand(tbInput.Text);
+            if (cmd == null)
+                tbOutputData.Text = error;
+            else
+                tbOutputData.Text = "Loading...";
         }
     }
 }

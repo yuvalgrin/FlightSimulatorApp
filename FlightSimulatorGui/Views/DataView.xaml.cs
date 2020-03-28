@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FlightSimulatorGui
+namespace FlightSimulatorGui.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for FSDataView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DataView : UserControl
     {
-        public MainWindow()
+        public DataView()
         {
             InitializeComponent();
-            tbErrors.IsEnabled = false;
         }
     }
 }

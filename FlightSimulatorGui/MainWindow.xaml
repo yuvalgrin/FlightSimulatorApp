@@ -4,9 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulatorGui"
+        xmlns:Controls="clr-namespace:FlightSimulatorGui.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Flight Simulator" Height="700" Width="1100">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="650"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Controls:Map Grid.Column="0" Grid.RowSpan="2"/>
+        <RichTextBox Name="tbErrors" Grid.Column="0" Grid.Row="1" Margin="0,379,0,0"/>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Controls:Joystick Margin="8"/>
+            <Controls:Sliders Margin="0"/>
+        </StackPanel>
         
+        <TabControl Grid.Column="1" Grid.Row="0">
+            <TabItem Header="DataView">
+                <Controls:DataView/>
+            </TabItem>
+            <TabItem Header="ControlRoom">
+                <Controls:ControlRoom/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
