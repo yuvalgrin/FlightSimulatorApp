@@ -1,4 +1,5 @@
-﻿using Microsoft.Maps.MapControl.WPF;
+﻿using FlightSimulatorGui.ViewModel;
+using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,14 @@ namespace FlightSimulatorGui.Views
         Image airplane = new Image();
         MapLayer mapLayer = new MapLayer();
         Location airplaneLocation = new Location();
+        MapViewModel viewModel;
+
         public Map()
         {
             InitializeComponent();
             initAirplane();
+            this.viewModel = new MapViewModel();
+            this.DataContext = this.viewModel;
         }
 
         private void initAirplane()
@@ -46,7 +51,6 @@ namespace FlightSimulatorGui.Views
         {
             airplaneLocation.Latitude = lat;
             airplaneLocation.Longitude = lon;
-
         }
     }
 }
