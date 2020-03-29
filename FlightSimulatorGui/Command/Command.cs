@@ -5,6 +5,8 @@ public abstract class Command
 {
 	public abstract String execute();
 
+	public abstract string path();
+
 	public static Command parseRawCommand(String rawCmd)
 	{
 		try
@@ -20,7 +22,7 @@ public abstract class Command
 			{
 				String param = cmdArr[1];
 				Double value = Double.Parse(cmdArr[2]);
-				return new GetCommand(param, value);
+				return new GetCommand(param);
 			}
 		} catch (Exception ex)
 		{
@@ -42,21 +44,30 @@ public class SetCommand : Command
 		this.param = param;
 	}
 
+	public override string path()
+	{
+		return this.param;
+	}
+
 	public override String execute() { return "get " + param + " " + value; }
 }
 
 
 public class GetCommand : Command
 {
-	double value = 0;
 	String param = "";
 
-	public GetCommand(String param, double value)
+	public GetCommand(String param)
     {
-		this.value = value;
+		
 		this.param = param;
 	}
 
-	public override String execute() { return "get " + param + " " + value; }
+	public override String execute() { return "get " + param; }
+
+	public override string path()
+	{
+		return this.param;
+	}
 
 }

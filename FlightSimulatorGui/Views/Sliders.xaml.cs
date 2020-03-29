@@ -28,12 +28,12 @@ namespace FlightSimulatorGui.Views
 
         private void sldAilronValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            //DatabaseManager.addCommandToQueue(sldAilron.Value);
+            //FlightSimulatorModel.addCommandToQueue(sldAilron.Value);
         }
 
         private void sldReronValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            //DatabaseManager.addCommandToQueue(sldAilron.Value);
+            //FlightSimulatorModel.addCommandToQueue(sldAilron.Value);
         }
     }
 }

@@ -23,7 +23,10 @@ namespace FlightSimulatorGui
         public MainWindow()
         {
             InitializeComponent();
-            tbErrors.IsEnabled = false;
+
+            //tbErrors.IsEnabled = false;
+            MyTcpClient t = new MyTcpClient();
+            t.createAndRunClient();
         }
     }
 }
