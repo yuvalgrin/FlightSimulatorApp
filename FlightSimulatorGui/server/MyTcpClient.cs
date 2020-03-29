@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using FlightSimulatorGui.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 public class MyTcpClient
 {
@@ -10,6 +11,7 @@ public class MyTcpClient
     }
 
     private static bool runClient = true;
+    
 
     //create a tcp server with the default port and ip
     public void createAndRunClient()
@@ -34,9 +36,28 @@ public class MyTcpClient
             while (runClient)
             {
                 // Translate the passed message into ASCII and store it as a Byte array.
-                data = System.Text.Encoding.ASCII.GetBytes(this.message());
+                Command c = FlightSimulatorModel.get().getCommandsQueue().Dequeue();
+                data = System.Text.Encoding.ASCII.GetBytes(c.execute());
                 // Send the message to the connected TcpServer. 
                 stream.Write(data, 0, data.Length);
+                data = new Byte[256];
+
+                // String to store the response ASCII representation.
+                String responseData = String.Empty;
+
+                // Read the first batch of the TcpServer response bytes.
+                Int32 bytes = stream.Read(data, 0, data.Length);
+                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                responseData = responseData.Substring(0, responseData.Length - 1);
+                FlightSimulatorModel.get().updateValueMap(c.path(), responseData);
+
+                    
+                Console.WriteLine("Received: {0}", responseData);
+                    
+                    
+                    
+                
+                
             }
             // Close everything.
             stream.Close();
@@ -50,22 +71,6 @@ public class MyTcpClient
         {
             Console.WriteLine("SocketException: {0}", e);
         }
-    }
-
-    private char[] message()
-    {
-        List<char> sentValues = new List<char>();
-        foreach (string value in DatabaseManager.get().getValueMap().Values)
-        {
-            char[] arr = value.ToCharArray();
-            foreach (char chr in arr)
-            {
-                sentValues.Add(chr);
-            }
-            sentValues.Add(',');
-        }
-        sentValues.Add('\n');
-        return sentValues.ToArray();
     }
 
     //the function that will be run in a thread

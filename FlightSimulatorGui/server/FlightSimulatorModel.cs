@@ -5,19 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
+using System.Threading;
+using System.ComponentModel;
 
 namespace FlightSimulatorGui.Model
 {
     // Hold the data from FS
     // Hold and update queue of queries to be sent
     // Get updates from FS into the data map
-    class DatabaseManager
+    class FlightSimulatorModel
     {
-        private static DatabaseManager instance = null;
+        private static FlightSimulatorModel instance = null;
         private  Queue<Command> queue;
         private  Dictionary<string, string> valueMap;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private DatabaseManager()
+        private FlightSimulatorModel()
         {
             //holds commands coming from gui
             this.queue = new Queue<Command>();
@@ -26,27 +29,27 @@ namespace FlightSimulatorGui.Model
             this.parseXml();
         }
 
-        public static DatabaseManager get()
+        public static FlightSimulatorModel get()
         {
             if (instance == null)
-                instance = new DatabaseManager();
+                instance = new FlightSimulatorModel();
             return instance;
         }
 
+
+
+
         //incharge of the update of the values and the view model
-        public void updateValueMap(List<string> values) 
+        public void updateValueMap(string key, string newValue) 
         {
-            for (int i = 0; i < 36; i++)
+            if (newValue != this.valueMap[key])
             {
-                if (values.ElementAt(i) != this.valueMap.ElementAt(i).Value)
-                {
-                    this.valueMap[this.valueMap.ElementAt(i).Key] = values.ElementAt(i);
-                    //this.notify();
-                }
+                this.valueMap[key] = newValue;
             }
+            NotifyPropertyChanged(key);
         }
 
-        public Queue<Command> getCommandsQueue() { return null; }
+        public Queue<Command> getCommandsQueue() { return this.queue; }
 
         public Dictionary<string, string> getValueMap()
         {
@@ -80,7 +83,7 @@ namespace FlightSimulatorGui.Model
             while (reader.Read())
             {
 
-                if (reader.Name == "name")
+                if (reader.Name == "node")
                 {
                     reader.Read();
                     if (reader.Value != string.Empty)
@@ -92,9 +95,6 @@ namespace FlightSimulatorGui.Model
             }
 
         }
-
-
-
         // If value is error (equals ERR) throw exception?
         public string getDataByKey(string key) 
         {
@@ -104,6 +104,41 @@ namespace FlightSimulatorGui.Model
         {
             valueMap[key] = value;
         }
+        public void sendCommandsToQueue()
+        {
+            while (true)
+            {
+                foreach (string key in this.valueMap.Keys)
+                {
+                    Command c = new GetCommand(key);
+                    this.queue.Enqueue(c);
+                }
+                Thread.Sleep(500);
+            }
+        }
+
+
+
+
+        public void runBackground()
+        {
+            Thread getCommand = new Thread(sendCommandsToQueue);
+            getCommand.Start();
+            
+            MyTcpClient client = new MyTcpClient();
+            Thread clientThread = new Thread(client.createAndRunClient);
+            clientThread.Start();
+        }
+
+        public void NotifyPropertyChanged(string propName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
+
+
     }
+
+    
     
 }

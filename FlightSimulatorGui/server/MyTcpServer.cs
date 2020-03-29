@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 public class MyTcpServer
 {
-    private DatabaseManager dbManager = DatabaseManager.get();
+    private FlightSimulatorModel dbManager = FlightSimulatorModel.get();
 
 
     public MyTcpServer()
@@ -67,7 +67,7 @@ public class MyTcpServer
                 this.parseMsg(values, storedValues);
                 if (storedValues.Count == 36)
                 {
-                    DatabaseManager.get().updateValueMap(storedValues);
+                    //FlightSimulatorModel.get().updateValueMap(storedValues);
                     storedValues.Clear();
                 }
                 //////push command to db
