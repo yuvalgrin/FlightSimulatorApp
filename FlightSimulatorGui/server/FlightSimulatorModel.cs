@@ -22,7 +22,7 @@ namespace FlightSimulatorGui.Model
         private Dictionary<string, string> settingsMap;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Init default location
+        // Init default location.
         public static double defaultLat = 31.643854;
         public static double defaultLon = 34.920341;
         public Location Location = new Location(defaultLat, defaultLon);
