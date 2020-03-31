@@ -28,7 +28,7 @@ namespace FlightSimulatorGui
             //tbErrors.IsEnabled = false;
             //MyTcpClient t = new MyTcpClient();
             //t.createAndRunClient();
-            FlightSimulatorModel.get().updateValueMap("/position/longitude-deg", "0");
+            FlightSimulatorModel.get().updateValueMap("longitude", "0");
         }
     }
 }

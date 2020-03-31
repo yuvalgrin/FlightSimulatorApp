@@ -13,23 +13,23 @@ namespace FlightSimulatorGui.ViewModel
     {
         private FlightSimulatorModel model;
 
-        public double VM_Latitude
+        public double VM_latitude
         {
-            get { return VM_Latitude; }
+            get { return VM_latitude; }
             set {
-                VM_Latitude = value;
-                VM_Location = new Location(VM_Location.Latitude, VM_Latitude);
-                NotifyPropertyChanged("VM_Latitude");
+                VM_latitude = value;
+                VM_Location = new Location(VM_Location.Latitude, VM_latitude);
+                NotifyPropertyChanged("VM_latitude");
             }
         }
 
-        public double VM_Longitude
+        public double VM_longitude
         {
-            get { return VM_Longitude; }
+            get { return VM_longitude; }
             set {
-                VM_Longitude = value;
-                VM_Location = new Location(VM_Longitude, VM_Location.Longitude);
-                NotifyPropertyChanged("VM_Longitude");
+                VM_longitude = value;
+                VM_Location = new Location(VM_longitude, VM_Location.Longitude);
+                NotifyPropertyChanged("VM_longitude");
             }
         }
 
@@ -43,6 +43,8 @@ namespace FlightSimulatorGui.ViewModel
             }
         }
 
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MapViewModel()
@@ -50,6 +52,15 @@ namespace FlightSimulatorGui.ViewModel
             this.model = FlightSimulatorModel.get();
             this.model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
+                    switch(e.PropertyName)
+                    {
+                        case "latitude":
+                            Location = new Location(this.valueMap[key]);
+                            break;
+                        case "longtitude":
+                            break;
+                    }
+
                     NotifyPropertyChanged("VM_" + e.PropertyName);
                 };
         }
