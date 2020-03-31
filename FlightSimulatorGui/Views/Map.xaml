@@ -6,16 +6,24 @@
              xmlns:local="clr-namespace:FlightSimulatorGui.Views"
              xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              mc:Ignorable="d" 
+             xmlns:VM="clr-namespace:FlightSimulatorGui.ViewModel"
              d:DesignHeight="500" d:DesignWidth="700">
+    <UserControl.DataContext>
+        <VM:MapViewModel />
+    </UserControl.DataContext>
+
     <Grid>
+
         <wpf:Map x:Name="myMap" CredentialsProvider="ArDB7RhJSbZdyAMtrdWN~CNbcKs-2JNs8Gw3L973AFg~ArCGagiQZokrDkBolFa_KhcBDBJNtVQlkGHhO6_h0JJG-zLrCY3_qN2gW0E5FcS7" Mode="AerialWithLabels"
                  Center="31.643854,34.920341" ZoomLevel="8">
-            <wpf:MapLayer Name="DataLayer">
-                    <Image x:Name="airplane" Source="/FlightSimulatorGui;component/Resources/airplane.png" Width="128" Height="128"></Image>
-                    <wpf:MapLayer.Position>
-                        <wpf:Location x:Name="location" Altitude="31.643854" Longitude="34.920341"/>
-                    </wpf:MapLayer.Position>
-            </wpf:MapLayer>
+            <wpf:Pushpin x:Name="pin" wpf:MapLayer.Position="32.0055, 34.882030" Location="{Binding VM_Locations}">
+                <wpf:Pushpin.Background>
+                    <ImageBrush Stretch="UniformToFill"  ImageSource="/FlightSimulatorGui;component/Resources/airplane.png"/>
+                </wpf:Pushpin.Background>
+            </wpf:Pushpin>
         </wpf:Map>
+        <Button Name="test" Margin="0,434,611,0" Click="test_Click"></Button>
+        <!--<Image x:Name="airplaneImg" Source="/FlightSimulatorGui;component/Resources/airplane.png" Width="128" Height="128"/>-->
+
     </Grid>
 </UserControl>

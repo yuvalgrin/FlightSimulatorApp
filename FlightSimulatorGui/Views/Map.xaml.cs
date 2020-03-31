@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,23 +18,45 @@ using System.Windows.Shapes;
 
 namespace FlightSimulatorGui.Views
 {
-
-    /// <summary>
-    /// Interaction logic for FSMap.xaml
-    /// </summary>
     public partial class Map : UserControl
     {
-        MapViewModel viewModel;
+
+        Image airplane = new Image();
+        MapLayer mapLayer = new MapLayer();
         Location airplaneLocation = new Location();
+        MapViewModel viewModel;
 
         public Map()
         {
             InitializeComponent();
+            initAirplane();
             this.viewModel = new MapViewModel();
             this.DataContext = this.viewModel;
-            location.Altitude = 0;
-            location.Longitude = 0;
         }
 
+        private void initAirplane()
+        {
+            airplane.Source = new BitmapImage(new Uri("/FlightSimulatorGui;component/Resources/airplane.png", UriKind.Relative));
+            airplane.Width = 128;
+            airplane.Height = 128;
+
+            mapLayer.AddChild(airplane, airplaneLocation, PositionOrigin.Center);
+            myMap.Children.Add(mapLayer);
+
+            setAirplaneLocation(31.643854, 34.920341);
+        }
+
+        public void setAirplaneLocation(double lat, double lon)
+        {
+            airplaneLocation.Latitude = lat;
+            airplaneLocation.Longitude = lon;
+        }
+
+        private void test_Click(object sender, RoutedEventArgs e)
+        {
+            //int i = 643854;
+            //setAirplaneLocation(31.743854, 34.820341);
+            
+        }
     }
 }

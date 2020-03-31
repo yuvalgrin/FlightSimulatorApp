@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSimulatorGui.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,8 +26,9 @@ namespace FlightSimulatorGui
             InitializeComponent();
 
             //tbErrors.IsEnabled = false;
-            MyTcpClient t = new MyTcpClient();
-            t.createAndRunClient();
+            //MyTcpClient t = new MyTcpClient();
+            //t.createAndRunClient();
+            FlightSimulatorModel.get().updateValueMap("/position/longitude-deg", "0");
         }
     }
 }

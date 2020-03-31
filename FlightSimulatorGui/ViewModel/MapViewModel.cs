@@ -1,4 +1,5 @@
 ﻿using FlightSimulatorGui.Model;
+using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,21 +13,33 @@ namespace FlightSimulatorGui.ViewModel
     {
         private FlightSimulatorModel model;
 
-        private double VM_Latitude
+        public double VM_Latitude
         {
             get { return VM_Latitude; }
             set {
                 VM_Latitude = value;
+                VM_Location = new Location(VM_Location.Latitude, VM_Latitude);
                 NotifyPropertyChanged("VM_Latitude");
             }
         }
 
-        private double VM_Longitude
+        public double VM_Longitude
         {
             get { return VM_Longitude; }
             set {
                 VM_Longitude = value;
+                VM_Location = new Location(VM_Longitude, VM_Location.Longitude);
                 NotifyPropertyChanged("VM_Longitude");
+            }
+        }
+
+        public Location VM_Location
+        {
+            get { return VM_Location; }
+            set
+            {
+                VM_Location = value;
+                NotifyPropertyChanged("VM_Location");
             }
         }
 

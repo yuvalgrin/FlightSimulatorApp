@@ -86,8 +86,6 @@
     <Compile Include="Views\Joystick.xaml.cs">
       <DependentUpon>Joystick.xaml</DependentUpon>
     </Compile>
-    <Compile Include="server\DatabaseManager.cs" />
-    <Compile Include="server\FSConnector.cs" />
     <Compile Include="server\VirtualJoystickEventArgs.cs" />
     <Compile Include="Views\Sliders.xaml.cs">
       <DependentUpon>Sliders.xaml</DependentUpon>
