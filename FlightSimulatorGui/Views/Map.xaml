@@ -10,6 +10,12 @@
     <Grid>
         <wpf:Map x:Name="myMap" CredentialsProvider="ArDB7RhJSbZdyAMtrdWN~CNbcKs-2JNs8Gw3L973AFg~ArCGagiQZokrDkBolFa_KhcBDBJNtVQlkGHhO6_h0JJG-zLrCY3_qN2gW0E5FcS7" Mode="AerialWithLabels"
                  Center="31.643854,34.920341" ZoomLevel="8">
+            <wpf:MapLayer Name="DataLayer">
+                    <Image x:Name="airplane" Source="/FlightSimulatorGui;component/Resources/airplane.png" Width="128" Height="128"></Image>
+                    <wpf:MapLayer.Position>
+                        <wpf:Location x:Name="location" Altitude="31.643854" Longitude="34.920341"/>
+                    </wpf:MapLayer.Position>
+            </wpf:MapLayer>
         </wpf:Map>
     </Grid>
 </UserControl>

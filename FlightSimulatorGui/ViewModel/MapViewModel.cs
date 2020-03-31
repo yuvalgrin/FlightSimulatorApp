@@ -10,23 +10,23 @@ namespace FlightSimulatorGui.ViewModel
 {
     class MapViewModel : INotifyPropertyChanged
     {
-        private FSConnector model;
+        private FlightSimulatorModel model;
 
-        private double VM_Lat
+        private double VM_Latitude
         {
-            get { return VM_Lat; }
+            get { return VM_Latitude; }
             set {
-                VM_Lat = value;
-                NotifyPropertyChanged("VM_Lat");
+                VM_Latitude = value;
+                NotifyPropertyChanged("VM_Latitude");
             }
         }
 
-        private double VM_Lon
+        private double VM_Longitude
         {
-            get { return VM_Lon; }
+            get { return VM_Longitude; }
             set {
-                VM_Lon = value;
-                NotifyPropertyChanged("VM_Lat");
+                VM_Longitude = value;
+                NotifyPropertyChanged("VM_Longitude");
             }
         }
 
@@ -34,7 +34,7 @@ namespace FlightSimulatorGui.ViewModel
 
         public MapViewModel()
         {
-            this.model = FSConnector;
+            this.model = FlightSimulatorModel.get();
             this.model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
                     NotifyPropertyChanged("VM_" + e.PropertyName);

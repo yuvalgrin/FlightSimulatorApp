@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\Command.cs" />
+    <Compile Include="server\FlightSimulatorModel.cs" />
     <Compile Include="server\MyTcpClient.cs" />
     <Compile Include="server\MyTcpServer.cs" />
     <Compile Include="ViewModel\ControlRoomViewModel.cs" />

@@ -12,21 +12,21 @@ public abstract class Command
 		try
 		{
 			String[] cmdArr = rawCmd.Split(' ');
-			if (cmdArr[0].Equals("set"))
+			if (cmdArr[0].Equals("set") && cmdArr.Length == 3)
 			{
 				String param = cmdArr[1];
 				Double value = Double.Parse(cmdArr[2]);
 				return new SetCommand(param, value);
 			}
-			else if (cmdArr[0].Equals("get"))
+			else if (cmdArr[0].Equals("get") && cmdArr.Length == 2)
 			{
 				String param = cmdArr[1];
-				Double value = Double.Parse(cmdArr[2]);
 				return new GetCommand(param);
 			}
 		} catch (Exception ex)
 		{
 			// Error
+			// Send bad command was sent
 		}
 
 		return null;
