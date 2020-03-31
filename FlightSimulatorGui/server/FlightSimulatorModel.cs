@@ -18,6 +18,7 @@ namespace FlightSimulatorGui.Model
         private static FlightSimulatorModel instance = null;
         private  Queue<Command> queue;
         private  Dictionary<string, string> valueMap;
+        private Dictionary<string, string> settingsMap;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private FlightSimulatorModel()
@@ -26,6 +27,7 @@ namespace FlightSimulatorGui.Model
             this.queue = new Queue<Command>();
             // map that holds the values of the FS
             this.valueMap = new Dictionary<string, string>();
+            this.settingsMap = new Dictionary<string, string>();
             this.parseXml();
         }
 
@@ -46,7 +48,7 @@ namespace FlightSimulatorGui.Model
             {
                 this.valueMap[key] = newValue;
             }
-            NotifyPropertyChanged(key);
+            NotifyPropertyChanged(this.settingsMap[key]);
         }
 
         public Queue<Command> getCommandsQueue() { return this.queue; }
@@ -80,8 +82,19 @@ namespace FlightSimulatorGui.Model
             XmlReaderSettings settings = new XmlReaderSettings();
             XmlReader reader = XmlReader.Create(nodeReader, settings);
             int i = 0;
+            string name = "";
             while (reader.Read())
             {
+
+                if (reader.Name == "name")
+                {
+                    reader.Read();
+                    if (reader.Value != string.Empty)
+                    {
+                        name = reader.Value;
+                    }
+
+                }
 
                 if (reader.Name == "node")
                 {
@@ -89,6 +102,7 @@ namespace FlightSimulatorGui.Model
                     if (reader.Value != string.Empty)
                     {
                         valueMap.Add(reader.Value, "0.0");
+                        settingsMap[reader.Value] = name;
                     }
 
                 }
@@ -135,10 +149,5 @@ namespace FlightSimulatorGui.Model
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
-
-
     }
-
-    
-    
 }
