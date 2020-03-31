@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Threading;
 using System.ComponentModel;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorGui.Model
 {
@@ -21,6 +22,11 @@ namespace FlightSimulatorGui.Model
         private Dictionary<string, string> settingsMap;
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // Init default location
+        public static double defaultLat = 31.643854;
+        public static double defaultLon = 34.920341;
+        public Location Location = new Location(defaultLat, defaultLon);
+
         private FlightSimulatorModel()
         {
             //holds commands coming from gui
@@ -29,7 +35,29 @@ namespace FlightSimulatorGui.Model
             this.valueMap = new Dictionary<string, string>();
             this.settingsMap = new Dictionary<string, string>();
             this.parseXml();
+            PropertyChanged += notifyUpdate;
         }
+        
+        // Check if a property was updated > if so notify the ViewModel
+        public void notifyUpdate(Object sender, PropertyChangedEventArgs e)
+        {
+            // Add a delegate function to update the airplane location object from lat/lon values
+            switch (e.PropertyName)
+            {
+                case "latitude":
+                    Location = new Location(getFlightValue("latitude"), Location.Longitude);
+                    NotifyPropertyChanged("VM_Location");
+                    break;
+                case "longtitude":
+                    Location = new Location(getFlightValue("latitude"), Location.Longitude);
+                    NotifyPropertyChanged("VM_Location");
+                    break;
+            }
+
+            // For values other than location
+            NotifyPropertyChanged("VM_" + e.PropertyName);
+        }
+
 
         public static FlightSimulatorModel get()
         {
@@ -49,6 +77,20 @@ namespace FlightSimulatorGui.Model
                 this.valueMap[key] = newValue;
             }
             NotifyPropertyChanged(this.settingsMap[key]);
+        }
+
+        // Get the flight stats from the data map using only the referernce name (and not the long coded name)
+        public double getFlightValue(String valueRef)
+        {
+            try
+            {
+                String val = this.valueMap[settingsMap[valueRef]];
+                return Double.Parse(val);
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
         }
 
         public Queue<Command> getCommandsQueue() { return this.queue; }
