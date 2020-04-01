@@ -189,6 +189,7 @@ namespace FlightSimulatorGui.Model
                 if (cmd == null)
                 {
                     QueryRes = "ERR";
+                    throwNewError("Invalid command was entered in Control Room");
                     return;
                 }
 
@@ -291,12 +292,20 @@ namespace FlightSimulatorGui.Model
         {
             string reply = String.Empty;
             if (String.IsNullOrEmpty(ip) || String.IsNullOrEmpty(port))
-                return "Invalid IP or Port inserted";
+            {
+                reply = "Invalid IP or Port inserted";
+                throwNewError(reply);
+                return reply;
+            }
 
             MyTcpClient client = new MyTcpClient();
             NetworkStream stream = client.initializeConnection(ip, port);
             if (stream == null)
+            {
                 reply = "Could not connect to the given IP and Port";
+                throwNewError(reply);
+                return reply;
+            }
             else
             {
                 MyTcpClient.killClient();
