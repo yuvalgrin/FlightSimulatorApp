@@ -26,6 +26,7 @@ namespace FlightSimulatorGui.Views
         {
             InitializeComponent();
             dataViewViewModel = new DataViewViewModel();
+            this.DataContext = dataViewViewModel;
         }
     }
 }

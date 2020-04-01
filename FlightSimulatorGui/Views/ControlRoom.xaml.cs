@@ -27,6 +27,8 @@ namespace FlightSimulatorGui.Views
         {
             InitializeComponent();
             controlRoomViewModel = new ControlRoomViewModel();
+            this.DataContext = controlRoomViewModel;
+
         }
 
         private void btnData_Click(object sender, RoutedEventArgs e)
