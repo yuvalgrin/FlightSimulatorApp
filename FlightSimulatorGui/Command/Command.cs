@@ -75,7 +75,7 @@ public class GetCommand : Command
 
 	public override string path()
 	{
-		return this.param.Substring(0, this.param.Length - 1); ;
+		return this.param.Substring(0, this.param.Length - 1); 
 	}
 
 }

@@ -4,7 +4,7 @@ using FlightSimulatorGui.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Configuration;
-
+using System.Threading;
 
 public class MyTcpClient
 {
@@ -76,13 +76,11 @@ public class MyTcpClient
                     String responseData = String.Empty;
 
                     // Read the first batch of the TcpServer response bytes.
+                    Thread.Sleep(25);
                     Int32 bytes = stream.Read(data, 0, data.Length);
                     responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                     responseData = responseData.Substring(0, responseData.Length - 1);
                     FlightSimulatorModel.get().updateValueMap(c.path(), responseData);
-
-
-                    Console.WriteLine("Received: {0}", responseData);
                 }
                 // Close everything
                 stream.Close();

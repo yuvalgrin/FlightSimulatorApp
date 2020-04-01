@@ -194,12 +194,12 @@ namespace FlightSimulatorGui.Model
         {
             while (MyTcpClient.getRunning())
             {
-                foreach (string key in this.valueMap.Keys)
+                foreach (string key in this.reverseSettingsMap.Keys)
                 {
                     Command c = new GetCommand(key);
                     this.queue.Enqueue(c);
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(200);
             }
         }
 
