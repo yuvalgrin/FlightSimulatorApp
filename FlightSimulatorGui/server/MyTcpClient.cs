@@ -55,7 +55,7 @@ public class MyTcpClient
                 //  Stream stream = client.GetStream();
                 if (stream == null)
                 {
-                    throw new Exception("Was not able no initialze connection");
+                    throw new Exception("Was not able no initialize connection");
                 }
                 while (runClient)
                 {
@@ -71,6 +71,7 @@ public class MyTcpClient
 
                     // Read the first batch of the TcpServer response bytes.
                     Thread.Sleep(25);
+                    stream.ReadTimeout = 200;
                     Int32 bytes = stream.Read(data, 0, data.Length);
                     responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                     responseData = responseData.Substring(0, responseData.Length - 1);
