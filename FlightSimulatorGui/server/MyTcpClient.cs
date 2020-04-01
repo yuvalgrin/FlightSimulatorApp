@@ -84,9 +84,9 @@ public class MyTcpClient
 
                     Console.WriteLine("Received: {0}", responseData);
                 }
-                // Close everything.
+                // Close everything
                 stream.Close();
-                MyTcpClient.client.Close();
+                //MyTcpClient.client.Close();
             }
             catch (ArgumentNullException e)
             {

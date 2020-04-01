@@ -126,7 +126,10 @@ namespace FlightSimulatorGui.Model
         }
 
         // If set command had value more than max (same for less than min) put the closest valid value
-        public void addCommandToQueue(Command c) { return; }
+        public void addCommandToQueue(Command c) 
+        {
+            this.queue.Enqueue(c);        
+        }
 
         // before sending to queue
         public Command createSetCommand(string request) { return null; }
