@@ -73,7 +73,7 @@ namespace FlightSimulatorGui.Model
                     NotifyPropertyChanged("VM_Location");
                     break;
                 case "longtitude":
-                    Location = new Location(getFlightValue("latitude"), Location.Longitude);
+                    Location = new Location(getFlightValue("longtitude"), Location.Longitude);
                     NotifyPropertyChanged("VM_Location");
                     break;
             }
