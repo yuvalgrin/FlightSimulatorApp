@@ -110,27 +110,6 @@ namespace FlightSimulatorGui.Model
                 {"/position/latitude-deg", "latitude"},
                 {"/position/longitude-deg", "longitude"}
             };
-            //this.parseXml();
-            PropertyChanged += notifyUpdate;
-        }
-        
-        public void notifyUpdate(Object sender, PropertyChangedEventArgs e)
-        {
-            // Add a delegate function to update the airplane location object from lat/lon values
-            switch (e.PropertyName)
-            {
-                case "latitude":
-                    Location = new Location(getFlightValue("latitude"), Location.Longitude);
-                    NotifyPropertyChanged("VM_Location");
-                    return;
-                case "longtitude":
-                    Location = new Location(getFlightValue("longtitude"), Location.Longitude);
-                    NotifyPropertyChanged("VM_Location");
-                    return;
-            }
-
-            // For values other than location
-            NotifyPropertyChanged("VM_" + e.PropertyName);
         }
 
 
@@ -180,7 +159,10 @@ namespace FlightSimulatorGui.Model
         {
             Command cmd = Command.parseRawCommand(query);
             if (cmd == null)
+            {
                 QueryRes = "ERR";
+                return;
+            }
 
             if (cmd is SetCommand)
                 addCommandToQueue(cmd);
@@ -200,55 +182,6 @@ namespace FlightSimulatorGui.Model
             this.queue.Enqueue(c);        
         }
 
-        // before sending to queue
-        public Command createSetCommand(string request) { return null; }
-
-        //parse xml from last semeter
-        public void parseXml()
-        {
-            XmlDocument doc = new XmlDocument();
-            try
-            {
-                //doc.Load("/FlightSimulatorGui/values.xml");
-            }
-            catch
-            {
-                //throw new Exception(Directory.GetCurrentDirectory());
-            }
-
-            
-            XmlNodeReader nodeReader = new XmlNodeReader(doc);
-            XmlReaderSettings settings = new XmlReaderSettings();
-            XmlReader reader = XmlReader.Create(nodeReader, settings);
-            int i = 0;
-            string name = "";
-            while (reader.Read())
-            {
-
-                if (reader.Name == "name")
-                {
-                    reader.Read();
-                    if (reader.Value != string.Empty)
-                    {
-                        name = reader.Value;
-                    }
-
-                }
-
-                if (reader.Name == "node")
-                {
-                    reader.Read();
-                    if (reader.Value != string.Empty)
-                    {
-                        valueMap.Add(reader.Value, "0.0");
-                        settingsMap[reader.Value] = name;
-                    }
-
-                }
-            }
-
-        }
-        // If value is error (equals ERR) throw exception?
         public string getDataByKey(string key) 
         {
             return valueMap[key]; 
