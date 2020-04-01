@@ -14,7 +14,7 @@ namespace FlightSimulatorGui.Model
     // Hold the data from FS
     // Hold and update queue of queries to be sent
     // Get updates from FS into the data map
-    class FlightSimulatorModel
+    public class FlightSimulatorModel
     {
         private static FlightSimulatorModel instance = null;
         private  Queue<Command> queue;
@@ -26,6 +26,14 @@ namespace FlightSimulatorGui.Model
         public static double defaultLat = 31.643854;
         public static double defaultLon = 34.920341;
         public Location Location = new Location(defaultLat, defaultLon);
+        public String QueryRes
+        {
+            set
+            {
+                QueryRes = value;
+                NotifyPropertyChanged("QueryRes");
+            }
+        }
 
         private FlightSimulatorModel()
         {
@@ -91,6 +99,19 @@ namespace FlightSimulatorGui.Model
             {
                 return 0;
             }
+        }
+
+        //Execute a query from the control room and update the value via ViewModel
+        public void executeCtrlRoomQuery(String query)
+        {
+            Command cmd = Command.parseRawCommand(query);
+            if (cmd == null)
+                QueryRes = "ERR";
+
+            if (cmd.GetType() is SetCommand)
+                addCommandToQueue(cmd);
+
+            QueryRes = cmd.getValue();
         }
 
         public Queue<Command> getCommandsQueue() { return this.queue; }

@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlightSimulatorGui.Views"
+             xmlns:VM="clr-namespace:FlightSimulatorGui.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="160" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <VM:DataViewViewModel />
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
@@ -19,7 +23,7 @@
         <TextBox x:Name="tbInput" Grid.Row="0" Grid.ColumnSpan="3">Please enter your command</TextBox>
 
         <Label x:Name="lblOutput" Grid.Row="1" Grid.Column="0">Output:</Label>
-        <TextBox x:Name="tbOutputData" Grid.Row="1" Grid.Column="1">...</TextBox>
+        <TextBox x:Name="tbOutputData" Text="{Binding VM_QueryRes}"  Grid.Row="1" Grid.Column="1"></TextBox>
         <Button x:Name="btnData" Grid.Row="1" Grid.Column="2" Click="btnData_Click">Submit</Button>
 
 

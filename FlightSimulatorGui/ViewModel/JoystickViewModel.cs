@@ -10,11 +10,9 @@ namespace FlightSimulatorGui.ViewModel
 {
     class JoystickViewModel : BaseNotify
     {
-        FlightSimulatorModel model;
 
         public JoystickViewModel()
         {
-            model = FlightSimulatorModel.get();
         }
 
         public void joyElevatorUpdate(double value)

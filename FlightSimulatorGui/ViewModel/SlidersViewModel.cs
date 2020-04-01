@@ -11,7 +11,6 @@ namespace FlightSimulatorGui.ViewModel
     public class SlidersViewModel : BaseNotify
     {
 
-        FlightSimulatorModel model;
         Double VM_Throttle
         {
             set {
@@ -28,7 +27,6 @@ namespace FlightSimulatorGui.ViewModel
 
         public SlidersViewModel()
         {
-            model = FlightSimulatorModel.get();
         }
 
         public void sldThrottleUpdate(double value)

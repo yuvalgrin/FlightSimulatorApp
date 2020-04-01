@@ -11,8 +11,6 @@ namespace FlightSimulatorGui.ViewModel
 {
     class MapViewModel : BaseNotify
     {
-        private FlightSimulatorModel model;
-
         public Location VM_Location
         {
             get { return model.Location; }
@@ -20,7 +18,6 @@ namespace FlightSimulatorGui.ViewModel
 
         public MapViewModel()
         {
-            this.model = FlightSimulatorModel.get();
         }
 
     }

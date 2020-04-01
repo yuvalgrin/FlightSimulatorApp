@@ -10,8 +10,6 @@ namespace FlightSimulatorGui.ViewModel
 {
     class DataViewViewModel : BaseNotify
     {
-        private FlightSimulatorModel model;
-
         public double VM_heading
         {
             get { return model.getFlightValue("heading"); }
@@ -47,7 +45,6 @@ namespace FlightSimulatorGui.ViewModel
 
         public DataViewViewModel()
         {
-            this.model = FlightSimulatorModel.get();
         }
     }
 }

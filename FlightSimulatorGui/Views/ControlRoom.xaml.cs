@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSimulatorGui.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,20 +21,17 @@ namespace FlightSimulatorGui.Views
     /// </summary>
     public partial class ControlRoom : UserControl
     {
-        const String error = "ERR";
+        ControlRoomViewModel controlRoomViewModel;
 
         public ControlRoom()
         {
             InitializeComponent();
+            controlRoomViewModel = new ControlRoomViewModel();
         }
 
         private void btnData_Click(object sender, RoutedEventArgs e)
         {
-            Command cmd = Command.parseRawCommand(tbInput.Text);
-            if (cmd == null)
-                tbOutputData.Text = error;
-            else
-                tbOutputData.Text = "Loading...";
+            controlRoomViewModel.queryUpdate(tbInput.Text);
         }
     }
 }
