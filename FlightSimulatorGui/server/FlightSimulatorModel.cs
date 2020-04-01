@@ -281,6 +281,10 @@ namespace FlightSimulatorGui.Model
             
             MyTcpClient client = new MyTcpClient();
             NetworkStream stream = client.initializeConnection(null, null);
+            if (stream == null)
+            {
+                throw new Exception("Could not connect to the default server");
+            }
             Thread clientThread = new Thread(() => client.createAndRunClient(stream));
             clientThread.Start();
         }
