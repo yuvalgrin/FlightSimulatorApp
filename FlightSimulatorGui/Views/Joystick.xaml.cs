@@ -25,13 +25,6 @@ namespace FlightSimulatorGui.Views
         public delegate void OnScreenJoystickEventHandler(Joystick sender, VirtualJoystickEventArgs args);
         public event OnScreenJoystickEventHandler Moved;
 
-        //public static readonly DependencyProperty AileronChangeProperty =
-        //DependencyProperty.Register("AileronChange", typeof(double), typeof(Joystick), new PropertyMetadata(1.0));
-
-        //public static readonly DependencyProperty ElevatorChangepProperty =
-        //    DependencyProperty.Register("ElevatorChange", typeof(double), typeof(Joystick), new PropertyMetadata(1.0));
-
-
         private Storyboard centerKnob;
         private Point clickPoint;
         private Double canWidth;

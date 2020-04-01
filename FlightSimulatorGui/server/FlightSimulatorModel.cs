@@ -114,7 +114,6 @@ namespace FlightSimulatorGui.Model
             PropertyChanged += notifyUpdate;
         }
         
-        // Check if a property was updated > if so notify the ViewModel
         public void notifyUpdate(Object sender, PropertyChangedEventArgs e)
         {
             // Add a delegate function to update the airplane location object from lat/lon values
@@ -123,11 +122,11 @@ namespace FlightSimulatorGui.Model
                 case "latitude":
                     Location = new Location(getFlightValue("latitude"), Location.Longitude);
                     NotifyPropertyChanged("VM_Location");
-                    break;
+                    return;
                 case "longtitude":
                     Location = new Location(getFlightValue("longtitude"), Location.Longitude);
                     NotifyPropertyChanged("VM_Location");
-                    break;
+                    return;
             }
 
             // For values other than location

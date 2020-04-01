@@ -13,6 +13,10 @@ namespace FlightSimulatorGui.ViewModel
 
         public JoystickViewModel()
         {
+            model.PropertyChanged +=
+                delegate (Object sender, PropertyChangedEventArgs e) {
+                    NotifyPropertyChanged("VM_" + e.PropertyName);
+                };
         }
 
         public void joyElevatorUpdate(double value)
