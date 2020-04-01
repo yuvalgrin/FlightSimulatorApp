@@ -32,10 +32,20 @@ namespace FlightSimulatorGui.Model
 
         public String QueryRes
         {
+            get { return QueryRes; }
             set
             {
                 QueryRes = value;
                 NotifyPropertyChanged("QueryRes");
+            }
+        }
+        public String ConnRes
+        {
+            get { return ConnRes; }
+            set
+            {
+                ConnRes = value;
+                NotifyPropertyChanged("ConnRes");
             }
         }
 
@@ -119,10 +129,16 @@ namespace FlightSimulatorGui.Model
             if (cmd == null)
                 QueryRes = "ERR";
 
-            if (cmd.GetType() is SetCommand)
+            if (cmd is SetCommand)
                 addCommandToQueue(cmd);
 
             QueryRes = cmd.getValue();
+        }
+
+        //Execute a switch server from the Connection Settings View Model
+        public void executeSwitchServer(String ip, String port)
+        {
+            ConnRes = switchServer(ip, port);
         }
 
         // If set command had value more than max (same for less than min) put the closest valid value

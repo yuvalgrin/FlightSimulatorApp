@@ -8,7 +8,7 @@ namespace FlightSimulatorGui.ViewModel
 {
     public class ConnSettingsViewModel : BaseNotify
     {
-        String VM_ConnRes
+        public String VM_ConnRes
         {
             set
             {
@@ -19,7 +19,7 @@ namespace FlightSimulatorGui.ViewModel
         public void queryUpdate(String ip, String port)
         {
             VM_ConnRes = "Loading...";
-            //model.executeCtrlRoomQuery(ip, port);
+            model.executeSwitchServer(ip, port);
         }
     }
 }
