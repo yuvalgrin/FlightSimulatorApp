@@ -54,7 +54,7 @@ namespace FlightSimulatorGui.Model
                 NotifyPropertyChanged("ConnRes");
             }
         } 
-        public String _ErrorMsg;
+        private String _ErrorMsg;
         public String ErrorMsg
         {
             get { return _ErrorMsg; }
@@ -64,8 +64,8 @@ namespace FlightSimulatorGui.Model
                 DelayedExecutionService.DelayedExecute(() => FlightSimulatorModel.get().ErrorEnabled = false);
                 NotifyPropertyChanged("ErrorMsg");
             }
-        }        
-        public Boolean _ErrorEnabled;
+        }
+        private Boolean _ErrorEnabled;
         public Boolean ErrorEnabled
         {
             get { return _ErrorEnabled; }
