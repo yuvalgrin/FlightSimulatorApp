@@ -11,6 +11,7 @@ using Microsoft.Maps.MapControl.WPF;
 using System.Net.Sockets;
 using FlightSimulatorGui.Model;
 using System.Configuration;
+using System.IO;
 
 namespace FlightSimulatorGui.Model
 {
@@ -56,9 +57,42 @@ namespace FlightSimulatorGui.Model
             //holds commands coming from gui
             this.queue = new Queue<Command>();
             // map that holds the values of the FS
-            this.valueMap = new Dictionary<string, string>();
-            this.settingsMap = new Dictionary<string, string>();
-            this.parseXml();
+            this.valueMap = new Dictionary<string, string>()
+            {
+                {"/instrumentation/airspeed-indicator/indicated-speed-kt", "0.0"},
+                {"/instrumentation/altimeter/indicated-altitude-ft", "0.0"},
+                {"/instrumentation/attitude-indicator/internal-pitch-deg", "0.0"},
+                {"/instrumentation/attitude-indicator/internal-roll-deg", "0.0"},
+                {"/instrumentation/gps/indicated-altitude-ft", "0.0"},
+                {"/instrumentation/gps/indicated-ground-speed-kt", "0.0"},
+                {"/instrumentation/gps/indicated-vertical-speed", "0.0"},
+                {"/instrumentation/heading-indicator/indicated-heading-deg", "0.0"},
+                {"/controls/flight/aileron", "0.0"},
+                {"/controls/flight/elevator", "0.0"},
+                {"/controls/flight/rudder", "0.0"},
+                {"/controls/engines/current-engine/throttle", "0.0"},
+                {"/position/latitude-deg", "0.0"},
+                {"/position/longitude-deg", "0.0"}
+
+            };
+            this.settingsMap = new Dictionary<string, string>()
+            {
+                {"airspeed", "/instrumentation/airspeed-indicator/indicated-speed-kt"},
+                {"altimeter", "/instrumentation/altimeter/indicated-altitude-ft"},
+                {"pitch", "/instrumentation/attitude-indicator/internal-pitch-deg"},
+                {"roll", "/instrumentation/attitude-indicator/internal-roll-deg"},
+                {"altitude", "/instrumentation/gps/indicated-altitude-ft"},
+                {"ground-speed", "/instrumentation/gps/indicated-ground-speed-kt"},
+                {"vertical-speed", "/instrumentation/gps/indicated-vertical-speed"},
+                {"heading", "/instrumentation/heading-indicator/indicated-heading-deg<"},
+                {"aileron", "/controls/flight/aileron"},
+                {"elevator", "/controls/flight/elevator"},
+                {"rudder", "/controls/flight/rudder"},
+                {"throttle", "/controls/engines/current-engine/throttle"},
+                {"latitude", "/position/latitude-deg"},
+                {"longitude", "/position/longitude-deg"}
+            };
+            //this.parseXml();
             PropertyChanged += notifyUpdate;
         }
         
@@ -158,11 +192,11 @@ namespace FlightSimulatorGui.Model
             XmlDocument doc = new XmlDocument();
             try
             {
-                doc.Load("values.xml");
+                //doc.Load("/FlightSimulatorGui/values.xml");
             }
             catch
             {
-                Console.WriteLine("nope");
+                //throw new Exception(Directory.GetCurrentDirectory());
             }
 
             
