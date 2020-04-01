@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorGui.ViewModel
 {
-    class ControlRoomViewModel : BaseNotify
+    public class ControlRoomViewModel : BaseNotify
     {
         String VM_QueryRes
         {

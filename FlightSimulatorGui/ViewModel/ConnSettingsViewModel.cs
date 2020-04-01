@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FlightSimulatorGui.ViewModel
 {
-    class ConnSettingsViewModel : BaseNotify
+    public class ConnSettingsViewModel : BaseNotify
     {
         String VM_ConnRes
         {

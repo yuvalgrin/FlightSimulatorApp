@@ -22,8 +22,5 @@
                 </wpf:Pushpin.Background>
             </wpf:Pushpin>
         </wpf:Map>
-        <Button Name="test" Margin="0,434,611,0" Click="test_Click"></Button>
-        <!--<Image x:Name="airplaneImg" Source="/FlightSimulatorGui;component/Resources/airplane.png" Width="128" Height="128"/>-->
-
     </Grid>
 </UserControl>

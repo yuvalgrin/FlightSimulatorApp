@@ -31,7 +31,7 @@ namespace FlightSimulatorGui.Views
 
         private void btnData_Click(object sender, RoutedEventArgs e)
         {
-            connSettingsViewModel.queryUpdate(tbInput.Text);
+            connSettingsViewModel.queryUpdate(tbIp.Text, tbPort.Text);
         }
     }
 }
