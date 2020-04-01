@@ -53,7 +53,7 @@ public class SetCommand : Command
 		return this.value + "";
 	}
 
-	public override String execute() { return "get " + param + " " + value; }
+	public override String execute() { return "set " + param + " " + value + "\n"; }
 }
 
 
@@ -63,10 +63,10 @@ public class GetCommand : Command
 
 	public GetCommand(String param)
     {
-		this.param = param + "\n";
+		this.param = param;
 	}
 
-	public override String execute() { return "get " + param; }
+	public override String execute() { return "get " + param + "\n"; }
 
 	public override string getValue()
 	{
@@ -75,7 +75,7 @@ public class GetCommand : Command
 
 	public override string path()
 	{
-		return this.param.Substring(0, this.param.Length - 1); ;
+		return this.param;
 	}
 
 }
