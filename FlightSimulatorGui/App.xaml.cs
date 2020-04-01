@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSimulatorGui.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -20,5 +21,9 @@ namespace FlightSimulatorGui
             e.Handled = true;
         }
 
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            FlightSimulatorModel.get().exitProgram();
+        }
     }
 }
