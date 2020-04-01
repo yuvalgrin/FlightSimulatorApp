@@ -70,11 +70,15 @@
     <Compile Include="server\MyTcpClient.cs" />
     <Compile Include="server\MyTcpServer.cs" />
     <Compile Include="ViewModel\BaseNotify.cs" />
+    <Compile Include="ViewModel\ConnSettingsViewModel.cs" />
     <Compile Include="ViewModel\ControlRoomViewModel.cs" />
     <Compile Include="ViewModel\DataViewViewModel.cs" />
     <Compile Include="ViewModel\JoystickViewModel.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
     <Compile Include="ViewModel\SlidersViewModel.cs" />
+    <Compile Include="Views\ConnSettings.xaml.cs">
+      <DependentUpon>ConnSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ControlRoom.xaml.cs">
       <DependentUpon>ControlRoom.xaml</DependentUpon>
     </Compile>
@@ -91,6 +95,10 @@
     <Compile Include="Views\Sliders.xaml.cs">
       <DependentUpon>Sliders.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ConnSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ControlRoom.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
