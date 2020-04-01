@@ -19,14 +19,14 @@ namespace FlightSimulatorGui.ViewModel
                 NotifyPropertyChanged("VM_Throttle"); }
         }
 
-        private Double _VM_Aileron;
+        private Double _VM_Rudder;
         Double VM_Aileron
         {
-            get { return _VM_Aileron; }
+            get { return _VM_Rudder; }
             set
             {
-                _VM_Aileron = value;
-                NotifyPropertyChanged("VM_Aileron"); }
+                _VM_Rudder = value;
+                NotifyPropertyChanged("VM_Rudder"); }
         }
 
         public SlidersViewModel()

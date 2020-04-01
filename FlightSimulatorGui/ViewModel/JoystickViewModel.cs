@@ -18,11 +18,13 @@ namespace FlightSimulatorGui.ViewModel
         public void joyElevatorUpdate(double value)
         {
             model.addCommandToQueue(new SetCommand("/controls/flight/elevator", value));
+            Console.WriteLine("ElevatorUpdate");
         }
 
-        public void joyRudderUpdate(double value)
+        public void joyAileronUpdate(double value)
         {
-            model.addCommandToQueue(new SetCommand("/controls/flight/rudder", value));
+            model.addCommandToQueue(new SetCommand("/controls/flight/aileron", value));
+            Console.WriteLine("AileronUpdate");
         }
 
     }
