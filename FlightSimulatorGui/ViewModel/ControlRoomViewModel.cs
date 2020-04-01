@@ -19,6 +19,7 @@ namespace FlightSimulatorGui.ViewModel
 
         public String VM_QueryRes
         {
+            get { return model.QueryRes; }
             set
             {
                 NotifyPropertyChanged("VM_QueryRes");

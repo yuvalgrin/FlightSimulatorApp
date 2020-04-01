@@ -11,7 +11,7 @@ namespace FlightSimulatorGui.ViewModel
     public class SlidersViewModel : BaseNotify
     {
         private Double _VM_Throttle;
-        Double VM_Throttle
+        public Double VM_Throttle
         {
             get { return _VM_Throttle; }
             set {
@@ -20,7 +20,7 @@ namespace FlightSimulatorGui.ViewModel
         }
 
         private Double _VM_Rudder;
-        Double VM_Aileron
+        public Double VM_Rudder
         {
             get { return _VM_Rudder; }
             set
@@ -43,10 +43,10 @@ namespace FlightSimulatorGui.ViewModel
             VM_Throttle = value;
         }
 
-        public void sldAileronUpdate(double value)
+        public void sldRudderUpdate(double value)
         {
             model.addCommandToQueue(new SetCommand("/controls/flight/aileron", value));
-            VM_Aileron = value;
+            VM_Rudder = value;
         }
 
     }

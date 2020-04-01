@@ -19,6 +19,7 @@ namespace FlightSimulatorGui.ViewModel
 
         public String VM_ConnRes
         {
+            get { return model.ConnRes; }
             set
             {
                 NotifyPropertyChanged("VM_ConnRes");

@@ -23,9 +23,9 @@ namespace FlightSimulatorGui.Views
             slidersViewModel.sldThrottleUpdate(e.NewValue);
         }
 
-        private void sldAileronValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sldRudderValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            slidersViewModel.sldAileronUpdate(e.NewValue);
+            slidersViewModel.sldRudderUpdate(e.NewValue);
         }
     }
 }

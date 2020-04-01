@@ -78,13 +78,13 @@ namespace FlightSimulatorGui.Model
             };
             this.settingsMap = new Dictionary<string, string>()
             {
-                {"airspeed", "/instrumentation/airspeed-indicator/indicated-speed-kt"},
+                {"air_speed", "/instrumentation/airspeed-indicator/indicated-speed-kt"},
                 {"altimeter", "/instrumentation/altimeter/indicated-altitude-ft"},
                 {"pitch", "/instrumentation/attitude-indicator/internal-pitch-deg"},
                 {"roll", "/instrumentation/attitude-indicator/internal-roll-deg"},
                 {"altitude", "/instrumentation/gps/indicated-altitude-ft"},
-                {"ground-speed", "/instrumentation/gps/indicated-ground-speed-kt"},
-                {"vertical-speed", "/instrumentation/gps/indicated-vertical-speed"},
+                {"ground_speed", "/instrumentation/gps/indicated-ground-speed-kt"},
+                {"vertical_speed", "/instrumentation/gps/indicated-vertical-speed"},
                 {"heading", "/instrumentation/heading-indicator/indicated-heading-deg"},
                 {"aileron", "/controls/flight/aileron"},
                 {"elevator", "/controls/flight/elevator"},
@@ -95,13 +95,13 @@ namespace FlightSimulatorGui.Model
             };
             this.reverseSettingsMap = new Dictionary<string, string>()
             {
-                {"/instrumentation/airspeed-indicator/indicated-speed-kt", "airspeed"},
+                {"/instrumentation/airspeed-indicator/indicated-speed-kt", "air_speed"},
                 {"/instrumentation/altimeter/indicated-altitude-ft","altimeter"},
                 {"/instrumentation/attitude-indicator/internal-pitch-deg", "pitch"},
                 {"/instrumentation/attitude-indicator/internal-roll-deg", "roll"},
                 {"/instrumentation/gps/indicated-altitude-ft","altitude"},
-                {"/instrumentation/gps/indicated-ground-speed-kt", "ground-speed"},
-                {"/instrumentation/gps/indicated-vertical-speed", "vertical-speed"},
+                {"/instrumentation/gps/indicated-ground-speed-kt", "ground_speed"},
+                {"/instrumentation/gps/indicated-vertical-speed", "vertical_speed"},
                 {"/instrumentation/heading-indicator/indicated-heading-deg", "heading"},
                 {"/controls/flight/aileron", "aileron"},
                 {"/controls/flight/elevator","elevator"},
@@ -235,10 +235,13 @@ namespace FlightSimulatorGui.Model
         public string switchServer(string ip, string port)
         {
             string reply = String.Empty;
+            if (String.IsNullOrEmpty(ip) || String.IsNullOrEmpty(port))
+                return "Invalid IP or Port inserted";
+
             MyTcpClient client = new MyTcpClient();
             NetworkStream stream = client.initializeConnection(ip, port);
             if (stream == null)
-                reply = "Could not connect to the given ip and port";
+                reply = "Could not connect to the given IP and Port";
             else
             {
                 MyTcpClient.killClient();
