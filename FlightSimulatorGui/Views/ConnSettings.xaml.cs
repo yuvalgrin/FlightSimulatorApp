@@ -27,6 +27,8 @@ namespace FlightSimulatorGui.Views
         {
             InitializeComponent();
             connSettingsViewModel = new ConnSettingsViewModel();
+            this.DataContext = connSettingsViewModel;
+
         }
 
         private void btnData_Click(object sender, RoutedEventArgs e)

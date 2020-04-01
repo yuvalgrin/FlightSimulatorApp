@@ -30,21 +30,23 @@ namespace FlightSimulatorGui.Model
         public static double defaultLon = 34.920341;
         public Location Location = new Location(defaultLat, defaultLon);
 
+        public String _QueryRes;
         public String QueryRes
         {
-            get { return QueryRes; }
+            get { return _QueryRes; }
             set
             {
-                QueryRes = value;
+                _QueryRes = value;
                 NotifyPropertyChanged("QueryRes");
             }
         }
+        public String _ConnRes;
         public String ConnRes
         {
-            get { return ConnRes; }
+            get { return _ConnRes; }
             set
             {
-                ConnRes = value;
+                _ConnRes = value;
                 NotifyPropertyChanged("ConnRes");
             }
         }
@@ -71,7 +73,7 @@ namespace FlightSimulatorGui.Model
                     NotifyPropertyChanged("VM_Location");
                     break;
                 case "longtitude":
-                    Location = new Location(getFlightValue("latitude"), Location.Longitude);
+                    Location = new Location(getFlightValue("longtitude"), Location.Longitude);
                     NotifyPropertyChanged("VM_Location");
                     break;
             }

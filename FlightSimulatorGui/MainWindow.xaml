@@ -24,11 +24,14 @@
         </StackPanel>
         
         <TabControl Grid.Column="1" Grid.Row="0">
-            <TabItem Header="DataView">
+            <TabItem Header="Flight Stats">
                 <Controls:DataView/>
             </TabItem>
-            <TabItem Header="ControlRoom">
+            <TabItem Header="Control Room">
                 <Controls:ControlRoom/>
+            </TabItem>
+            <TabItem Header="Connection Settings">
+                <Controls:ConnSettings/>
             </TabItem>
         </TabControl>
     </Grid>

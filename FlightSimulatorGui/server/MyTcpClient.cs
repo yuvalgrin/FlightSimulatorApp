@@ -33,7 +33,7 @@ public class MyTcpClient
         try
         {
             TcpClient tcpClient = new TcpClient(server, connectionPort);
-            NetworkStream stream = client.GetStream();
+            NetworkStream stream = tcpClient.GetStream();
             MyTcpClient.client = tcpClient;
             return stream;
         }

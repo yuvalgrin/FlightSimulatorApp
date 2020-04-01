@@ -10,18 +10,22 @@ namespace FlightSimulatorGui.ViewModel
 {
     public class SlidersViewModel : BaseNotify
     {
-
+        private Double _VM_Throttle;
         Double VM_Throttle
         {
+            get { return _VM_Throttle; }
             set {
-                VM_Throttle = value;
+                _VM_Throttle = value;
                 NotifyPropertyChanged("VM_Throttle"); }
         }
+
+        private Double _VM_Aileron;
         Double VM_Aileron
         {
+            get { return _VM_Aileron; }
             set
             {
-                VM_Aileron = value;
+                _VM_Aileron = value;
                 NotifyPropertyChanged("VM_Aileron"); }
         }
 
