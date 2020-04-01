@@ -17,7 +17,7 @@ namespace FlightSimulatorGui.ViewModel
                 };
         }
 
-        String VM_QueryRes
+        public String VM_QueryRes
         {
             set
             {
