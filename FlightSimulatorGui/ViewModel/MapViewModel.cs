@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+using FlightSimulatorGui.server;
 
 namespace FlightSimulatorGui.ViewModel
 {
@@ -15,6 +17,15 @@ namespace FlightSimulatorGui.ViewModel
         {
             get { return model.Location; }
         }
+        public Boolean VM_ErrorEnabled
+        {
+            get { return model.ErrorEnabled; }
+        }      
+        public String VM_ErrorMsg
+        {
+            get { return model.ErrorMsg; }
+        }
+
 
         public MapViewModel()
         {

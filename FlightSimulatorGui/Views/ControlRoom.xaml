@@ -20,7 +20,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="tbInput" Grid.Row="0" Grid.ColumnSpan="3">Please enter your command</TextBox>
+        <TextBox x:Name="tbInput" Grid.Row="0" Grid.ColumnSpan="3" TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">get /position/latitude-deg
+            get /position/longitude-deg</TextBox>
 
         <Label x:Name="lblOutput" Grid.Row="1" Grid.Column="0">Output:</Label>
         <TextBox x:Name="tbOutputData" Text="{Binding VM_QueryRes}"  Grid.Row="1" Grid.Column="1"></TextBox>

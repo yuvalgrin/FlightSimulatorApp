@@ -1,8 +1,10 @@
 ﻿using FlightSimulatorGui.Model;
+using FlightSimulatorGui.server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,9 +26,8 @@ namespace FlightSimulatorGui
         public MainWindow()
         {
             InitializeComponent();
-
-            //tbErrors.IsEnabled = false;
-            FlightSimulatorModel.get().runBackground();
+            new Thread(FlightSimulatorModel.get().initRunBackground).Start();
         }
+
     }
 }

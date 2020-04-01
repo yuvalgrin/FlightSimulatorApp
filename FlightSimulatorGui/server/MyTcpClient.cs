@@ -56,13 +56,9 @@ public class MyTcpClient
                 //  Stream stream = client.GetStream();
                 if (stream == null)
                 {
-                    throw new Exception("Was not able no initialze connection");
+                    throw new Exception("Was not able no initialized connection");
                 }
-
-                lock (clientLock)
-                {
-
-                }
+                
                 while (runClient)
                 {
                     // Translate the passed message into ASCII and store it as a Byte array.
@@ -77,11 +73,13 @@ public class MyTcpClient
 
                     // Read the first batch of the TcpServer response bytes.
                     Thread.Sleep(25);
+                    stream.ReadTimeout = 200;
                     Int32 bytes = stream.Read(data, 0, data.Length);
                     responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                     responseData = responseData.Substring(0, responseData.Length - 1);
                     FlightSimulatorModel.get().updateValueMap(c.path(), responseData);
                 }
+
                 // Close everything
                 stream.Close();
                 //MyTcpClient.client.Close();

@@ -12,6 +12,8 @@ using System.Net.Sockets;
 using FlightSimulatorGui.Model;
 using System.Configuration;
 using System.IO;
+using FlightSimulatorGui.server;
+using System.Windows;
 
 namespace FlightSimulatorGui.Model
 {
@@ -50,6 +52,27 @@ namespace FlightSimulatorGui.Model
             {
                 _ConnRes = value;
                 NotifyPropertyChanged("ConnRes");
+            }
+        } 
+        public String _ErrorMsg;
+        public String ErrorMsg
+        {
+            get { return _ErrorMsg; }
+            set
+            {
+                _ErrorMsg = value;
+                DelayedExecutionService.DelayedExecute(() => FlightSimulatorModel.get().ErrorEnabled = false);
+                NotifyPropertyChanged("ErrorMsg");
+            }
+        }        
+        public Boolean _ErrorEnabled;
+        public Boolean ErrorEnabled
+        {
+            get { return _ErrorEnabled; }
+            set
+            {
+                _ErrorEnabled = value;
+                NotifyPropertyChanged("ErrorEnabled");
             }
         }
 
@@ -157,17 +180,24 @@ namespace FlightSimulatorGui.Model
         //Execute a query from the control room and update the value via ViewModel
         public void executeCtrlRoomQuery(String query)
         {
-            Command cmd = Command.parseRawCommand(query);
-            if (cmd == null)
+            StringBuilder result = new StringBuilder();
+            StringReader sr = new StringReader(query);
+            String row;
+            while ((row = sr.ReadLine()) != null)
             {
-                QueryRes = "ERR";
-                return;
+                Command cmd = Command.parseRawCommand(row);
+                if (cmd == null)
+                {
+                    QueryRes = "ERR";
+                    return;
+                }
+
+                if (cmd is SetCommand)
+                    addCommandToQueue(cmd);
+
+                result.Append(cmd.getValue()).Append("  ");
             }
-
-            if (cmd is SetCommand)
-                addCommandToQueue(cmd);
-
-            QueryRes = cmd.getValue();
+            QueryRes = result.ToString();
         }
 
         //Execute a switch server from the Connection Settings View Model
@@ -204,7 +234,19 @@ namespace FlightSimulatorGui.Model
         }
 
 
-
+        public void initRunBackground()
+        {
+            try
+            {
+                runBackground();
+                ErrorEnabled = false;
+            }
+            catch (Exception e)
+            {
+                throwNewError(e.Message + "\r\nWill try to reconnect in 5 sec.");
+                DelayedExecutionService.DelayedExecute(() => initRunBackground(), 5000);
+            }
+        }
 
         public void runBackground()
         {
@@ -215,10 +257,23 @@ namespace FlightSimulatorGui.Model
             NetworkStream stream = client.initializeConnection(null, null);
             if (stream == null)
             {
+
                 throw new Exception("Could not connect to the default server");
             }
             Thread clientThread = new Thread(() => client.createAndRunClient(stream));
             clientThread.Start();
+        }
+
+        void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            throwNewError(e.Exception.Message);
+            e.Handled = true;
+        }
+
+        public void throwNewError(String msg)
+        {
+            ErrorMsg = msg;
+            ErrorEnabled = true;
         }
 
         public void NotifyPropertyChanged(string propName)
