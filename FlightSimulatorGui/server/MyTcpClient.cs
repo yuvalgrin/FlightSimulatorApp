@@ -47,8 +47,7 @@ public class MyTcpClient
     //create a tcp server with the default port and ip
     public void createAndRunClient(NetworkStream stream)
     {
-        lock (clientLock)
-        {
+        
             try
             {
                 Byte[] data = null;
@@ -57,11 +56,6 @@ public class MyTcpClient
                 if (stream == null)
                 {
                     throw new Exception("Was not able no initialze connection");
-                }
-
-                lock (clientLock)
-                {
-
                 }
                 while (runClient)
                 {
@@ -102,7 +96,7 @@ public class MyTcpClient
             {
                 runClient = true;
             }
-        }
+        
     }
 
     //the function that will be run in a thread
