@@ -27,8 +27,8 @@
         <Label Grid.Row="1" Grid.Column="2" Content="1" FontSize="14"/>
         <Label Grid.Row="1" Grid.Column="0" Content="-1" FontSize="14" RenderTransformOrigin="0.579,-0.05"/>
         <Slider Grid.Row="1" Grid.Column="1"  Name="sldThrottle" Margin="0,1,0,0" Minimum="-1" Maximum="1" TickPlacement="TopLeft"  SmallChange="0.1" LargeChange="0.1" TickFrequency="0.1" HorizontalAlignment="Left" Width="380" ValueChanged="sldThrottleValueChange"/>
-        <Label Grid.Row="2" Grid.Column="1" Name="lblAileron" Content="Aileron = " FontSize="13" HorizontalAlignment="Center"/>
-        <Label Grid.Row="2" Grid.Column="1" Name="lblAileronVal" Content="{Binding VM_Aileron}" FontSize="13" HorizontalAlignment="Center" Margin="223,0,139,0"/>
+        <Label Grid.Row="2" Grid.Column="1" Name="lblRudder" Content="Rudder = " FontSize="13" HorizontalAlignment="Center"/>
+        <Label Grid.Row="2" Grid.Column="1" Name="lblRudderVal" Content="{Binding VM_Rudder}" FontSize="13" HorizontalAlignment="Center" Margin="223,0,139,0"/>
         <Label Grid.Row="3" Grid.Column="2" Content="1" FontSize="14"/>
         <Label Grid.Row="3" Grid.Column="0" Content="-1" FontSize="14"/>
         <Slider Grid.Row="3" Grid.Column="1" x:Name="sldAileron" Margin="0,1,0,0" Minimum="-1" Maximum="1" TickPlacement="TopLeft"  SmallChange="0.1" LargeChange="0.1" TickFrequency="0.1" HorizontalAlignment="Left" Width="380" ValueChanged="sldAileronValueChange"/>

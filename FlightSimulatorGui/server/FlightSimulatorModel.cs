@@ -11,6 +11,7 @@ using Microsoft.Maps.MapControl.WPF;
 using System.Net.Sockets;
 using FlightSimulatorGui.Model;
 using System.Configuration;
+using System.IO;
 
 namespace FlightSimulatorGui.Model
 {
@@ -155,7 +156,7 @@ namespace FlightSimulatorGui.Model
             XmlDocument doc = new XmlDocument();
             try
             {
-                doc.Load("values.xml");
+                doc.Load(Path.Combine(Environment.CurrentDirectory, @"values.xml"));
             }
             catch
             {
