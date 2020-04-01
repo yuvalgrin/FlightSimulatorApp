@@ -199,7 +199,7 @@ namespace FlightSimulatorGui.Model
                     Command c = new GetCommand(key);
                     this.queue.Enqueue(c);
                 }
-                Thread.Sleep(500);
+                Thread.Sleep(200);
             }
         }
 

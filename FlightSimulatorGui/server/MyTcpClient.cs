@@ -74,15 +74,13 @@ public class MyTcpClient
 
                     // String to store the response ASCII representation.
                     String responseData = String.Empty;
-                    Thread.Sleep(25);
 
                     // Read the first batch of the TcpServer response bytes.
+                    Thread.Sleep(25);
                     Int32 bytes = stream.Read(data, 0, data.Length);
                     responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                     responseData = responseData.Substring(0, responseData.Length - 1);
                     FlightSimulatorModel.get().updateValueMap(c.path(), responseData);
-
-                    Console.WriteLine("Received: {0}", responseData);
                 }
                 // Close everything
                 stream.Close();
