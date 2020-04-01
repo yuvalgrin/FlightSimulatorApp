@@ -3,6 +3,8 @@ using System.Net.Sockets;
 using FlightSimulatorGui.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Configuration;
+
 
 public class MyTcpClient
 {
@@ -11,65 +13,97 @@ public class MyTcpClient
     }
 
     private static bool runClient = true;
-    
+    private static TcpClient client = null;
+    private readonly object clientLock = new object();
 
-    //create a tcp server with the default port and ip
-    public void createAndRunClient()
+
+
+    public NetworkStream initializeConnection(string ip, string port)
     {
+        Int32 connectionPort; string server;
+        if (ip == null || port == null)
+        {
+            connectionPort = int.Parse(ConfigurationSettings.AppSettings["ServerPort"]);
+            server = ConfigurationSettings.AppSettings["ServerIP"];
+        } else
+        {
+            connectionPort = int.Parse(port);
+            server = ip;
+        }
         try
         {
-            // Create a TcpClient.
-            // Note, for this client to work you need to have a TcpServer 
-            // connected to the same address as specified by the server, port
-            // combination.
-            Int32 port = 5402;
-            string server = "127.0.0.1";
-
-            TcpClient client = new TcpClient(server, port);
-
-
-            Byte[] data = null;
-            // Get a client stream for reading and writing.
-            //  Stream stream = client.GetStream();
-
+            TcpClient tcpClient = new TcpClient(server, connectionPort);
             NetworkStream stream = client.GetStream();
-            while (runClient)
+            MyTcpClient.client = tcpClient;
+            return stream;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+
+    //create a tcp server with the default port and ip
+    public void createAndRunClient(NetworkStream stream)
+    {
+        lock (clientLock)
+        {
+            try
             {
-                // Translate the passed message into ASCII and store it as a Byte array.
-                Command c = FlightSimulatorModel.get().getCommandsQueue().Dequeue();
-                data = System.Text.Encoding.ASCII.GetBytes(c.execute());
-                // Send the message to the connected TcpServer. 
-                stream.Write(data, 0, data.Length);
-                data = new Byte[256];
+                Byte[] data = null;
+                // Get a client stream for reading and writing.
+                //  Stream stream = client.GetStream();
+                if (stream == null)
+                {
+                    throw new Exception("Was not able no initialze connection");
+                }
 
-                // String to store the response ASCII representation.
-                String responseData = String.Empty;
+                lock (clientLock)
+                {
 
-                // Read the first batch of the TcpServer response bytes.
-                Int32 bytes = stream.Read(data, 0, data.Length);
-                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                responseData = responseData.Substring(0, responseData.Length - 1);
-                FlightSimulatorModel.get().updateValueMap(c.path(), responseData);
+                }
+                while (runClient)
+                {
+                    // Translate the passed message into ASCII and store it as a Byte array.
+                    Command c = FlightSimulatorModel.get().getCommandsQueue().Dequeue();
+                    data = System.Text.Encoding.ASCII.GetBytes(c.execute());
+                    // Send the message to the connected TcpServer. 
+                    stream.Write(data, 0, data.Length);
+                    data = new Byte[256];
 
-                    
-                Console.WriteLine("Received: {0}", responseData);
-                    
-                    
-                    
-                
-                
+                    // String to store the response ASCII representation.
+                    String responseData = String.Empty;
+
+                    // Read the first batch of the TcpServer response bytes.
+                    Int32 bytes = stream.Read(data, 0, data.Length);
+                    responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                    responseData = responseData.Substring(0, responseData.Length - 1);
+                    FlightSimulatorModel.get().updateValueMap(c.path(), responseData);
+
+
+                    Console.WriteLine("Received: {0}", responseData);
+                }
+                // Close everything.
+                stream.Close();
+                MyTcpClient.client.Close();
             }
-            // Close everything.
-            stream.Close();
-            client.Close();
-        }
-        catch (ArgumentNullException e)
-        {
-            Console.WriteLine("ArgumentNullException: {0}", e);
-        }
-        catch (SocketException e)
-        {
-            Console.WriteLine("SocketException: {0}", e);
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine("ArgumentNullException: {0}", e);
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("SocketException: {0}", e);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: {0}", e);
+            }
+            finally
+            {
+                runClient = true;
+            }
         }
     }
 
@@ -77,6 +111,15 @@ public class MyTcpClient
     public static void killClient()
     {
         MyTcpClient.runClient = false;
+    }
+    public static void sClient()
+    {
+        MyTcpClient.runClient = true;
+    }
+
+    public static bool getRunning()
+    {
+        return MyTcpClient.runClient;
     }
 
 }

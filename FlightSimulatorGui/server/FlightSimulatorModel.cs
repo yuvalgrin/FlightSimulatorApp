@@ -8,12 +8,15 @@ using System.Xml.Schema;
 using System.Threading;
 using System.ComponentModel;
 using Microsoft.Maps.MapControl.WPF;
+using System.Net.Sockets;
+using FlightSimulatorGui.Model;
+using System.Configuration;
 
 namespace FlightSimulatorGui.Model
 {
     // Hold the data from FS
     // Hold and update queue of queries to be sent
-    // Get updates from FS into the data map
+    // Get updates from FS int o the data map
     class FlightSimulatorModel
     {
         private static FlightSimulatorModel instance = null;
@@ -162,7 +165,7 @@ namespace FlightSimulatorGui.Model
         }
         public void sendCommandsToQueue()
         {
-            while (true)
+            while (MyTcpClient.getRunning())
             {
                 foreach (string key in this.valueMap.Keys)
                 {
@@ -182,7 +185,8 @@ namespace FlightSimulatorGui.Model
             getCommand.Start();
             
             MyTcpClient client = new MyTcpClient();
-            Thread clientThread = new Thread(client.createAndRunClient);
+            NetworkStream stream = client.initializeConnection(null, null);
+            Thread clientThread = new Thread(() => client.createAndRunClient(stream));
             clientThread.Start();
         }
 
@@ -190,6 +194,28 @@ namespace FlightSimulatorGui.Model
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
+
+        public void exitProgram()
+        {
+            MyTcpClient.killClient();
+        }
+
+        public string switchServer(string ip, string port)
+        {
+            string reply = String.Empty;
+            MyTcpClient client = new MyTcpClient();
+            NetworkStream stream = client.initializeConnection(ip, port);
+            if (stream == null)
+                reply = "Could not connect to the given ip and port";
+            else
+            {
+                MyTcpClient.killClient();
+                Thread clientThread = new Thread(() => client.createAndRunClient(stream));
+                clientThread.Start();
+                reply = "Connected succefully to the new server";
+            }
+            return reply;
         }
     }
 }
