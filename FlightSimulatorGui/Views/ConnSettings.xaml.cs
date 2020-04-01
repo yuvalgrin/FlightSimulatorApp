@@ -19,19 +19,19 @@ namespace FlightSimulatorGui.Views
     /// <summary>
     /// Interaction logic for FSDataView.xaml
     /// </summary>
-    public partial class ControlRoom : UserControl
+    public partial class ConnSettings : UserControl
     {
-        ControlRoomViewModel controlRoomViewModel;
+        ConnSettingsViewModel connSettingsViewModel;
 
-        public ControlRoom()
+        public ConnSettings()
         {
             InitializeComponent();
-            controlRoomViewModel = new ControlRoomViewModel();
+            connSettingsViewModel = new ConnSettingsViewModel();
         }
 
         private void btnData_Click(object sender, RoutedEventArgs e)
         {
-            controlRoomViewModel.queryUpdate(tbInput.Text);
+            connSettingsViewModel.queryUpdate(tbIp.Text, tbPort.Text);
         }
     }
 }

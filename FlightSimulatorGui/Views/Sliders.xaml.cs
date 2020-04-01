@@ -1,4 +1,6 @@
-﻿using FlightSimulatorGui.server;
+﻿using FlightSimulatorGui.Model;
+using FlightSimulatorGui.server;
+using FlightSimulatorGui.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +23,21 @@ namespace FlightSimulatorGui.Views
     /// </summary>
     public partial class Sliders : UserControl
     {
+        SlidersViewModel slidersViewModel;
         public Sliders()
         {
             InitializeComponent();
+            this.slidersViewModel = new SlidersViewModel();
         }
 
-        private void sldAilronValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sldThrottleValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            //FlightSimulatorModel.addCommandToQueue(sldAilron.Value);
+            slidersViewModel.sldThrottleUpdate(e.NewValue);
         }
 
-        private void sldReronValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sldAileronValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            //FlightSimulatorModel.addCommandToQueue(sldAilron.Value);
+            slidersViewModel.sldAileronUpdate(e.NewValue);
         }
     }
 }

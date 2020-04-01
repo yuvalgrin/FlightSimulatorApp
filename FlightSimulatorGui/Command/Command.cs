@@ -1,10 +1,9 @@
 ﻿using System;
-
-
+using FlightSimulatorGui.Model;
 public abstract class Command
 {
 	public abstract String execute();
-
+	public abstract string getValue();
 	public abstract string path();
 
 	public static Command parseRawCommand(String rawCmd)
@@ -49,6 +48,11 @@ public class SetCommand : Command
 		return this.param;
 	}
 
+	public override string getValue()
+	{
+		return this.value + "";
+	}
+
 	public override String execute() { return "get " + param + " " + value; }
 }
 
@@ -59,11 +63,15 @@ public class GetCommand : Command
 
 	public GetCommand(String param)
     {
-		
 		this.param = param;
 	}
 
 	public override String execute() { return "get " + param; }
+
+	public override string getValue()
+	{
+		return FlightSimulatorModel.get().getDataByKey(path());
+	}
 
 	public override string path()
 	{
