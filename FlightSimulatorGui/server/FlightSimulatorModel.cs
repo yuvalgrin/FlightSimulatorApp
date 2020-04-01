@@ -24,6 +24,7 @@ namespace FlightSimulatorGui.Model
         private  Queue<Command> queue;
         private  Dictionary<string, string> valueMap;
         private Dictionary<string, string> settingsMap;
+        private Dictionary<string, string> reverseSettingsMap;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Init default location.
@@ -84,13 +85,30 @@ namespace FlightSimulatorGui.Model
                 {"altitude", "/instrumentation/gps/indicated-altitude-ft"},
                 {"ground-speed", "/instrumentation/gps/indicated-ground-speed-kt"},
                 {"vertical-speed", "/instrumentation/gps/indicated-vertical-speed"},
-                {"heading", "/instrumentation/heading-indicator/indicated-heading-deg<"},
+                {"heading", "/instrumentation/heading-indicator/indicated-heading-deg"},
                 {"aileron", "/controls/flight/aileron"},
                 {"elevator", "/controls/flight/elevator"},
                 {"rudder", "/controls/flight/rudder"},
                 {"throttle", "/controls/engines/current-engine/throttle"},
                 {"latitude", "/position/latitude-deg"},
                 {"longitude", "/position/longitude-deg"}
+            };
+            this.reverseSettingsMap = new Dictionary<string, string>()
+            {
+                {"/instrumentation/airspeed-indicator/indicated-speed-kt", "airspeed"},
+                {"/instrumentation/altimeter/indicated-altitude-ft","altimeter"},
+                {"/instrumentation/attitude-indicator/internal-pitch-deg", "pitch"},
+                {"/instrumentation/attitude-indicator/internal-roll-deg", "roll"},
+                {"/instrumentation/gps/indicated-altitude-ft","altitude"},
+                {"/instrumentation/gps/indicated-ground-speed-kt", "ground-speed"},
+                {"/instrumentation/gps/indicated-vertical-speed", "vertical-speed"},
+                {"/instrumentation/heading-indicator/indicated-heading-deg", "heading"},
+                {"/controls/flight/aileron", "aileron"},
+                {"/controls/flight/elevator","elevator"},
+                {"/controls/flight/rudder", "rudder"},
+                {"/controls/engines/current-engine/throttle", "throttle"},
+                {"/position/latitude-deg", "latitude"},
+                {"/position/longitude-deg", "longitude"}
             };
             //this.parseXml();
             PropertyChanged += notifyUpdate;
@@ -134,7 +152,7 @@ namespace FlightSimulatorGui.Model
             {
                 this.valueMap[key] = newValue;
             }
-            NotifyPropertyChanged(this.settingsMap[key]);
+            NotifyPropertyChanged(this.reverseSettingsMap[key]);
         }
 
         // Get the flight stats from the data map using only the referernce name (and not the long coded name)

@@ -63,7 +63,7 @@ public class GetCommand : Command
 
 	public GetCommand(String param)
     {
-		this.param = param;
+		this.param = param + "\n";
 	}
 
 	public override String execute() { return "get " + param; }
@@ -75,7 +75,7 @@ public class GetCommand : Command
 
 	public override string path()
 	{
-		return this.param;
+		return this.param.Substring(0, this.param.Length - 1); ;
 	}
 
 }
