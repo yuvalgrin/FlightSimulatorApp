@@ -69,6 +69,7 @@
     <Compile Include="server\FlightSimulatorModel.cs" />
     <Compile Include="server\MyTcpClient.cs" />
     <Compile Include="server\MyTcpServer.cs" />
+    <Compile Include="ViewModel\BaseNotify.cs" />
     <Compile Include="ViewModel\ControlRoomViewModel.cs" />
     <Compile Include="ViewModel\DataViewViewModel.cs" />
     <Compile Include="ViewModel\JoystickViewModel.cs" />

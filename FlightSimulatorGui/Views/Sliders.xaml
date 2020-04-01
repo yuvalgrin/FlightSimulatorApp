@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlightSimulatorGui.Views"
+             xmlns:VM="clr-namespace:FlightSimulatorGui.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="110" d:DesignWidth="430">
+    <UserControl.DataContext>
+        <VM:MapViewModel />
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25"/>
@@ -18,13 +22,15 @@
             <RowDefinition Height="24"/>
             <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="1" Name="lblAilron" Content="Ailron" FontSize="13" HorizontalAlignment="Center"/>
+        <Label Grid.Row="0" Grid.Column="1" Name="lblThrottle" Content="Throttle = " FontSize="13" HorizontalAlignment="Center"/>
+        <Label Grid.Row="0" Grid.Column="1" Name="lblThrottleVal" Content="{Binding VM_Throttle}" FontSize="13" HorizontalAlignment="Center" Margin="223,0,139,0"/>
         <Label Grid.Row="1" Grid.Column="2" Content="1" FontSize="14"/>
         <Label Grid.Row="1" Grid.Column="0" Content="-1" FontSize="14" RenderTransformOrigin="0.579,-0.05"/>
-        <Slider Grid.Row="1" Grid.Column="1"  Name="sldAilron" Margin="0,1,0,0" Minimum="-1" Maximum="1" TickPlacement="TopLeft"  SmallChange="0.1" LargeChange="0.1" TickFrequency="0.1" HorizontalAlignment="Left" Width="380" ValueChanged="sldAilronValueChange"/>
-        <Label Grid.Row="2" Grid.Column="1" Name="lblReron" Content="Reron" FontSize="13" HorizontalAlignment="Center"/>
+        <Slider Grid.Row="1" Grid.Column="1"  Name="sldThrottle" Margin="0,1,0,0" Minimum="-1" Maximum="1" TickPlacement="TopLeft"  SmallChange="0.1" LargeChange="0.1" TickFrequency="0.1" HorizontalAlignment="Left" Width="380" ValueChanged="sldThrottleValueChange"/>
+        <Label Grid.Row="2" Grid.Column="1" Name="lblAileron" Content="Aileron = " FontSize="13" HorizontalAlignment="Center"/>
+        <Label Grid.Row="2" Grid.Column="1" Name="lblAileronVal" Content="{Binding VM_Aileron}" FontSize="13" HorizontalAlignment="Center" Margin="223,0,139,0"/>
         <Label Grid.Row="3" Grid.Column="2" Content="1" FontSize="14"/>
         <Label Grid.Row="3" Grid.Column="0" Content="-1" FontSize="14"/>
-        <Slider Grid.Row="3" Grid.Column="1" x:Name="sldReron" Margin="0,1,0,0" Minimum="-1" Maximum="1" TickPlacement="TopLeft"  SmallChange="0.1" LargeChange="0.1" TickFrequency="0.1" HorizontalAlignment="Left" Width="380" ValueChanged="sldReronValueChange"/>
+        <Slider Grid.Row="3" Grid.Column="1" x:Name="sldAileron" Margin="0,1,0,0" Minimum="-1" Maximum="1" TickPlacement="TopLeft"  SmallChange="0.1" LargeChange="0.1" TickFrequency="0.1" HorizontalAlignment="Left" Width="380" ValueChanged="sldAileronValueChange"/>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightSimulatorGui.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace FlightSimulatorGui.Views
     /// </summary>
     public partial class DataView : UserControl
     {
+        DataViewViewModel dataViewViewModel;
         public DataView()
         {
             InitializeComponent();
+            dataViewViewModel = new DataViewViewModel();
         }
     }
 }
