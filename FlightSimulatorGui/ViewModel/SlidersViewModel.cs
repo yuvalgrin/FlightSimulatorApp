@@ -31,6 +31,10 @@ namespace FlightSimulatorGui.ViewModel
 
         public SlidersViewModel()
         {
+            model.PropertyChanged +=
+                delegate (Object sender, PropertyChangedEventArgs e) {
+                    NotifyPropertyChanged("VM_" + e.PropertyName);
+                };
         }
 
         public void sldThrottleUpdate(double value)

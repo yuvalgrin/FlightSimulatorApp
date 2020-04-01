@@ -9,6 +9,14 @@ namespace FlightSimulatorGui.ViewModel
 {
     public class ControlRoomViewModel : BaseNotify
     {
+        public ControlRoomViewModel()
+        {
+            model.PropertyChanged +=
+                delegate (Object sender, PropertyChangedEventArgs e) {
+                    NotifyPropertyChanged("VM_" + e.PropertyName);
+                };
+        }
+
         String VM_QueryRes
         {
             set
