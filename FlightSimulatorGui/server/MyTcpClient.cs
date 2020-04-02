@@ -27,8 +27,15 @@ public class MyTcpClient
             server = ConfigurationSettings.AppSettings["ServerIP"];
         } else
         {
-            connectionPort = int.Parse(port);
-            server = ip;
+            try
+            {
+                connectionPort = int.Parse(port);
+                server = ip;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
         try
         {
@@ -53,10 +60,7 @@ public class MyTcpClient
                 Byte[] data = null;
                 // Get a client stream for reading and writing.
                 //  Stream stream = client.GetStream();
-                if (stream == null)
-                {
-                    throw new Exception("Was not able no initialize connection");
-                }
+
                 while (runClient)
                 {
                     // Translate the passed message into ASCII and store it as a Byte array.
