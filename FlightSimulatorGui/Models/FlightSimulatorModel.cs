@@ -54,19 +54,20 @@ namespace FlightSimulatorGui.Model
                 NotifyPropertyChanged("ConnRes");
             }
         } 
-        public String _ErrorMsg;
+        private String _ErrorMsg;
         public String ErrorMsg
         {
             get { return _ErrorMsg; }
             set
             {
                 _ErrorMsg = value;
-                DelayedExecutionService.DelayedExecute(() => FlightSimulatorModel.get().ErrorEnabled = false);
+                ErrorEnabled = 1;
+                DelayedExecutionService.DelayedExecute(() => FlightSimulatorModel.get().ErrorEnabled = 0);
                 NotifyPropertyChanged("ErrorMsg");
             }
-        }        
-        public Boolean _ErrorEnabled;
-        public Boolean ErrorEnabled
+        }
+        private Double _ErrorEnabled;
+        public Double ErrorEnabled
         {
             get { return _ErrorEnabled; }
             set
@@ -240,11 +241,11 @@ namespace FlightSimulatorGui.Model
             try
             {
                 runBackground();
-                ErrorEnabled = false;
+                ErrorEnabled = 0;
             }
             catch (Exception e)
             {
-                throwNewError(e.Message + "\r\nWill try to reconnect in 5 sec.");
+                throwNewError(e.Message + "\r\nWill try to reconnect in 5 seconds");
                 DelayedExecutionService.DelayedExecute(() => initRunBackground(), 5000);
             }
         }
@@ -274,7 +275,6 @@ namespace FlightSimulatorGui.Model
         public void throwNewError(String msg)
         {
             ErrorMsg = msg;
-            ErrorEnabled = true;
         }
 
         public void NotifyPropertyChanged(string propName)

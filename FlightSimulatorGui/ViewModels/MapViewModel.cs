@@ -17,7 +17,7 @@ namespace FlightSimulatorGui.ViewModel
         {
             get { return model.Location; }
         }
-        public Boolean VM_ErrorEnabled
+        public Double VM_ErrorEnabled
         {
             get { return model.ErrorEnabled; }
         }      

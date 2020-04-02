@@ -74,7 +74,7 @@ public class MyTcpClient
                     String responseData = String.Empty;
 
                     // Read the first batch of the TcpServer response bytes.
-                    Thread.Sleep(25);
+                    Thread.Sleep(40);
                     stream.ReadTimeout = 200;
                     Int32 bytes = stream.Read(data, 0, data.Length);
                     responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
