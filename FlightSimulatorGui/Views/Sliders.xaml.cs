@@ -15,7 +15,6 @@ namespace FlightSimulatorGui.Views
             InitializeComponent();
             this.slidersViewModel = new SlidersViewModel();
             this.DataContext = slidersViewModel;
-
         }
 
         private void sldThrottleValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)

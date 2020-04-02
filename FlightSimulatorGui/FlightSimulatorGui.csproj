@@ -66,16 +66,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\Command.cs" />
-    <Compile Include="server\DelayedExecutionService.cs" />
-    <Compile Include="server\FlightSimulatorModel.cs" />
-    <Compile Include="server\MyTcpClient.cs" />
-    <Compile Include="ViewModel\BaseNotify.cs" />
-    <Compile Include="ViewModel\ConnSettingsViewModel.cs" />
-    <Compile Include="ViewModel\ControlRoomViewModel.cs" />
-    <Compile Include="ViewModel\DataViewViewModel.cs" />
-    <Compile Include="ViewModel\JoystickViewModel.cs" />
-    <Compile Include="ViewModel\MapViewModel.cs" />
-    <Compile Include="ViewModel\SlidersViewModel.cs" />
+    <Compile Include="Models\DelayedExecutionService.cs" />
+    <Compile Include="Models\FlightSimulatorModel.cs" />
+    <Compile Include="Models\MyTcpClient.cs" />
+    <Compile Include="ViewModels\BaseNotify.cs" />
+    <Compile Include="ViewModels\ConnSettingsViewModel.cs" />
+    <Compile Include="ViewModels\ControlRoomViewModel.cs" />
+    <Compile Include="ViewModels\DataViewViewModel.cs" />
+    <Compile Include="ViewModels\JoystickViewModel.cs" />
+    <Compile Include="ViewModels\MapViewModel.cs" />
+    <Compile Include="ViewModels\SlidersViewModel.cs" />
     <Compile Include="Views\ConnSettings.xaml.cs">
       <DependentUpon>ConnSettings.xaml</DependentUpon>
     </Compile>
