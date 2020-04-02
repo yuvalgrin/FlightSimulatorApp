@@ -308,11 +308,12 @@ namespace FlightSimulatorGui.Model
             }
             else
             {
-                MyTcpClient.killClient();
-                Mutex m = new Mutex();
-                m.WaitOne(1, MyTcpClient.getRunning());
+                if (MyTcpClient.threadAlreadyRunning)
+                    MyTcpClient.killClient();
+                MyTcpClient.m.WaitOne();
                 Thread clientThread = new Thread(() => client.createAndRunClient(stream));
                 clientThread.Start();
+                MyTcpClient.threadAlreadyRunning = true;
                 reply = "Connected succefully to the new server";
             }
             return reply;
