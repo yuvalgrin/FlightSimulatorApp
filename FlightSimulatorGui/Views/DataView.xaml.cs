@@ -16,17 +16,12 @@ using System.Windows.Shapes;
 
 namespace FlightSimulatorGui.Views
 {
-    /// <summary>
-    /// Interaction logic for FSDataView.xaml
-    /// </summary>
     public partial class DataView : UserControl
     {
-        DataViewViewModel dataViewViewModel;
         public DataView()
         {
             InitializeComponent();
-            dataViewViewModel = new DataViewViewModel();
-            this.DataContext = dataViewViewModel;
+            this.DataContext = (Application.Current as App).DataViewViewModel;
         }
     }
 }

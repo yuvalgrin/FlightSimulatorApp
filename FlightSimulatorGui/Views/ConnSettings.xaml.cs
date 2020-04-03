@@ -16,24 +16,17 @@ using System.Windows.Shapes;
 
 namespace FlightSimulatorGui.Views
 {
-    /// <summary>
-    /// Interaction logic for FSDataView.xaml
-    /// </summary>
     public partial class ConnSettings : UserControl
     {
-        ConnSettingsViewModel connSettingsViewModel;
-
         public ConnSettings()
         {
             InitializeComponent();
-            connSettingsViewModel = new ConnSettingsViewModel();
-            this.DataContext = connSettingsViewModel;
-
+            this.DataContext = (Application.Current as App).ConnSettingsViewModel;
         }
 
         private void btnData_Click(object sender, RoutedEventArgs e)
         {
-            connSettingsViewModel.queryUpdate(tbIp.Text, tbPort.Text);
+            (Application.Current as App).ConnSettingsViewModel.queryUpdate(tbIp.Text, tbPort.Text);
         }
     }
 }

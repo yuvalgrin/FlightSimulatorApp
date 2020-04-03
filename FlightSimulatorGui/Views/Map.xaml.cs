@@ -20,13 +20,10 @@ namespace FlightSimulatorGui.Views
 {
     public partial class Map : UserControl
     {
-        MapViewModel mapViewModel;
-
         public Map()
         {
             InitializeComponent();
-            mapViewModel = new MapViewModel();
-            this.DataContext = mapViewModel;
+            this.DataContext = (Application.Current as App).MapViewModel;
         }
 
     }

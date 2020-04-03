@@ -11,7 +11,7 @@ using FlightSimulatorGui.server;
 
 namespace FlightSimulatorGui.ViewModel
 {
-    class MapViewModel : BaseNotify
+    public class MapViewModel : BaseNotify
     {
         public Location VM_Location
         {

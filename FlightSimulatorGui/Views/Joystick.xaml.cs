@@ -17,9 +17,6 @@ using FlightSimulatorGui.ViewModel;
 
 namespace FlightSimulatorGui.Views
 {
-    /// <summary>
-    /// Interaction logic for Joystick.xaml
-    /// </summary>
     public partial class Joystick : UserControl
     {
         public delegate void OnScreenJoystickEventHandler(Joystick sender, VirtualJoystickEventArgs args);
@@ -29,8 +26,6 @@ namespace FlightSimulatorGui.Views
         private Point clickPoint;
         private Double canWidth;
         private Double canHeight;
-        JoystickViewModel joystickViewModel;
-
 
         public static readonly DependencyProperty AileronProperty =
         DependencyProperty.Register("Aileron", typeof(double), typeof(Joystick), null);
@@ -68,9 +63,7 @@ namespace FlightSimulatorGui.Views
         {
             InitializeComponent();
             Moved += notifyKnobMove;
-            joystickViewModel = new JoystickViewModel();
-            this.DataContext = joystickViewModel;
-
+            this.DataContext = (Application.Current as App).JoystickViewModel;
 
             centerKnob = Knob.Resources["CenterKnob"] as Storyboard;
         }
@@ -83,8 +76,8 @@ namespace FlightSimulatorGui.Views
 
         public void notifyKnobMove(object sender, VirtualJoystickEventArgs e)
         {
-            joystickViewModel.joyAileronUpdate(e.Aileron);
-            joystickViewModel.joyElevatorUpdate(e.Elevator);
+            (Application.Current as App).JoystickViewModel.joyAileronUpdate(e.Aileron);
+            (Application.Current as App).JoystickViewModel.joyElevatorUpdate(e.Elevator);
         }
 
         private void Knob_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

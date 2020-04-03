@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorGui.ViewModel
 {
-    class DataViewViewModel : BaseNotify
+    public class DataViewViewModel : BaseNotify
     {
         public double VM_heading
         {

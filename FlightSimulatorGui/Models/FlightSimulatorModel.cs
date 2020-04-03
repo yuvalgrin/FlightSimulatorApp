@@ -25,9 +25,7 @@ namespace FlightSimulatorGui.Model
     {
         private static FlightSimulatorModel instance = null;
         private  Queue<Command> queue;
-        private  Dictionary<string, string> valueMap;
-        private Dictionary<string, string> settingsMap;
-        private Dictionary<string, string> reverseSettingsMap;
+        private  Dictionary<string, string> flightData;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Init default location.
@@ -83,7 +81,7 @@ namespace FlightSimulatorGui.Model
             //holds commands coming from gui
             this.queue = new Queue<Command>();
             // map that holds the values of the FS
-            this.valueMap = new Dictionary<string, string>()
+            this.flightData = new Dictionary<string, string>()
             {
                 {"/instrumentation/airspeed-indicator/indicated-speed-kt", "0.0"},
                 {"/instrumentation/altimeter/indicated-altitude-ft", "0.0"},
@@ -102,7 +100,6 @@ namespace FlightSimulatorGui.Model
             };
         }
 
-
         public static FlightSimulatorModel get()
         {
             if (instance == null)
@@ -110,15 +107,12 @@ namespace FlightSimulatorGui.Model
             return instance;
         }
 
-
-
-
         //incharge of the update of the values and the view model
         public void updateValueMap(string key, string newValue) 
         {
-            if (newValue != this.valueMap[key])
+            if (newValue != this.flightData[key])
             {
-                this.valueMap[key] = newValue;
+                this.flightData[key] = newValue;
             }
             NotifyPropertyChanged(FlightSimulatorResources.fullNameToShort[key]);
         }
@@ -126,22 +120,21 @@ namespace FlightSimulatorGui.Model
         // Get the flight stats from the data map using only the referernce name (and not the long coded name)
         public double getFlightValue(String valueRef)
         {
-            try
-            {
-                String val = this.valueMap[FlightSimulatorResources.shortNameToFull[valueRef]];
-                return Double.Parse(val);
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
+            Double res;
+            String val = this.flightData[FlightSimulatorResources.shortNameToFull[valueRef]];
+            bool isValidVal = Double.TryParse(val, out res);
+
+            if (isValidVal)
+                return res;
+
+            return 0;
         }
 
         public Queue<Command> getCommandsQueue() { return this.queue; }
 
         public Dictionary<string, string> getValueMap()
         {
-            return this.valueMap;
+            return this.flightData;
         }
 
         //Execute a query from the control room and update the value via ViewModel
@@ -182,11 +175,11 @@ namespace FlightSimulatorGui.Model
 
         public string getDataByKey(string key) 
         {
-            return valueMap[key]; 
+            return flightData[key]; 
         }
         public void putDataByKey(string key, string value) 
         {
-            valueMap[key] = value;
+            flightData[key] = value;
         }
         public void sendCommandsToQueue()
         {
@@ -197,7 +190,7 @@ namespace FlightSimulatorGui.Model
                     Command c = new GetCommand(key);
                     this.queue.Enqueue(c);
                 }
-                Thread.Sleep(200);
+                Thread.Sleep(300);
             }
         }
 

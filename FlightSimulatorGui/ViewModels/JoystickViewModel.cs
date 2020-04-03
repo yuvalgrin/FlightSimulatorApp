@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorGui.ViewModel
 {
-    class JoystickViewModel : BaseNotify
+    public class JoystickViewModel : BaseNotify
     {
-
         public JoystickViewModel()
         {
             model.PropertyChanged +=

@@ -16,18 +16,12 @@ using System.Windows.Shapes;
 
 namespace FlightSimulatorGui.Views
 {
-    /// <summary>
-    /// Interaction logic for FSDataView.xaml
-    /// </summary>
     public partial class ControlRoom : UserControl
     {
-        ControlRoomViewModel controlRoomViewModel;
-
         public ControlRoom()
         {
             InitializeComponent();
-            controlRoomViewModel = new ControlRoomViewModel();
-            this.DataContext = controlRoomViewModel;
+            this.DataContext = (Application.Current as App).ControlRoomViewModel;
 
             // Initial value
             tbInput.Text = "get /position/latitude-deg\r\nget /position/longitude-deg";
@@ -35,7 +29,7 @@ namespace FlightSimulatorGui.Views
 
         private void btnData_Click(object sender, RoutedEventArgs e)
         {
-            controlRoomViewModel.queryUpdate(tbInput.Text);
+            (Application.Current as App).ControlRoomViewModel.queryUpdate(tbInput.Text);
         }
     }
 }
