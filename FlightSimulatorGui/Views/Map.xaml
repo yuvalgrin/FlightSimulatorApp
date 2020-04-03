@@ -6,12 +6,7 @@
              xmlns:local="clr-namespace:FlightSimulatorGui.Views"
              xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
              mc:Ignorable="d" 
-             xmlns:VM="clr-namespace:FlightSimulatorGui.ViewModel"
              d:DesignHeight="500" d:DesignWidth="700">
-    <UserControl.DataContext>
-        <VM:MapViewModel />
-    </UserControl.DataContext>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

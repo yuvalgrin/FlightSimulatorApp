@@ -10,7 +10,7 @@
 
              mc:Ignorable="d" 
 
-             d:DesignHeight="340" d:DesignWidth="340">
+             d:DesignHeight="340" d:DesignWidth="340" Background="Black" Foreground="GreenYellow"> 
 
     <Grid>
 

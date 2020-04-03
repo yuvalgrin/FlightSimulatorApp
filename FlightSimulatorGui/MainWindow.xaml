@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:FlightSimulatorGui"
         xmlns:Controls="clr-namespace:FlightSimulatorGui.Views"
         mc:Ignorable="d"
+        Background="Black"
         Title="Flight Simulator" Height="700" Width="1100">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -21,15 +22,15 @@
             <Controls:Joystick Margin="8"/>
             <Controls:Sliders Margin="0"/>
         </StackPanel>
-        
-        <TabControl Grid.Column="1" Grid.Row="0">
-            <TabItem Header="Flight Stats">
+
+        <TabControl Grid.Column="1" Grid.Row="0" BorderBrush="Black" Background="#1F1F1F">
+            <TabItem Header="Flight Stats" Background="DarkGray">
                 <Controls:DataView/>
             </TabItem>
-            <TabItem Header="Control Room">
+            <TabItem Header="Control Room" Background="DarkGray">
                 <Controls:ControlRoom/>
             </TabItem>
-            <TabItem Header="Connection Settings">
+            <TabItem Header="Connection Settings" Background="DarkGray">
                 <Controls:ConnSettings/>
             </TabItem>
         </TabControl>

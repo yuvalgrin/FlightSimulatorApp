@@ -4,12 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlightSimulatorGui.Views"
-             xmlns:VM="clr-namespace:FlightSimulatorGui.ViewModel"
              mc:Ignorable="d" 
+             Background="Black" Foreground="GreenYellow"
              d:DesignHeight="160" d:DesignWidth="300">
-    <UserControl.DataContext>
-        <VM:ConnSettingsViewModel />
-    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
@@ -22,14 +19,14 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="tbIp" Grid.Row="0" Grid.Column="1">127.0.0.1</TextBox>
-        <TextBox x:Name="tbPort" Grid.Row="1" Grid.Column="1">5402</TextBox>
+        <TextBox x:Name="tbIp" Grid.Row="0" Grid.Column="1" Background="LightGray"  BorderBrush="Black">127.0.0.1</TextBox>
+        <TextBox x:Name="tbPort" Grid.Row="1" Grid.Column="1" Background="LightGray" BorderBrush="Black">5402</TextBox>
 
-        <Label x:Name="lblIp" Grid.Row="0" Grid.Column="0">IP:</Label>
-        <Label x:Name="lblPort" Grid.Row="1" Grid.Column="0">Port:</Label>
-        <Label x:Name="lblOutput3" Grid.Row="3" Grid.Column="0">Output:</Label>
-        <TextBox x:Name="tbOutputData" Text="{Binding VM_ConnRes}"  Grid.Row="3" Grid.Column="1"></TextBox>
-        <Button x:Name="btnData" Grid.Row="3" Grid.Column="2" Click="btnData_Click">Submit</Button>
+        <Label x:Name="lblIp" Grid.Row="0" Grid.Column="0"  Foreground="GreenYellow">IP:</Label>
+        <Label x:Name="lblPort" Grid.Row="1" Grid.Column="0" Foreground="GreenYellow">Port:</Label>
+        <Label x:Name="lblOutput3" Grid.Row="3" Grid.Column="0" Foreground="GreenYellow" FontSize="12" FontWeight="SemiBold" FontStyle="Italic">Output:</Label>
+        <Label x:Name="tbOutputData" Content="{Binding VM_ConnRes}" Foreground="GreenYellow"  Grid.Row="3" Grid.Column="1"></Label>
+        <Button x:Name="btnData" Grid.Row="3" Grid.Column="2" Click="btnData_Click" Background="DarkGreen" Foreground="GreenYellow">Submit</Button>
 
 
     </Grid>

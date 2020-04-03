@@ -5,11 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlightSimulatorGui.Views"
              mc:Ignorable="d" 
-             xmlns:VM="clr-namespace:FlightSimulatorGui.ViewModel"
-             d:DesignHeight="160" d:DesignWidth="300">
-    <UserControl.DataContext>
-        <VM:DataViewViewModel />
-    </UserControl.DataContext>
+             d:DesignHeight="160" d:DesignWidth="300" Background="Black" Foreground="GreenYellow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -35,13 +31,13 @@
         <TextBlock x:Name="lblAIIPD" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center">attitude-indicator_internal-pitch-deg:</TextBlock>
         <TextBlock x:Name="lblAIAF" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">altimeter_indicated-altitude-ft:</TextBlock>
 
-        <Label x:Name="lblIHG_data" Grid.Row="0" Grid.Column="1" Margin="0,-4,0,0" Content="{Binding VM_heading}"/>
-        <Label x:Name="lblGIVS_data" Grid.Row="1" Grid.Column="1" Margin="0,-4,0,0" Content="{Binding VM_vertical_speed}"/>
-        <Label x:Name="lblGIGSK_data" Grid.Row="2" Grid.Column="1" Margin="0,-4,0,0" Content="{Binding VM_ground_speed}"/>
-        <Label x:Name="lblAIISK_data" Grid.Row="3" Grid.Column="1" Margin="0,-4,0,0" Content="{Binding VM_air_speed}"/>
-        <Label x:Name="lblGIAF_data" Grid.Row="4" Grid.Column="1" Margin="0,-4,0,0" Content="{Binding VM_altitude}"/>
-        <Label x:Name="lblAIIRD_data" Grid.Row="5" Grid.Column="1" Margin="0,-4,0,0" Content="{Binding VM_roll}"/>
-        <Label x:Name="lblAIIPD_data" Grid.Row="6" Grid.Column="1" Margin="0,-4,0,0" Content="{Binding VM_pitch}"/>
-        <Label x:Name="lblAIAF_data" Grid.Row="7" Grid.Column="1" Margin="0,-4,0,0" Content="{Binding VM_altimeter}"/>
+        <Label x:Name="lblIHG_data" Grid.Row="0" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_heading}"/>
+        <Label x:Name="lblGIVS_data" Grid.Row="1" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_vertical_speed}"/>
+        <Label x:Name="lblGIGSK_data" Grid.Row="2" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_ground_speed}"/>
+        <Label x:Name="lblAIISK_data" Grid.Row="3" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_air_speed}"/>
+        <Label x:Name="lblGIAF_data" Grid.Row="4" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_altitude}"/>
+        <Label x:Name="lblAIIRD_data" Grid.Row="5" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_roll}"/>
+        <Label x:Name="lblAIIPD_data" Grid.Row="6" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_pitch}"/>
+        <Label x:Name="lblAIAF_data" Grid.Row="7" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_altimeter}"/>
     </Grid>
 </UserControl>
