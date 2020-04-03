@@ -68,6 +68,7 @@
     <Compile Include="Command\Command.cs" />
     <Compile Include="Models\DelayedExecutionService.cs" />
     <Compile Include="Models\FlightSimulatorModel.cs" />
+    <Compile Include="Models\FlightSimulatorResources.cs" />
     <Compile Include="Models\MyTcpClient.cs" />
     <Compile Include="ViewModels\BaseNotify.cs" />
     <Compile Include="ViewModels\ConnSettingsViewModel.cs" />

@@ -17,7 +17,7 @@ namespace FlightSimulatorGui
 
         public void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            FlightSimulatorModel.get().ErrorMsg = e.Exception.Message;
+            FlightSimulatorModel.get().throwNewError(e.Exception.Message);
             e.Handled = true;
         }
 

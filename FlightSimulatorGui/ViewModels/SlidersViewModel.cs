@@ -13,7 +13,7 @@ namespace FlightSimulatorGui.ViewModel
         private Double _VM_Throttle;
         public Double VM_Throttle
         {
-            get { return _VM_Throttle; }
+            get { return Math.Round(_VM_Throttle, 2); }
             set {
                 _VM_Throttle = value;
                 NotifyPropertyChanged("VM_Throttle"); }
@@ -22,7 +22,7 @@ namespace FlightSimulatorGui.ViewModel
         private Double _VM_Rudder;
         public Double VM_Rudder
         {
-            get { return _VM_Rudder; }
+            get { return Math.Round(_VM_Rudder, 2); }
             set
             {
                 _VM_Rudder = value;

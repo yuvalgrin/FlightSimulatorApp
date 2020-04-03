@@ -30,15 +30,10 @@ public class MyTcpClient
             server = ConfigurationSettings.AppSettings["ServerIP"];
         } else
         {
-            try
-            {
-                connectionPort = int.Parse(port);
-                server = ip;
-            }
-            catch (Exception e)
-            {
+            bool isValidPort = int.TryParse(port, out connectionPort);
+            server = ip;
+            if (!isValidPort)
                 return null;
-            }
         }
         try
         {
@@ -79,8 +74,8 @@ public class MyTcpClient
                 String responseData = String.Empty;
 
                 // Read the first batch of the TcpServer response bytes.
-                Thread.Sleep(40);
-                stream.ReadTimeout = 200;
+                Thread.Sleep(30);
+                stream.ReadTimeout = 1000;
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                 responseData = responseData.Substring(0, responseData.Length - 1);
@@ -99,7 +94,7 @@ public class MyTcpClient
         }
         catch (Exception e)
         {
-            throw new Exception(e.Message);
+            FlightSimulatorModel.get().throwNewError(e.Message);
         }
         finally
         {

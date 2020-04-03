@@ -115,7 +115,7 @@ namespace FlightSimulatorGui.Views
             deltaPoint = new Point(deltaX, deltaY);
 
             Double distance = calcDist(deltaPoint);
-            if (Double.IsNaN(distance))
+            if (Double.IsNaN(distance) || distance == 0)
                 return;
 
             Aileron = Math.Round(2.1 * deltaPoint.X / canWidth, 2);

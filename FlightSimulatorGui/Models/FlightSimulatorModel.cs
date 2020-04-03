@@ -14,6 +14,7 @@ using System.Configuration;
 using System.IO;
 using FlightSimulatorGui.server;
 using System.Windows;
+using FlightSimulatorGui.Models;
 
 namespace FlightSimulatorGui.Model
 {
@@ -62,7 +63,7 @@ namespace FlightSimulatorGui.Model
             {
                 _ErrorMsg = value;
                 ErrorEnabled = 1;
-                DelayedExecutionService.DelayedExecute(() => FlightSimulatorModel.get().ErrorEnabled = 0);
+                DelayedExecutionService.DelayedExecute(() => ErrorEnabled = 0);
                 NotifyPropertyChanged("ErrorMsg");
             }
         }
@@ -98,41 +99,6 @@ namespace FlightSimulatorGui.Model
                 {"/controls/engines/current-engine/throttle", "0.0"},
                 {"/position/latitude-deg", "0.0"},
                 {"/position/longitude-deg", "0.0"}
-
-            };
-            this.settingsMap = new Dictionary<string, string>()
-            {
-                {"air_speed", "/instrumentation/airspeed-indicator/indicated-speed-kt"},
-                {"altimeter", "/instrumentation/altimeter/indicated-altitude-ft"},
-                {"pitch", "/instrumentation/attitude-indicator/internal-pitch-deg"},
-                {"roll", "/instrumentation/attitude-indicator/internal-roll-deg"},
-                {"altitude", "/instrumentation/gps/indicated-altitude-ft"},
-                {"ground_speed", "/instrumentation/gps/indicated-ground-speed-kt"},
-                {"vertical_speed", "/instrumentation/gps/indicated-vertical-speed"},
-                {"heading", "/instrumentation/heading-indicator/indicated-heading-deg"},
-                {"aileron", "/controls/flight/aileron"},
-                {"elevator", "/controls/flight/elevator"},
-                {"rudder", "/controls/flight/rudder"},
-                {"throttle", "/controls/engines/current-engine/throttle"},
-                {"latitude", "/position/latitude-deg"},
-                {"longitude", "/position/longitude-deg"}
-            };
-            this.reverseSettingsMap = new Dictionary<string, string>()
-            {
-                {"/instrumentation/airspeed-indicator/indicated-speed-kt", "air_speed"},
-                {"/instrumentation/altimeter/indicated-altitude-ft","altimeter"},
-                {"/instrumentation/attitude-indicator/internal-pitch-deg", "pitch"},
-                {"/instrumentation/attitude-indicator/internal-roll-deg", "roll"},
-                {"/instrumentation/gps/indicated-altitude-ft","altitude"},
-                {"/instrumentation/gps/indicated-ground-speed-kt", "ground_speed"},
-                {"/instrumentation/gps/indicated-vertical-speed", "vertical_speed"},
-                {"/instrumentation/heading-indicator/indicated-heading-deg", "heading"},
-                {"/controls/flight/aileron", "aileron"},
-                {"/controls/flight/elevator","elevator"},
-                {"/controls/flight/rudder", "rudder"},
-                {"/controls/engines/current-engine/throttle", "throttle"},
-                {"/position/latitude-deg", "latitude"},
-                {"/position/longitude-deg", "longitude"}
             };
         }
 
@@ -154,7 +120,7 @@ namespace FlightSimulatorGui.Model
             {
                 this.valueMap[key] = newValue;
             }
-            NotifyPropertyChanged(this.reverseSettingsMap[key]);
+            NotifyPropertyChanged(FlightSimulatorResources.fullNameToShort[key]);
         }
 
         // Get the flight stats from the data map using only the referernce name (and not the long coded name)
@@ -162,7 +128,7 @@ namespace FlightSimulatorGui.Model
         {
             try
             {
-                String val = this.valueMap[settingsMap[valueRef]];
+                String val = this.valueMap[FlightSimulatorResources.shortNameToFull[valueRef]];
                 return Double.Parse(val);
             }
             catch (Exception e)
@@ -226,7 +192,7 @@ namespace FlightSimulatorGui.Model
         {
             while (MyTcpClient.getRunning())
             {
-                foreach (string key in this.reverseSettingsMap.Keys)
+                foreach (string key in FlightSimulatorResources.fullNameToShort.Keys)
                 {
                     Command c = new GetCommand(key);
                     this.queue.Enqueue(c);
@@ -238,19 +204,16 @@ namespace FlightSimulatorGui.Model
 
         public void initRunBackground()
         {
-            try
+            ErrorEnabled = 0;
+            String error = runBackground();
+            if (error != null)
             {
-                runBackground();
-                ErrorEnabled = 0;
-            }
-            catch (Exception e)
-            {
-                throwNewError(e.Message + "\r\nWill try to reconnect in 5 seconds");
+                throwNewError(error + "\r\nWill try to reconnect in 5 seconds");
                 DelayedExecutionService.DelayedExecute(() => initRunBackground(), 5000);
             }
         }
 
-        public void runBackground()
+        public String runBackground()
         {
             Thread getCommand = new Thread(sendCommandsToQueue);
             getCommand.Start();
@@ -259,11 +222,11 @@ namespace FlightSimulatorGui.Model
             NetworkStream stream = client.initializeConnection(null, null);
             if (stream == null)
             {
-
-                throw new Exception("Could not connect to the default server");
+                return "Could not connect to the default server";
             }
             Thread clientThread = new Thread(() => client.createAndRunClient(stream));
             clientThread.Start();
+            return null;
         }
 
         void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

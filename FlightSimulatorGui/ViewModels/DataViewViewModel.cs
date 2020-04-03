@@ -12,35 +12,35 @@ namespace FlightSimulatorGui.ViewModel
     {
         public double VM_heading
         {
-            get { return model.getFlightValue("heading"); }
+            get { return Math.Round(model.getFlightValue("heading"), 3); }
         }
         public double VM_vertical_speed
         {
-            get { return model.getFlightValue("vertical_speed"); }
+            get { return Math.Round(model.getFlightValue("vertical_speed"), 3); }
         }
         public double VM_ground_speed
         {
-            get { return model.getFlightValue("ground_speed"); }
+            get { return Math.Round(model.getFlightValue("ground_speed"), 3); }
         }
         public double VM_air_speed
         {
-            get { return model.getFlightValue("air_speed"); }
+            get { return Math.Round(model.getFlightValue("air_speed"), 3); }
         }
         public double VM_altitude
         {
-            get { return model.getFlightValue("altitude"); }
+            get { return Math.Round(model.getFlightValue("altitude"), 3); }
         }
         public double VM_roll
         {
-            get { return model.getFlightValue("roll"); }
+            get { return Math.Round(model.getFlightValue("roll"), 3); }
         }
         public double VM_pitch
         {
-            get { return model.getFlightValue("pitch"); }
+            get { return Math.Round(model.getFlightValue("pitch"), 3); }
         }
         public double VM_altimeter
         {
-            get { return model.getFlightValue("altimeter"); }
+            get { return Math.Round(model.getFlightValue("altimeter"), 3); }
         }
 
         public DataViewViewModel()

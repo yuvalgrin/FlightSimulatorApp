@@ -22,8 +22,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="tbIp" Grid.Row="0" Grid.Column="1"></TextBox>
-        <TextBox x:Name="tbPort" Grid.Row="1" Grid.Column="1"></TextBox>
+        <TextBox x:Name="tbIp" Grid.Row="0" Grid.Column="1">127.0.0.1</TextBox>
+        <TextBox x:Name="tbPort" Grid.Row="1" Grid.Column="1">5402</TextBox>
 
         <Label x:Name="lblIp" Grid.Row="0" Grid.Column="0">IP:</Label>
         <Label x:Name="lblPort" Grid.Row="1" Grid.Column="0">Port:</Label>
