@@ -32,14 +32,21 @@ namespace FlightSimulatorGui.ViewModel
             model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
                     // Add a delegate function to update the airplane location object from lat/lon values
+                    Double value;
                     switch (e.PropertyName)
                     {
                         case "latitude":
-                            model.Location = new Location(model.getFlightValue("latitude"), model.Location.Longitude);
+                            value = model.getFlightValue("latitude");
+                            if (value > 90) value = 90;
+                            if (value < -90) value = -90;
+                            model.Location = new Location(value, model.Location.Longitude);
                             NotifyPropertyChanged("VM_Location");
                             return;
                         case "longtitude":
-                            model.Location = new Location(model.getFlightValue("longtitude"), model.Location.Longitude);
+                           value = model.getFlightValue("longtitude");
+                            if (value > 180) value = 180;
+                            if (value < -180) value = -180;
+                            model.Location = new Location(value, model.Location.Longitude);
                             NotifyPropertyChanged("VM_Location");
                             return;
                     }
