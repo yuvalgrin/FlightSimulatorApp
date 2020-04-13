@@ -73,7 +73,9 @@ public class MyTcpClient
             while (_runClient)
             {
                 // Translate the passed message into ASCII and store it as a Byte array.
-                Command c = FlightSimulatorModel.Get().Queue.Dequeue();
+                Command c = chooseCommand();
+                if (c == null)
+                    continue;
                 data = System.Text.Encoding.ASCII.GetBytes(c.execute());
                 // Send the message to the connected TcpServer. 
                 stream.Write(data, 0, data.Length);
@@ -113,6 +115,16 @@ public class MyTcpClient
             M.Set();
         }
         
+    }
+
+    private Command chooseCommand()
+    {
+        if (FlightSimulatorModel.Get().PriorityQueue.Count != 0)
+            return FlightSimulatorModel.Get().PriorityQueue.Dequeue();
+        else if (FlightSimulatorModel.Get().Queue.Count != 0)
+            return FlightSimulatorModel.Get().Queue.Dequeue();
+        else
+            return null;
     }
 
     //the function that will be run in a thread

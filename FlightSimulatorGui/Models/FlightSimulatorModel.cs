@@ -24,9 +24,14 @@ namespace FlightSimulatorGui.Model
     public class FlightSimulatorModel
     {
         private static FlightSimulatorModel _instance = null;
-        private Queue<Command> _queue;
-        private Thread commandsQueueThread;
+        private Thread _commandsQueueThread;
 
+        private Queue<Command> _priorityQueue;
+        public Queue<Command> PriorityQueue
+        {
+            get { return _priorityQueue; }
+        }
+        private Queue<Command> _queue;
         public Queue<Command> Queue
         {
             get { return _queue; }
@@ -39,10 +44,7 @@ namespace FlightSimulatorGui.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// Init default location.
-        public static double _defaultLat = 31.643854;
-        public static double _defaultLon = 34.920341;
-        public Location Location = new Location(_defaultLat, _defaultLon);
+        public Location Location { get; set; }
 
         private String _queryRes;
         public String QueryRes
@@ -89,9 +91,12 @@ namespace FlightSimulatorGui.Model
 
         private FlightSimulatorModel()
         {
+            // Init default location 
+            Location = new Location(31.643854, 34.920341);
             //Init the thread that sends commands to queue
-            this.commandsQueueThread = new Thread(SendCommandsToQueue);
+            this._commandsQueueThread = new Thread(SendCommandsToQueue);
             //holds commands coming from gui
+            this._priorityQueue = new Queue<Command>();
             this._queue = new Queue<Command>();
             // map that holds the values of the FS
             this._flightData = new Dictionary<string, string>()
@@ -180,6 +185,12 @@ namespace FlightSimulatorGui.Model
             this._queue.Enqueue(c);
         }
 
+        // If set command had value more than max (same for less than min) put the closest valid value
+        public void AddCommandToPriorityQueue(Command c)
+        {
+            this._priorityQueue.Enqueue(c);
+        }
+
         public string GetDataByKey(string key)
         {
             return _flightData[key];
@@ -221,8 +232,8 @@ namespace FlightSimulatorGui.Model
             {
                 return "Could not connect to the default server";
             }
-            if (!commandsQueueThread.IsAlive)
-                commandsQueueThread.Start();
+            if (!_commandsQueueThread.IsAlive)
+                _commandsQueueThread.Start();
 
             Thread clientThread = new Thread(() => client.CreateAndRunClient(stream));
             clientThread.Start();
@@ -270,8 +281,8 @@ namespace FlightSimulatorGui.Model
             }
             else
             {
-                if (!commandsQueueThread.IsAlive)
-                    commandsQueueThread.Start();
+                if (!_commandsQueueThread.IsAlive)
+                    _commandsQueueThread.Start();
 
                 if (MyTcpClient.ThreadAlreadyRunning)
                     MyTcpClient.KillClient();
