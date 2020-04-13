@@ -25,6 +25,7 @@ namespace FlightSimulatorGui.Model
     {
         private static FlightSimulatorModel _instance = null;
         private Queue<Command> _queue;
+        private Thread commandsQueueThread;
 
         public Queue<Command> Queue
         {
@@ -88,6 +89,8 @@ namespace FlightSimulatorGui.Model
 
         private FlightSimulatorModel()
         {
+            //Init the thread that sends commands to queue
+            this.commandsQueueThread = new Thread(SendCommandsToQueue);
             //holds commands coming from gui
             this._queue = new Queue<Command>();
             // map that holds the values of the FS
@@ -212,15 +215,15 @@ namespace FlightSimulatorGui.Model
 
         public String RunBackground()
         {
-            Thread getCommand = new Thread(SendCommandsToQueue);
-            getCommand.Start();
-
             MyTcpClient client = new MyTcpClient();
             NetworkStream stream = client.InitializeConnection(null, null);
             if (stream == null)
             {
                 return "Could not connect to the default server";
             }
+            if (!commandsQueueThread.IsAlive)
+                commandsQueueThread.Start();
+
             Thread clientThread = new Thread(() => client.CreateAndRunClient(stream));
             clientThread.Start();
             return null;
@@ -267,6 +270,9 @@ namespace FlightSimulatorGui.Model
             }
             else
             {
+                if (!commandsQueueThread.IsAlive)
+                    commandsQueueThread.Start();
+
                 if (MyTcpClient.ThreadAlreadyRunning)
                     MyTcpClient.KillClient();
                 MyTcpClient.M.WaitOne();
