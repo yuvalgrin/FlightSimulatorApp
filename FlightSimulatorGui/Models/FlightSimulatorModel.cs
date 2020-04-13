@@ -18,7 +18,7 @@ using FlightSimulatorGui.Models;
 
 namespace FlightSimulatorGui.Model
 {
-    // Hold the data from FS
+    // Hold the data from FS.
     // Hold and update queue of queries to be sent
     // Get updates from FS into the data map
     public class FlightSimulatorModel
