@@ -20,12 +20,12 @@ namespace FlightSimulatorGui.ViewModel
 
         public void JoyElevatorUpdate(double value)
         {
-            model.addCommandToQueue(new SetCommand("/controls/flight/elevator", value));
+            model.AddCommandToQueue(new SetCommand("/controls/flight/elevator", value));
         }
 
         public void JoyRudderUpdate(double value)
         {
-            model.addCommandToQueue(new SetCommand("/controls/flight/rudder", value));
+            model.AddCommandToQueue(new SetCommand("/controls/flight/rudder", value));
         }
 
     }
