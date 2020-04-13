@@ -12,7 +12,7 @@ namespace FlightSimulatorGui.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public FlightSimulatorModel model = FlightSimulatorModel.get();
+        public FlightSimulatorModel model = FlightSimulatorModel.Get();
 
         public void NotifyPropertyChanged(string propName)
         {

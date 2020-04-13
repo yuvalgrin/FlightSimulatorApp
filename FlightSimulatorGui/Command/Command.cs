@@ -17,7 +17,7 @@ public abstract class Command
 				Double value = Double.Parse(cmdArr[2]);
 				return new SetCommand(param, value);
 			}
-			else if (cmdArr[0].Equals("get") && cmdArr.Length == 2)
+			else if (cmdArr[0].Equals("Get") && cmdArr.Length == 2)
 			{
 				String param = cmdArr[1];
 				return new GetCommand(param);
@@ -66,11 +66,11 @@ public class GetCommand : Command
 		this.param = param;
 	}
 
-	public override String execute() { return "get " + param + "\n"; }
+	public override String execute() { return "Get " + param + "\n"; }
 
 	public override string getValue()
 	{
-		return FlightSimulatorModel.get().getDataByKey(path());
+		return FlightSimulatorModel.Get().GetDataByKey(path());
 	}
 
 	public override string path()

@@ -29,7 +29,7 @@ namespace FlightSimulatorGui.ViewModel
         public void queryUpdate(String query)
         {
             VM_QueryRes = "Loading...";
-            model.executeCtrlRoomQuery(query);
+            model.ExecuteCtrlRoomQuery(query);
         }
     }
 }

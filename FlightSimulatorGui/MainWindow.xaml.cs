@@ -26,7 +26,7 @@ namespace FlightSimulatorGui
         public MainWindow()
         {
             InitializeComponent();
-            new Thread(FlightSimulatorModel.get().initRunBackground).Start();
+            new Thread(FlightSimulatorModel.Get().InitRunBackground).Start();
         }
 
     }

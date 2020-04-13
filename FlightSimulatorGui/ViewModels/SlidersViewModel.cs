@@ -20,12 +20,12 @@ namespace FlightSimulatorGui.ViewModel
 
         public void sldThrottleUpdate(double value)
         {
-            model.addCommandToQueue(new SetCommand("/controls/engines/current-engine/throttle", value));
+            model.AddCommandToQueue(new SetCommand("/controls/engines/current-engine/throttle", value));
         }
 
         public void sldRudderUpdate(double value)
         {
-            model.addCommandToQueue(new SetCommand("/controls/flight/aileron", value));
+            model.AddCommandToQueue(new SetCommand("/controls/flight/aileron", value));
         }
 
     }

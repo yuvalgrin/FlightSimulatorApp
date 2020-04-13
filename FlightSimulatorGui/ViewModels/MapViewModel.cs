@@ -36,14 +36,14 @@ namespace FlightSimulatorGui.ViewModel
                     switch (e.PropertyName)
                     {
                         case "latitude":
-                            value = model.getFlightValue("latitude");
+                            value = model.GetFlightValue("latitude");
                             if (value > 90) value = 90;
                             if (value < -90) value = -90;
                             model.Location = new Location(value, model.Location.Longitude);
                             NotifyPropertyChanged("VM_Location");
                             return;
                         case "longtitude":
-                           value = model.getFlightValue("longtitude");
+                           value = model.GetFlightValue("longtitude");
                             if (value > 180) value = 180;
                             if (value < -180) value = -180;
                             model.Location = new Location(value, model.Location.Longitude);

@@ -24,7 +24,7 @@ namespace FlightSimulatorGui.Views
             this.DataContext = (Application.Current as App).ControlRoomViewModel;
 
             // Initial value
-            tbInput.Text = "get /position/latitude-deg\r\nget /position/longitude-deg";
+            tbInput.Text = "Get /position/latitude-deg\r\nget /position/longitude-deg";
         }
 
         private void btnData_Click(object sender, RoutedEventArgs e)
