@@ -14,8 +14,8 @@ public class MyTcpClient
     }
 
     private static bool runClient = true;
-    private static TcpClient client = null;
-    private readonly object clientLock = new object();
+    private static string ip = String.Empty;
+    private static int port = 0;
     public static AutoResetEvent m = new AutoResetEvent(false);
     public static bool threadAlreadyRunning = true;
 
@@ -37,9 +37,14 @@ public class MyTcpClient
         }
         try
         {
+            if (connectionPort == MyTcpClient.port && server == MyTcpClient.ip)
+            {
+                return null;
+            }
+            MyTcpClient.port = connectionPort;
+            MyTcpClient.ip = server;
             TcpClient tcpClient = new TcpClient(server, connectionPort);
             NetworkStream stream = tcpClient.GetStream();
-            MyTcpClient.client = tcpClient;
             return stream;
         }
         catch (Exception e)
@@ -91,6 +96,8 @@ public class MyTcpClient
             //MyTcpClient.client.Close();
             threadAlreadyRunning = false;
             FlightSimulatorModel.get().throwNewError("Connection to the server was lost\r\n Please insert IP and Port in the connection tab");
+            ip = String.Empty;
+            port = 0;
         }
         catch (Exception e)
         {

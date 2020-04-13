@@ -253,7 +253,6 @@ namespace FlightSimulatorGui.Model
                 throwNewError(reply);
                 return reply;
             }
-
             MyTcpClient client = new MyTcpClient();
             NetworkStream stream = client.initializeConnection(ip, port);
             if (stream == null)
