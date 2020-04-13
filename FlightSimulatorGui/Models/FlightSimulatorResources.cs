@@ -8,7 +8,7 @@ namespace FlightSimulatorGui.Models
 {
     public class FlightSimulatorResources
     {
-        public static Dictionary<string, string> shortNameToFull = new Dictionary<string, string>()
+        public static Dictionary<string, string> ShortNameToFull = new Dictionary<string, string>()
             {
                 {"air_speed", "/instrumentation/airspeed-indicator/indicated-speed-kt"},
                 {"altimeter", "/instrumentation/altimeter/indicated-altitude-ft"},
@@ -25,7 +25,7 @@ namespace FlightSimulatorGui.Models
                 {"latitude", "/position/latitude-deg"},
                 {"longitude", "/position/longitude-deg"}
             };
-        public static Dictionary<string, string> fullNameToShort = new Dictionary<string, string>()
+        public static Dictionary<string, string> FullNameToShort = new Dictionary<string, string>()
             {
                 {"/instrumentation/airspeed-indicator/indicated-speed-kt", "air_speed"},
                 {"/instrumentation/altimeter/indicated-altitude-ft","altimeter"},

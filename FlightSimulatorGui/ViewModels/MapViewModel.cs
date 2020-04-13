@@ -15,38 +15,38 @@ namespace FlightSimulatorGui.ViewModel
     {
         public Location VM_Location
         {
-            get { return model.Location; }
+            get { return Model.Location; }
         }
         public Double VM_ErrorEnabled
         {
-            get { return model.ErrorEnabled; }
+            get { return Model.ErrorEnabled; }
         }      
         public String VM_ErrorMsg
         {
-            get { return model.ErrorMsg; }
+            get { return Model.ErrorMsg; }
         }
 
 
         public MapViewModel()
         {
-            model.PropertyChanged +=
+            Model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
                     // Add a delegate function to update the airplane location object from lat/lon values
                     Double value;
                     switch (e.PropertyName)
                     {
                         case "latitude":
-                            value = model.getFlightValue("latitude");
+                            value = Model.GetFlightValue("latitude");
                             if (value > 90) value = 90;
                             if (value < -90) value = -90;
-                            model.Location = new Location(value, model.Location.Longitude);
+                            Model.Location = new Location(value, Model.Location.Longitude);
                             NotifyPropertyChanged("VM_Location");
                             return;
                         case "longtitude":
-                           value = model.getFlightValue("longtitude");
+                           value = Model.GetFlightValue("longtitude");
                             if (value > 180) value = 180;
                             if (value < -180) value = -180;
-                            model.Location = new Location(value, model.Location.Longitude);
+                            Model.Location = new Location(value, Model.Location.Longitude);
                             NotifyPropertyChanged("VM_Location");
                             return;
                     }

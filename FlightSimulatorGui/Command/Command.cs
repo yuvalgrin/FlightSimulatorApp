@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using FlightSimulatorGui.Model;
 public abstract class Command
 {
@@ -10,22 +11,24 @@ public abstract class Command
 	{
 		try
 		{
-			String[] cmdArr = rawCmd.Split(' ');
-			if (cmdArr[0].Equals("set") && cmdArr.Length == 3)
+			String[] cmdArr = null;
+			if (rawCmd != null)
+				cmdArr = rawCmd.Split(' ');
+			if (cmdArr != null && cmdArr[0].Equals("set", StringComparison.Ordinal) && cmdArr.Length == 3)
 			{
 				String param = cmdArr[1];
-				Double value = Double.Parse(cmdArr[2]);
+				Double value = double.Parse(cmdArr[2], CultureInfo.InvariantCulture);
 				return new SetCommand(param, value);
 			}
-			else if (cmdArr[0].Equals("get") && cmdArr.Length == 2)
+			else if (cmdArr != null && cmdArr[0].Equals("get", StringComparison.Ordinal) && cmdArr.Length == 2)
 			{
 				String param = cmdArr[1];
 				return new GetCommand(param);
 			}
-		} catch (Exception ex)
+		}
+		finally
 		{
-			// Error
-			// Send bad command was sent
+			// Close objects
 		}
 
 		return null;
@@ -70,7 +73,7 @@ public class GetCommand : Command
 
 	public override string getValue()
 	{
-		return FlightSimulatorModel.get().getDataByKey(path());
+		return FlightSimulatorModel.Get().GetDataByKey(path());
 	}
 
 	public override string path()

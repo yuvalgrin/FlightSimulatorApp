@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using FlightSimulatorGui.ViewModel;
+using System.Globalization;
 
 namespace FlightSimulatorGui.Views
 {
@@ -27,18 +28,18 @@ namespace FlightSimulatorGui.Views
         private Double canWidth;
         private Double canHeight;
 
-        public static readonly DependencyProperty AileronProperty =
-        DependencyProperty.Register("Aileron", typeof(double), typeof(Joystick), null);
-        private Double Aileron
+        public static readonly DependencyProperty RudderProperty =
+        DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick), null);
+        private Double Rudder
         {
-            get { return Convert.ToDouble(GetValue(AileronProperty)); }
+            get { return Convert.ToDouble(GetValue(RudderProperty), CultureInfo.InvariantCulture); }
             set
             {
                 if (value > 1)
                     value = 1;
                 else if (value < -1)
                     value = -1;
-                SetValue(AileronProperty, value);
+                SetValue(RudderProperty, value);
             }
         }
 
@@ -46,7 +47,7 @@ namespace FlightSimulatorGui.Views
         DependencyProperty.Register("Elevator", typeof(double), typeof(Joystick), null);
         private Double Elevator
         {
-            get { return Convert.ToDouble(GetValue(ElevatorProperty)); }
+            get { return Convert.ToDouble(GetValue(ElevatorProperty), CultureInfo.InvariantCulture); }
             set
             {
                 if (value > 1)
@@ -70,14 +71,14 @@ namespace FlightSimulatorGui.Views
 
         private void centerKnob_Completed(object sender, EventArgs e)
         {
-            Aileron = 0;
+            Rudder = 0;
             Elevator = 0;
         }
 
-        public void notifyKnobMove(object sender, VirtualJoystickEventArgs e)
+        public static void notifyKnobMove(object sender, VirtualJoystickEventArgs e)
         {
-            (Application.Current as App).JoystickViewModel.joyAileronUpdate(e.Aileron);
-            (Application.Current as App).JoystickViewModel.joyElevatorUpdate(e.Elevator);
+            (Application.Current as App).JoystickViewModel.JoyRudderUpdate(e.Rudder);
+            (Application.Current as App).JoystickViewModel.JoyElevatorUpdate(e.Elevator);
         }
 
         private void Knob_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -97,27 +98,36 @@ namespace FlightSimulatorGui.Views
 
         private void Knob_MouseMove(object sender, MouseEventArgs e)
         {
-            Point deltaPoint;
-
             // If the mouse does not hold the knob currently
             if (!Knob.IsMouseCaptured)
                 return;
 
-            double deltaX = e.GetPosition(Base).X - clickPoint.X;
-            double deltaY = e.GetPosition(Base).Y - clickPoint.Y;
-            deltaPoint = new Point(deltaX, deltaY);
+            Point deltaPoint = calcDeltaPoint(e.GetPosition(Base));
 
             Double distance = calcDist(deltaPoint);
             if (Double.IsNaN(distance) || distance == 0)
                 return;
 
-            Aileron = Math.Round(2.1 * deltaPoint.X / canWidth, 2);
+            Rudder = Math.Round(2.1 * deltaPoint.X / canWidth, 2);
             Elevator = Math.Round(-2.1 * deltaPoint.Y / canHeight, 2);
-            knobPosition.X = deltaPoint.X;
-            knobPosition.Y = deltaPoint.Y;
+
+            setKnobPosition(deltaPoint);
 
             if (Moved != null)
-                Moved(this, new VirtualJoystickEventArgs { Aileron = Aileron, Elevator = Elevator });
+                Moved(this, new VirtualJoystickEventArgs { Rudder = Rudder, Elevator = Elevator });
+        }
+
+        private Point calcDeltaPoint(Point curP)
+        {
+            double deltaX = curP.X - clickPoint.X;
+            double deltaY = curP.Y - clickPoint.Y;
+            return new Point(deltaX, deltaY);
+        }
+
+        private void setKnobPosition(Point p)
+        {
+            knobPosition.X = p.X;
+            knobPosition.Y = p.Y;
         }
 
         private Double calcDist(Point deltaPoint)
@@ -135,7 +145,7 @@ namespace FlightSimulatorGui.Views
 
     public class VirtualJoystickEventArgs
     {
-        public double Aileron { get; set; }
+        public double Rudder { get; set; }
         public double Elevator { get; set; }
     }
 }

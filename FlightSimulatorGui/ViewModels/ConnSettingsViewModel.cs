@@ -11,7 +11,7 @@ namespace FlightSimulatorGui.ViewModel
     {
         public ConnSettingsViewModel()
         {
-            model.PropertyChanged +=
+            Model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
                     NotifyPropertyChanged("VM_" + e.PropertyName);
                 };
@@ -19,17 +19,17 @@ namespace FlightSimulatorGui.ViewModel
 
         public String VM_ConnRes
         {
-            get { return model.ConnRes; }
+            get { return Model.ConnRes; }
             set
             {
                 NotifyPropertyChanged("VM_ConnRes");
             }
         }
 
-        public void queryUpdate(String ip, String port)
+        public void QueryUpdate(String ip, String port)
         {
             VM_ConnRes = "Loading...";
-            model.executeSwitchServer(ip, port);
+            Model.ExecuteSwitchServer(ip, port);
         }
     }
 }

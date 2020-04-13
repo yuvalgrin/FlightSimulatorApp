@@ -12,11 +12,18 @@ namespace FlightSimulatorGui.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public FlightSimulatorModel model = FlightSimulatorModel.get();
+        protected FlightSimulatorModel Model
+        {
+            get
+            {
+                return FlightSimulatorModel.Get();
+            }
+        }
 
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
+
     }
 }

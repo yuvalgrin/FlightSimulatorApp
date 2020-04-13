@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace FlightSimulatorGui.Views
 {
@@ -24,6 +25,22 @@ namespace FlightSimulatorGui.Views
         {
             InitializeComponent();
             this.DataContext = (Application.Current as App).MapViewModel;
+            initTimer();
+        }
+        
+        /* This timer will centerize the into the airplane pushpin once every 2 seconds
+         */
+        public void initTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timerTick;
+            timer.Start();
+        }
+
+        public void timerTick(object sender, EventArgs e)
+        {
+            myMap.SetView(new Location(pin.Location.Latitude, pin.Location.Longitude), myMap.ZoomLevel) ;
         }
 
     }

@@ -12,40 +12,40 @@ namespace FlightSimulatorGui.ViewModel
     {
         public double VM_heading
         {
-            get { return Math.Round(model.getFlightValue("heading"), 3); }
+            get { return Math.Round(Model.GetFlightValue("heading"), 3); }
         }
         public double VM_vertical_speed
         {
-            get { return Math.Round(model.getFlightValue("vertical_speed"), 3); }
+            get { return Math.Round(Model.GetFlightValue("vertical_speed"), 3); }
         }
         public double VM_ground_speed
         {
-            get { return Math.Round(model.getFlightValue("ground_speed"), 3); }
+            get { return Math.Round(Model.GetFlightValue("ground_speed"), 3); }
         }
         public double VM_air_speed
         {
-            get { return Math.Round(model.getFlightValue("air_speed"), 3); }
+            get { return Math.Round(Model.GetFlightValue("air_speed"), 3); }
         }
         public double VM_altitude
         {
-            get { return Math.Round(model.getFlightValue("altitude"), 3); }
+            get { return Math.Round(Model.GetFlightValue("altitude"), 3); }
         }
         public double VM_roll
         {
-            get { return Math.Round(model.getFlightValue("roll"), 3); }
+            get { return Math.Round(Model.GetFlightValue("roll"), 3); }
         }
         public double VM_pitch
         {
-            get { return Math.Round(model.getFlightValue("pitch"), 3); }
+            get { return Math.Round(Model.GetFlightValue("pitch"), 3); }
         }
         public double VM_altimeter
         {
-            get { return Math.Round(model.getFlightValue("altimeter"), 3); }
+            get { return Math.Round(Model.GetFlightValue("altimeter"), 3); }
         }
 
         public DataViewViewModel()
         {
-            model.PropertyChanged +=
+            Model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
                     NotifyPropertyChanged("VM_" + e.PropertyName);
                 };

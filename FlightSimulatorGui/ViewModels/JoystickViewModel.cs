@@ -12,20 +12,20 @@ namespace FlightSimulatorGui.ViewModel
     {
         public JoystickViewModel()
         {
-            model.PropertyChanged +=
+            Model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
                     NotifyPropertyChanged("VM_" + e.PropertyName);
                 };
         }
 
-        public void joyElevatorUpdate(double value)
+        public void JoyElevatorUpdate(double value)
         {
-            model.addCommandToQueue(new SetCommand("/controls/flight/elevator", value));
+            Model.AddCommandToQueue(new SetCommand("/controls/flight/elevator", value));
         }
 
-        public void joyAileronUpdate(double value)
+        public void JoyRudderUpdate(double value)
         {
-            model.addCommandToQueue(new SetCommand("/controls/flight/aileron", value));
+            Model.AddCommandToQueue(new SetCommand("/controls/flight/rudder", value));
         }
 
     }

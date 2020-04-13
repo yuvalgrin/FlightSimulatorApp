@@ -24,12 +24,13 @@ namespace FlightSimulatorGui.Views
             this.DataContext = (Application.Current as App).ControlRoomViewModel;
 
             // Initial value
-            tbInput.Text = "get /position/latitude-deg\r\nget /position/longitude-deg";
+            String txt = "get /position/latitude-deg\r\nget /position/longitude-deg";
+            tbInput.Text = txt;
         }
 
         private void btnData_Click(object sender, RoutedEventArgs e)
         {
-            (Application.Current as App).ControlRoomViewModel.queryUpdate(tbInput.Text);
+            (Application.Current as App).ControlRoomViewModel.QueryUpdate(tbInput.Text);
         }
     }
 }

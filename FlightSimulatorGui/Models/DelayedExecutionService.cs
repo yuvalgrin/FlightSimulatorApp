@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorGui.server
 {
-    public class DelayedExecutionService
+    public static class DelayedExecutionService
     {
         public static void DelayedExecute(Action action, int delay = 5000)
         {

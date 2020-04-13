@@ -23,15 +23,18 @@ namespace FlightSimulatorGui
         public MapViewModel MapViewModel { get; internal set; }
         public SlidersViewModel SlidersViewModel { get; internal set; }
 
-        public void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        public void ApplicationDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            FlightSimulatorModel.get().throwNewError(e.Exception.Message);
-            e.Handled = true;
+            if (e != null)
+            {
+                FlightSimulatorModel.Get().ThrowNewError(e.Exception.Message);
+                e.Handled = true;
+            }
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            FlightSimulatorModel.get().exitProgram();
+            FlightSimulatorModel.Get().ExitProgram();
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)

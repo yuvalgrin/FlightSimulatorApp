@@ -24,10 +24,10 @@
         <Label Grid.Row="1" Grid.Column="2" Content="1" FontSize="14"  Foreground="GreenYellow"/>
         <Label Grid.Row="1" Grid.Column="0" Content="-1" FontSize="14" RenderTransformOrigin="0.579,-0.05"  Foreground="GreenYellow"/>
         <Slider Grid.Row="1" Grid.Column="1"  Name="sldThrottle" Margin="0,1,0,0" Minimum="-1" Maximum="1" TickPlacement="TopLeft"  SmallChange="0.1" LargeChange="0.1" TickFrequency="0.1" HorizontalAlignment="Left" Width="380" ValueChanged="sldThrottleValueChange"/>
-        <Label Grid.Row="2" Grid.Column="1" Name="lblRudder" Content="Rudder " FontSize="13" HorizontalAlignment="Center"  Foreground="GreenYellow"/>
-        <Label Grid.Row="2" Grid.Column="1" Name="lblRudderVal" Content="{Binding ElementName=sldRudder, Path=Value}" ContentStringFormat="{}{0:0.##}"  Foreground="GreenYellow" FontSize="13" HorizontalAlignment="Center" Margin="227,0,103,0" Width="50"/>
+        <Label Grid.Row="2" Grid.Column="1" Name="lblAileron" Content="Aileron " FontSize="13" HorizontalAlignment="Center"  Foreground="GreenYellow"/>
+        <Label Grid.Row="2" Grid.Column="1" Name="lblAileronVal" Content="{Binding ElementName=sldAileron, Path=Value}" ContentStringFormat="{}{0:0.##}"  Foreground="GreenYellow" FontSize="13" HorizontalAlignment="Center" Margin="227,0,103,0" Width="50"/>
         <Label Grid.Row="3" Grid.Column="2" Content="1" FontSize="14"  Foreground="GreenYellow"/>
         <Label Grid.Row="3" Grid.Column="0" Content="-1" FontSize="14"  Foreground="GreenYellow"/>
-        <Slider Grid.Row="3" Grid.Column="1" x:Name="sldRudder" Margin="0,1,0,0" Minimum="-1" Maximum="1" TickPlacement="TopLeft" SmallChange="0.1" LargeChange="0.1" TickFrequency="0.1" HorizontalAlignment="Left" Width="380" ValueChanged="sldRudderValueChange"/>
+        <Slider Grid.Row="3" Grid.Column="1" x:Name="sldAileron" Margin="0,1,0,0" Minimum="-1" Maximum="1" TickPlacement="TopLeft" SmallChange="0.1" LargeChange="0.1" TickFrequency="0.1" HorizontalAlignment="Left" Width="380" ValueChanged="sldAileronValueChange"/>
     </Grid>
 </UserControl>

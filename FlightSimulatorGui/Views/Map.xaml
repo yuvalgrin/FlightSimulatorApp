@@ -14,14 +14,13 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <wpf:Map Grid.RowSpan="3" x:Name="myMap" CredentialsProvider="ArDB7RhJSbZdyAMtrdWN~CNbcKs-2JNs8Gw3L973AFg~ArCGagiQZokrDkBolFa_KhcBDBJNtVQlkGHhO6_h0JJG-zLrCY3_qN2gW0E5FcS7" Mode="AerialWithLabels"
-                 Center="31.643854,34.920341" ZoomLevel="7">
+                 Center="31.643854,34.920341" ZoomLevel="8">
             <wpf:Pushpin x:Name="pin" wpf:MapLayer.Position="32.0055, 34.882030" Location="{Binding VM_Location}">
                 <wpf:Pushpin.Background>
-                    <ImageBrush Stretch="UniformToFill"  ImageSource="/FlightSimulatorGui;component/Resources/airplane.png"/>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="/FlightSimulatorGui;component/Resources/airplane.png"/>
                 </wpf:Pushpin.Background>
             </wpf:Pushpin>
         </wpf:Map>
         <Label Opacity="{Binding VM_ErrorEnabled}" Grid.Row="1" Content="{Binding VM_ErrorMsg}" Name="lblError" Background="Black" Foreground="Red" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
     </Grid>
 </UserControl>

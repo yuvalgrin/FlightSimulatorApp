@@ -12,20 +12,20 @@ namespace FlightSimulatorGui.ViewModel
     {
         public SlidersViewModel()
         {
-            model.PropertyChanged +=
+            Model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
                     NotifyPropertyChanged("VM_" + e.PropertyName);
                 };
         }
 
-        public void sldThrottleUpdate(double value)
+        public void SldThrottleUpdate(double value)
         {
-            model.addCommandToQueue(new SetCommand("/controls/engines/current-engine/throttle", value));
+            Model.AddCommandToQueue(new SetCommand("/controls/engines/current-engine/throttle", value));
         }
 
-        public void sldRudderUpdate(double value)
+        public void SldAileronUpdate(double value)
         {
-            model.addCommandToQueue(new SetCommand("/controls/flight/aileron", value));
+            Model.AddCommandToQueue(new SetCommand("/controls/flight/aileron", value));
         }
 
     }
