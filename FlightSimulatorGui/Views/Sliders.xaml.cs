@@ -14,12 +14,12 @@ namespace FlightSimulatorGui.Views
 
         private void sldThrottleValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            (Application.Current as App).SlidersViewModel.sldThrottleUpdate(e.NewValue);
+            (Application.Current as App).SlidersViewModel.SldThrottleUpdate(e.NewValue);
         }
 
-        private void sldRudderValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sldAileronValueChange(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            (Application.Current as App).SlidersViewModel.sldRudderUpdate(e.NewValue);
+            (Application.Current as App).SlidersViewModel.SldAileronUpdate(e.NewValue);
         }
     }
 }

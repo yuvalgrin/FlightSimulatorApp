@@ -26,7 +26,7 @@ namespace FlightSimulatorGui.Views
 
         private void btnData_Click(object sender, RoutedEventArgs e)
         {
-            (Application.Current as App).ConnSettingsViewModel.queryUpdate(tbIp.Text, tbPort.Text);
+            (Application.Current as App).ConnSettingsViewModel.QueryUpdate(tbIp.Text, tbPort.Text);
         }
     }
 }

@@ -18,14 +18,14 @@ namespace FlightSimulatorGui.ViewModel
                 };
         }
 
-        public void joyElevatorUpdate(double value)
+        public void JoyElevatorUpdate(double value)
         {
             model.addCommandToQueue(new SetCommand("/controls/flight/elevator", value));
         }
 
-        public void joyAileronUpdate(double value)
+        public void JoyRudderUpdate(double value)
         {
-            model.addCommandToQueue(new SetCommand("/controls/flight/aileron", value));
+            model.addCommandToQueue(new SetCommand("/controls/flight/rudder", value));
         }
 
     }

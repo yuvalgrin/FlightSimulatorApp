@@ -26,7 +26,7 @@ namespace FlightSimulatorGui.ViewModel
             }
         }
 
-        public void queryUpdate(String query)
+        public void QueryUpdate(String query)
         {
             VM_QueryRes = "Loading...";
             model.executeCtrlRoomQuery(query);

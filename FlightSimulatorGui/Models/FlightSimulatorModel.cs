@@ -26,6 +26,7 @@ namespace FlightSimulatorGui.Model
         private static FlightSimulatorModel instance = null;
         private  Queue<Command> queue;
         private  Dictionary<string, string> flightData;
+        private Thread sendCommandsToQ;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Init default location.
@@ -78,6 +79,7 @@ namespace FlightSimulatorGui.Model
 
         private FlightSimulatorModel()
         {
+            this.sendCommandsToQ = new Thread(sendCommandsToQueue);
             //holds commands coming from gui
             this.queue = new Queue<Command>();
             // map that holds the values of the FS
@@ -110,11 +112,19 @@ namespace FlightSimulatorGui.Model
         //incharge of the update of the values and the view model
         public void updateValueMap(string key, string newValue) 
         {
+            Double res;
             if (newValue != this.flightData[key])
             {
-                this.flightData[key] = newValue;
+                bool isValidVal = Double.TryParse(newValue, out res);
+                if (isValidVal)
+                {
+                    this.flightData[key] = newValue;
+                    NotifyPropertyChanged(FlightSimulatorResources.fullNameToShort[key]);
+                } else
+                {
+                    throwNewError("Recieved invalid value from Flight Simulator");
+                }
             }
-            NotifyPropertyChanged(FlightSimulatorResources.fullNameToShort[key]);
         }
 
         // Get the flight stats from the data map using only the referernce name (and not the long coded name)
@@ -127,6 +137,7 @@ namespace FlightSimulatorGui.Model
             if (isValidVal)
                 return res;
 
+            throwNewError("Recieved invalid value from Flight Simulator");
             return 0;
         }
 
@@ -208,15 +219,16 @@ namespace FlightSimulatorGui.Model
 
         public String runBackground()
         {
-            Thread getCommand = new Thread(sendCommandsToQueue);
-            getCommand.Start();
-            
             MyTcpClient client = new MyTcpClient();
             NetworkStream stream = client.initializeConnection(null, null);
             if (stream == null)
             {
                 return "Could not connect to the default server";
             }
+
+            if (!sendCommandsToQ.IsAlive)
+                sendCommandsToQ.Start();
+
             Thread clientThread = new Thread(() => client.createAndRunClient(stream));
             clientThread.Start();
             return null;
@@ -263,6 +275,9 @@ namespace FlightSimulatorGui.Model
             }
             else
             {
+                if (!sendCommandsToQ.IsAlive)
+                    sendCommandsToQ.Start();
+
                 if (MyTcpClient.threadAlreadyRunning)
                     MyTcpClient.killClient();
                 MyTcpClient.m.WaitOne();
