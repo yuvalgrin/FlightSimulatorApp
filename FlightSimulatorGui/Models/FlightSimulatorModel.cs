@@ -166,7 +166,7 @@ namespace FlightSimulatorGui.Model
                 }
 
                 if (cmd is SetCommand)
-                    AddCommandToQueue(cmd);
+                    AddCommandToPriorityQueue(cmd);
 
                 result.Append(cmd.getValue()).Append("  ");
             }

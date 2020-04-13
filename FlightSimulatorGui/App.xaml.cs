@@ -23,7 +23,7 @@ namespace FlightSimulatorGui
         public MapViewModel MapViewModel { get; internal set; }
         public SlidersViewModel SlidersViewModel { get; internal set; }
 
-        public void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        public void ApplicationDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             FlightSimulatorModel.Get().ThrowNewError(e.Exception.Message);
             e.Handled = true;
