@@ -201,7 +201,7 @@ namespace FlightSimulatorGui.Model
                     Command c = new GetCommand(key);
                     this.queue.Enqueue(c);
                 }
-                Thread.Sleep(300);
+                Thread.Sleep(1000);
             }
         }
 
