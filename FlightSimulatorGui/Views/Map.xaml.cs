@@ -1,5 +1,5 @@
-﻿using FlightSimulatorGui.Model;
-using FlightSimulatorGui.server;
+﻿using FlightSimulatorGui.ViewModel;
+using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +16,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FlightSimulatorGui
+namespace FlightSimulatorGui.Views
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class Map : UserControl
     {
-        public MainWindow()
+        public Map()
         {
             InitializeComponent();
-            new Thread(FlightSimulatorModel.get().initRunBackground).Start();
+            this.DataContext = (Application.Current as App).MapViewModel;
         }
 
     }

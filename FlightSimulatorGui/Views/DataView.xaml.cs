@@ -1,10 +1,8 @@
-﻿using FlightSimulatorGui.Model;
-using FlightSimulatorGui.server;
+﻿using FlightSimulatorGui.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,18 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FlightSimulatorGui
+namespace FlightSimulatorGui.Views
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class DataView : UserControl
     {
-        public MainWindow()
+        public DataView()
         {
             InitializeComponent();
-            new Thread(FlightSimulatorModel.get().initRunBackground).Start();
+            this.DataContext = (Application.Current as App).DataViewViewModel;
         }
-
     }
 }

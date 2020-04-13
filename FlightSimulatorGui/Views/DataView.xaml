@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="FlightSimulatorGui.Views.DataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlightSimulatorGui.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="160" d:DesignWidth="300" Background="Black" Foreground="GreenYellow">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="75"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="lblIHG" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">indicated-heading-deg:</TextBlock>
+        <TextBlock x:Name="lblGIVS" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">gps_indicated-vertical-speed:</TextBlock>
+        <TextBlock x:Name="lblGIGSK" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">gps_indicated-ground-speed-kt:</TextBlock>
+        <TextBlock x:Name="lblAIISK" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">airspeed-indicator_indicated-speed-kt:</TextBlock>
+        <TextBlock x:Name="lblGIAF" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">gps_indicated-altitude-ft:</TextBlock>
+        <TextBlock x:Name="lblAIIRD" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">attitude-indicator_internal-roll-deg:</TextBlock>
+        <TextBlock x:Name="lblAIIPD" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center">attitude-indicator_internal-pitch-deg:</TextBlock>
+        <TextBlock x:Name="lblAIAF" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">altimeter_indicated-altitude-ft:</TextBlock>
+
+        <Label x:Name="lblIHG_data" Grid.Row="0" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_heading}"/>
+        <Label x:Name="lblGIVS_data" Grid.Row="1" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_vertical_speed}"/>
+        <Label x:Name="lblGIGSK_data" Grid.Row="2" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_ground_speed}"/>
+        <Label x:Name="lblAIISK_data" Grid.Row="3" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_air_speed}"/>
+        <Label x:Name="lblGIAF_data" Grid.Row="4" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_altitude}"/>
+        <Label x:Name="lblAIIRD_data" Grid.Row="5" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_roll}"/>
+        <Label x:Name="lblAIIPD_data" Grid.Row="6" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_pitch}"/>
+        <Label x:Name="lblAIAF_data" Grid.Row="7" Grid.Column="1" Margin="0,-4,0,0" Foreground="GreenYellow" Content="{Binding VM_altimeter}"/>
+    </Grid>
+</UserControl>

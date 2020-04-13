@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="FlightSimulatorGui.Views.Map"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlightSimulatorGui.Views"
+             xmlns:wpf="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="700">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <wpf:Map Grid.RowSpan="3" x:Name="myMap" CredentialsProvider="ArDB7RhJSbZdyAMtrdWN~CNbcKs-2JNs8Gw3L973AFg~ArCGagiQZokrDkBolFa_KhcBDBJNtVQlkGHhO6_h0JJG-zLrCY3_qN2gW0E5FcS7" Mode="AerialWithLabels"
+                 Center="31.643854,34.920341" ZoomLevel="7">
+            <wpf:Pushpin x:Name="pin" wpf:MapLayer.Position="32.0055, 34.882030" Location="{Binding VM_Location}">
+                <wpf:Pushpin.Background>
+                    <ImageBrush Stretch="UniformToFill"  ImageSource="/FlightSimulatorGui;component/Resources/airplane.png"/>
+                </wpf:Pushpin.Background>
+            </wpf:Pushpin>
+        </wpf:Map>
+        <Label Opacity="{Binding VM_ErrorEnabled}" Grid.Row="1" Content="{Binding VM_ErrorMsg}" Name="lblError" Background="Black" Foreground="Red" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+    </Grid>
+</UserControl>
