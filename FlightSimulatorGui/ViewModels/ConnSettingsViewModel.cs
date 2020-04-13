@@ -26,7 +26,7 @@ namespace FlightSimulatorGui.ViewModel
             }
         }
 
-        public void queryUpdate(String ip, String port)
+        public void QueryUpdate(String ip, String port)
         {
             VM_ConnRes = "Loading...";
             model.ExecuteSwitchServer(ip, port);

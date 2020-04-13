@@ -23,75 +23,67 @@ namespace FlightSimulatorGui.Model
     // Get updates from FS into the data map
     public class FlightSimulatorModel
     {
-        private static FlightSimulatorModel _instance = null;
-        private  Queue<Command> _queue;
-
-        public Queue<Command> Queue
-        {
-            get { return _queue;}
-        }
-        private  Dictionary<string, string> _flightData;
-        public Dictionary<string, string> FlightData
-        {
-            get { return _flightData; }
-        }
-
+        private static FlightSimulatorModel instance = null;
+        private  Queue<Command> queue;
+        private  Dictionary<string, string> flightData;
+        private Thread sendCommandsToQ;
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Init default location.
-        public static double _defaultLat = 31.643854;
-        public static double _defaultLon = 34.920341;
-        public Location Location = new Location(_defaultLat, _defaultLon);
+        public static double defaultLat = 31.643854;
+        public static double defaultLon = 34.920341;
+        public Location Location = new Location(defaultLat, defaultLon);
 
-        private String _queryRes;
+        public String _QueryRes;
         public String QueryRes
         {
-            get { return _queryRes; }
+            get { return _QueryRes; }
             set
             {
-                _queryRes = value;
+                _QueryRes = value;
                 NotifyPropertyChanged("QueryRes");
             }
         }
-        private String _connRes;
+        public String _ConnRes;
         public String ConnRes
         {
-            get { return _connRes; }
+            get { return _ConnRes; }
             set
             {
-                _connRes = value;
+                _ConnRes = value;
                 NotifyPropertyChanged("ConnRes");
             }
         } 
-        private String _errorMsg;
+        private String _ErrorMsg;
         public String ErrorMsg
         {
-            get { return _errorMsg; }
+            get { return _ErrorMsg; }
             set
             {
-                _errorMsg = value;
+                _ErrorMsg = value;
                 ErrorEnabled = 1;
                 DelayedExecutionService.DelayedExecute(() => ErrorEnabled = 0);
                 NotifyPropertyChanged("ErrorMsg");
             }
         }
-        private Double _errorEnabled;
+        private Double _ErrorEnabled;
         public Double ErrorEnabled
         {
-            get { return _errorEnabled; }
+            get { return _ErrorEnabled; }
             set
             {
-                _errorEnabled = value;
+                _ErrorEnabled = value;
                 NotifyPropertyChanged("ErrorEnabled");
             }
         }
 
         private FlightSimulatorModel()
         {
+            this.sendCommandsToQ = new Thread(sendCommandsToQueue);
             //holds commands coming from gui
-            this._queue = new Queue<Command>();
+            this.queue = new Queue<Command>();
             // map that holds the values of the FS
-            this._flightData = new Dictionary<string, string>()
+            this.flightData = new Dictionary<string, string>()
             {
                 {"/instrumentation/airspeed-indicator/indicated-speed-kt", "0.0"},
                 {"/instrumentation/altimeter/indicated-altitude-ft", "0.0"},
@@ -110,39 +102,54 @@ namespace FlightSimulatorGui.Model
             };
         }
 
-        public static FlightSimulatorModel Get()
+        public static FlightSimulatorModel get()
         {
-            if (_instance == null)
-                _instance = new FlightSimulatorModel();
-            return _instance;
+            if (instance == null)
+                instance = new FlightSimulatorModel();
+            return instance;
         }
 
         //incharge of the update of the values and the view model
-        public void UpdateValueMap(string key, string newValue) 
+        public void updateValueMap(string key, string newValue) 
         {
-            if (newValue != this._flightData[key])
+            Double res;
+            if (newValue != this.flightData[key])
             {
-                this._flightData[key] = newValue;
+                bool isValidVal = Double.TryParse(newValue, out res);
+                if (isValidVal)
+                {
+                    this.flightData[key] = newValue;
+                    NotifyPropertyChanged(FlightSimulatorResources.fullNameToShort[key]);
+                } else
+                {
+                    throwNewError("Recieved invalid value from Flight Simulator");
+                }
             }
-            NotifyPropertyChanged(FlightSimulatorResources.fullNameToShort[key]);
         }
 
         // Get the flight stats from the data map using only the referernce name (and not the long coded name)
-        public double GetFlightValue(String valueRef)
+        public double getFlightValue(String valueRef)
         {
             Double res;
-            String val = this._flightData[FlightSimulatorResources.shortNameToFull[valueRef]];
+            String val = this.flightData[FlightSimulatorResources.shortNameToFull[valueRef]];
             bool isValidVal = Double.TryParse(val, out res);
 
             if (isValidVal)
                 return res;
 
+            throwNewError("Recieved invalid value from Flight Simulator");
             return 0;
         }
 
+        public Queue<Command> getCommandsQueue() { return this.queue; }
+
+        public Dictionary<string, string> getValueMap()
+        {
+            return this.flightData;
+        }
 
         //Execute a query from the control room and update the value via ViewModel
-        public void ExecuteCtrlRoomQuery(String query)
+        public void executeCtrlRoomQuery(String query)
         {
             StringBuilder result = new StringBuilder();
             StringReader sr = new StringReader(query);
@@ -153,12 +160,12 @@ namespace FlightSimulatorGui.Model
                 if (cmd == null)
                 {
                     QueryRes = "ERR";
-                    ThrowNewError("Invalid command was entered in Control Room");
+                    throwNewError("Invalid command was entered in Control Room");
                     return;
                 }
 
                 if (cmd is SetCommand)
-                    AddCommandToQueue(cmd);
+                    addCommandToQueue(cmd);
 
                 result.Append(cmd.getValue()).Append("  ");
             }
@@ -166,73 +173,74 @@ namespace FlightSimulatorGui.Model
         }
 
         //Execute a switch server from the Connection Settings View Model
-        public void ExecuteSwitchServer(String ip, String port)
+        public void executeSwitchServer(String ip, String port)
         {
-            ConnRes = SwitchServer(ip, port);
+            ConnRes = switchServer(ip, port);
         }
 
         // If set command had value more than max (same for less than min) put the closest valid value
-        public void AddCommandToQueue(Command c) 
+        public void addCommandToQueue(Command c) 
         {
-            this._queue.Enqueue(c);        
+            this.queue.Enqueue(c);        
         }
 
-        public string GetDataByKey(string key) 
+        public string getDataByKey(string key) 
         {
-            return _flightData[key]; 
+            return flightData[key]; 
         }
-        public void PutDataByKey(string key, string value) 
+        public void putDataByKey(string key, string value) 
         {
-            _flightData[key] = value;
+            flightData[key] = value;
         }
-        public void SendCommandsToQueue()
+        public void sendCommandsToQueue()
         {
-            while (MyTcpClient.RunClient)
+            while (MyTcpClient.getRunning())
             {
                 foreach (string key in FlightSimulatorResources.fullNameToShort.Keys)
                 {
                     Command c = new GetCommand(key);
-                    this._queue.Enqueue(c);
+                    this.queue.Enqueue(c);
                 }
                 Thread.Sleep(300);
             }
         }
 
 
-        public void InitRunBackground()
+        public void initRunBackground()
         {
             ErrorEnabled = 0;
-            String error = RunBackground();
+            String error = runBackground();
             if (error != null)
             {
-                ThrowNewError(error + "\r\nWill try to reconnect in 5 seconds");
-                DelayedExecutionService.DelayedExecute(() => InitRunBackground(), 5000);
+                throwNewError(error + "\r\nWill try to reconnect in 5 seconds");
+                DelayedExecutionService.DelayedExecute(() => initRunBackground(), 5000);
             }
         }
 
-        public String RunBackground()
+        public String runBackground()
         {
-            Thread getCommand = new Thread(SendCommandsToQueue);
-            getCommand.Start();
-            
             MyTcpClient client = new MyTcpClient();
-            NetworkStream stream = client.InitializeConnection(null, null);
+            NetworkStream stream = client.initializeConnection(null, null);
             if (stream == null)
             {
                 return "Could not connect to the default server";
             }
-            Thread clientThread = new Thread(() => client.CreateAndRunClient(stream));
+
+            if (!sendCommandsToQ.IsAlive)
+                sendCommandsToQ.Start();
+
+            Thread clientThread = new Thread(() => client.createAndRunClient(stream));
             clientThread.Start();
             return null;
         }
 
         void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            ThrowNewError(e.Exception.Message);
+            throwNewError(e.Exception.Message);
             e.Handled = true;
         }
 
-        public void ThrowNewError(String msg)
+        public void throwNewError(String msg)
         {
             ErrorMsg = msg;
         }
@@ -243,36 +251,39 @@ namespace FlightSimulatorGui.Model
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
 
-        public void ExitProgram()
+        public void exitProgram()
         {
-            MyTcpClient.KillClient();
+            MyTcpClient.killClient();
         }
 
-        public string SwitchServer(string ip, string port)
+        public string switchServer(string ip, string port)
         {
             string reply = String.Empty;
             if (String.IsNullOrEmpty(ip) || String.IsNullOrEmpty(port))
             {
                 reply = "Invalid IP or Port inserted";
-                ThrowNewError(reply);
+                throwNewError(reply);
                 return reply;
             }
             MyTcpClient client = new MyTcpClient();
-            NetworkStream stream = client.InitializeConnection(ip, port);
+            NetworkStream stream = client.initializeConnection(ip, port);
             if (stream == null)
             {
                 reply = "Could not connect to the given IP and Port";
-                ThrowNewError(reply);
+                throwNewError(reply);
                 return reply;
             }
             else
             {
-                if (MyTcpClient.ThreadAlreadyRunning)
-                    MyTcpClient.KillClient();
-                MyTcpClient.M.WaitOne();
-                Thread clientThread = new Thread(() => client.CreateAndRunClient(stream));
+                if (!sendCommandsToQ.IsAlive)
+                    sendCommandsToQ.Start();
+
+                if (MyTcpClient.threadAlreadyRunning)
+                    MyTcpClient.killClient();
+                MyTcpClient.m.WaitOne();
+                Thread clientThread = new Thread(() => client.createAndRunClient(stream));
                 clientThread.Start();
-                MyTcpClient.ThreadAlreadyRunning = true;
+                MyTcpClient.threadAlreadyRunning = true;
                 reply = "Connected succefully to the new server";
             }
             return reply;

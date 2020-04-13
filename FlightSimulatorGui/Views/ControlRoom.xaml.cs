@@ -29,7 +29,7 @@ namespace FlightSimulatorGui.Views
 
         private void btnData_Click(object sender, RoutedEventArgs e)
         {
-            (Application.Current as App).ControlRoomViewModel.queryUpdate(tbInput.Text);
+            (Application.Current as App).ControlRoomViewModel.QueryUpdate(tbInput.Text);
         }
     }
 }
