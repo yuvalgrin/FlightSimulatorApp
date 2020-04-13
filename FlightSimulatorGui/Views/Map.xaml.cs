@@ -21,7 +21,6 @@ namespace FlightSimulatorGui.Views
 {
     public partial class Map : UserControl
     {
-        public int Zoom = 8;
         public Map()
         {
             InitializeComponent();
