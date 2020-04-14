@@ -13,22 +13,22 @@ namespace FlightSimulatorGui.ViewModel
         {
             Model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
-                    NotifyPropertyChanged("VM_" + e.PropertyName);
+                    NotifyPropertyChanged("VM" + e.PropertyName);
                 };
         }
 
-        public String VM_ConnRes
+        public String VMConnRes
         {
             get { return Model.ConnRes; }
             set
             {
-                NotifyPropertyChanged("VM_ConnRes");
+                NotifyPropertyChanged("VMConnRes");
             }
         }
 
         public void QueryUpdate(String ip, String port)
         {
-            VM_ConnRes = "Loading...";
+            VMConnRes = "Loading...";
             Model.ExecuteSwitchServer(ip, port);
         }
     }

@@ -77,8 +77,11 @@ namespace FlightSimulatorGui.Views
 
         public static void notifyKnobMove(object sender, VirtualJoystickEventArgs e)
         {
-            (Application.Current as App).JoystickViewModel.JoyRudderUpdate(e.Rudder);
-            (Application.Current as App).JoystickViewModel.JoyElevatorUpdate(e.Elevator);
+            if (e != null)
+            {
+                (Application.Current as App).JoystickViewModel.JoyRudderUpdate(e.Rudder);
+                (Application.Current as App).JoystickViewModel.JoyElevatorUpdate(e.Elevator);
+            }
         }
 
         private void Knob_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

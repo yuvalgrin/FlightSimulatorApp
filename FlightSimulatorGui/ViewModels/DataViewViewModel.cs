@@ -10,44 +10,44 @@ namespace FlightSimulatorGui.ViewModel
 {
     public class DataViewViewModel : BaseNotify
     {
-        public double VM_heading
+        public double VMHeading
         {
-            get { return Math.Round(Model.GetFlightValue("heading"), 3); }
+            get { return Math.Round(Model.GetFlightValue("Heading"), 3); }
         }
-        public double VM_vertical_speed
+        public double VMVerticalSpeed
         {
-            get { return Math.Round(Model.GetFlightValue("vertical_speed"), 3); }
+            get { return Math.Round(Model.GetFlightValue("VerticalSpeed"), 3); }
         }
-        public double VM_ground_speed
+        public double VMGroundSpeed
         {
-            get { return Math.Round(Model.GetFlightValue("ground_speed"), 3); }
+            get { return Math.Round(Model.GetFlightValue("GroundSpeed"), 3); }
         }
-        public double VM_air_speed
+        public double VMAirSpeed
         {
-            get { return Math.Round(Model.GetFlightValue("air_speed"), 3); }
+            get { return Math.Round(Model.GetFlightValue("AirSpeed"), 3); }
         }
-        public double VM_altitude
+        public double VMAltitude
         {
-            get { return Math.Round(Model.GetFlightValue("altitude"), 3); }
+            get { return Math.Round(Model.GetFlightValue("Altitude"), 3); }
         }
-        public double VM_roll
+        public double VMRoll
         {
-            get { return Math.Round(Model.GetFlightValue("roll"), 3); }
+            get { return Math.Round(Model.GetFlightValue("Roll"), 3); }
         }
-        public double VM_pitch
+        public double VMPitch
         {
-            get { return Math.Round(Model.GetFlightValue("pitch"), 3); }
+            get { return Math.Round(Model.GetFlightValue("Pitch"), 3); }
         }
-        public double VM_altimeter
+        public double VMAltimeter
         {
-            get { return Math.Round(Model.GetFlightValue("altimeter"), 3); }
+            get { return Math.Round(Model.GetFlightValue("Altimeter"), 3); }
         }
 
         public DataViewViewModel()
         {
             Model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
-                    NotifyPropertyChanged("VM_" + e.PropertyName);
+                    NotifyPropertyChanged("VM" + e.PropertyName);
                 };
         }
     }

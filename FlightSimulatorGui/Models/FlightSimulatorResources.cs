@@ -6,41 +6,41 @@ using System.Threading.Tasks;
 
 namespace FlightSimulatorGui.Models
 {
-    public class FlightSimulatorResources
+    public static class FlightSimulatorResources
     {
-        public static Dictionary<string, string> ShortNameToFull = new Dictionary<string, string>()
+        public static readonly Dictionary<string, string> ShortNameToFull = new Dictionary<string, string>()
             {
-                {"air_speed", "/instrumentation/airspeed-indicator/indicated-speed-kt"},
-                {"altimeter", "/instrumentation/altimeter/indicated-altitude-ft"},
-                {"pitch", "/instrumentation/attitude-indicator/internal-pitch-deg"},
-                {"roll", "/instrumentation/attitude-indicator/internal-roll-deg"},
-                {"altitude", "/instrumentation/gps/indicated-altitude-ft"},
-                {"ground_speed", "/instrumentation/gps/indicated-ground-speed-kt"},
-                {"vertical_speed", "/instrumentation/gps/indicated-vertical-speed"},
-                {"heading", "/instrumentation/heading-indicator/indicated-heading-deg"},
-                {"aileron", "/controls/flight/aileron"},
-                {"elevator", "/controls/flight/elevator"},
-                {"rudder", "/controls/flight/rudder"},
-                {"throttle", "/controls/engines/current-engine/throttle"},
-                {"latitude", "/position/latitude-deg"},
-                {"longitude", "/position/longitude-deg"}
+                {"AirSpeed", "/instrumentation/airspeed-indicator/indicated-speed-kt"},
+                {"Altimeter", "/instrumentation/altimeter/indicated-altitude-ft"},
+                {"Pitch", "/instrumentation/attitude-indicator/internal-pitch-deg"},
+                {"Roll", "/instrumentation/attitude-indicator/internal-roll-deg"},
+                {"Altitude", "/instrumentation/gps/indicated-altitude-ft"},
+                {"GroundSpeed", "/instrumentation/gps/indicated-ground-speed-kt"},
+                {"VerticalSpeed", "/instrumentation/gps/indicated-vertical-speed"},
+                {"Heading", "/instrumentation/heading-indicator/indicated-heading-deg"},
+                {"Aileron", "/controls/flight/aileron"},
+                {"Elevator", "/controls/flight/elevator"},
+                {"Rudder", "/controls/flight/rudder"},
+                {"Throttle", "/controls/engines/current-engine/throttle"},
+                {"Latitude", "/position/latitude-deg"},
+                {"Longitude", "/position/longitude-deg"}
             };
-        public static Dictionary<string, string> FullNameToShort = new Dictionary<string, string>()
+        public static readonly Dictionary<string, string> FullNameToShort = new Dictionary<string, string>()
             {
-                {"/instrumentation/airspeed-indicator/indicated-speed-kt", "air_speed"},
-                {"/instrumentation/altimeter/indicated-altitude-ft","altimeter"},
-                {"/instrumentation/attitude-indicator/internal-pitch-deg", "pitch"},
-                {"/instrumentation/attitude-indicator/internal-roll-deg", "roll"},
-                {"/instrumentation/gps/indicated-altitude-ft","altitude"},
-                {"/instrumentation/gps/indicated-ground-speed-kt", "ground_speed"},
-                {"/instrumentation/gps/indicated-vertical-speed", "vertical_speed"},
-                {"/instrumentation/heading-indicator/indicated-heading-deg", "heading"},
-                {"/controls/flight/aileron", "aileron"},
-                {"/controls/flight/elevator","elevator"},
-                {"/controls/flight/rudder", "rudder"},
-                {"/controls/engines/current-engine/throttle", "throttle"},
-                {"/position/latitude-deg", "latitude"},
-                {"/position/longitude-deg", "longitude"}
+                {"/instrumentation/airspeed-indicator/indicated-speed-kt", "AirSpeed"},
+                {"/instrumentation/altimeter/indicated-altitude-ft","Altimeter"},
+                {"/instrumentation/attitude-indicator/internal-pitch-deg", "Pitch"},
+                {"/instrumentation/attitude-indicator/internal-roll-deg", "Roll"},
+                {"/instrumentation/gps/indicated-altitude-ft","Altitude"},
+                {"/instrumentation/gps/indicated-ground-speed-kt", "GroundSpeed"},
+                {"/instrumentation/gps/indicated-vertical-speed", "VerticalSpeed"},
+                {"/instrumentation/heading-indicator/indicated-heading-deg", "Heading"},
+                {"/controls/flight/aileron", "Aileron"},
+                {"/controls/flight/elevator","Elevator"},
+                {"/controls/flight/rudder", "Rudder"},
+                {"/controls/engines/current-engine/throttle", "Throttle"},
+                {"/position/latitude-deg", "Latitude"},
+                {"/position/longitude-deg", "Longitude"}
             };
     }
 }

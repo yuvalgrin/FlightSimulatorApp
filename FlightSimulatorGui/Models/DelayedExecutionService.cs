@@ -11,11 +11,11 @@ namespace FlightSimulatorGui.server
     {
         public static void DelayedExecute(Action action, int delay = 5000)
         {
-            Task.Factory.StartNew(() =>
+            new Thread(() =>
             {
                 Thread.Sleep(delay);
                 action();
-            });
+            }).Start();
         }
     }
 }

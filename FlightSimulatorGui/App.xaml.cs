@@ -34,7 +34,7 @@ namespace FlightSimulatorGui
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            FlightSimulatorModel.Get().ExitProgram();
+            FlightSimulatorModel.ExitProgram();
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)

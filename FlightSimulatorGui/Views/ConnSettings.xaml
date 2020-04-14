@@ -25,7 +25,7 @@
         <Label x:Name="lblIp" Grid.Row="0" Grid.Column="0"  Foreground="GreenYellow">IP:</Label>
         <Label x:Name="lblPort" Grid.Row="1" Grid.Column="0" Foreground="GreenYellow">Port:</Label>
         <Label x:Name="lblOutput3" Grid.Row="3" Grid.Column="0" Foreground="GreenYellow" FontSize="12" FontWeight="SemiBold" FontStyle="Italic">Output:</Label>
-        <Label x:Name="tbOutputData" Content="{Binding VM_ConnRes}" Foreground="GreenYellow"  Grid.Row="3" Grid.Column="1"></Label>
+        <Label x:Name="tbOutputData" Content="{Binding VMConnRes}" Foreground="GreenYellow"  Grid.Row="3" Grid.Column="1"></Label>
         <Button x:Name="btnData" Grid.Row="3" Grid.Column="2" Click="btnData_Click" Background="DarkGreen" Foreground="GreenYellow">Submit</Button>
 
 

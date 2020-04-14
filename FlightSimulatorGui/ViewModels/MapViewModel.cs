@@ -13,15 +13,15 @@ namespace FlightSimulatorGui.ViewModel
 {
     public class MapViewModel : BaseNotify
     {
-        public Location VM_Location
+        public Location VMLocation
         {
             get { return Model.Location; }
         }
-        public Double VM_ErrorEnabled
+        public Double VMErrorEnabled
         {
             get { return Model.ErrorEnabled; }
         }      
-        public String VM_ErrorMsg
+        public String VMErrorMsg
         {
             get { return Model.ErrorMsg; }
         }
@@ -35,24 +35,24 @@ namespace FlightSimulatorGui.ViewModel
                     Double value;
                     switch (e.PropertyName)
                     {
-                        case "latitude":
-                            value = Model.GetFlightValue("latitude");
+                        case "Latitude":
+                            value = Model.GetFlightValue("Latitude");
                             if (value > 90) value = 90;
                             if (value < -90) value = -90;
                             Model.Location = new Location(value, Model.Location.Longitude);
-                            NotifyPropertyChanged("VM_Location");
+                            NotifyPropertyChanged("VMLocation");
                             return;
-                        case "longtitude":
-                           value = Model.GetFlightValue("longtitude");
+                        case "Longtitude":
+                           value = Model.GetFlightValue("Longtitude");
                             if (value > 180) value = 180;
                             if (value < -180) value = -180;
                             Model.Location = new Location(value, Model.Location.Longitude);
-                            NotifyPropertyChanged("VM_Location");
+                            NotifyPropertyChanged("VMLocation");
                             return;
                     }
 
                     // For values other than location
-                    NotifyPropertyChanged("VM_" + e.PropertyName);
+                    NotifyPropertyChanged("VM" + e.PropertyName);
                 };
         }
 

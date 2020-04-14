@@ -152,23 +152,25 @@ namespace FlightSimulatorGui.Model
         //Execute a query from the control room and update the value via ViewModel
         public void ExecuteCtrlRoomQuery(String query)
         {
-            StringBuilder result = new StringBuilder();
-            StringReader sr = new StringReader(query);
-            String row;
-            while ((row = sr.ReadLine()) != null)
+            StringBuilder result = new StringBuilder("");
+            using (StringReader sr = new StringReader(query))
             {
-                Command cmd = Command.parseRawCommand(row);
-                if (cmd == null)
+                String row;
+                while ((row = sr.ReadLine()) != null)
                 {
-                    QueryRes = "ERR";
-                    ThrowNewError("Invalid command was entered in Control Room");
-                    return;
+                    Command cmd = Command.parseRawCommand(row);
+                    if (cmd == null)
+                    {
+                        QueryRes = "ERR";
+                        ThrowNewError("Invalid command was entered in Control Room");
+                        return;
+                    }
+
+                    if (cmd is SetCommand)
+                        AddCommandToPriorityQueue(cmd);
+
+                    result.Append(cmd.getValue()).Append("  ");
                 }
-
-                if (cmd is SetCommand)
-                    AddCommandToPriorityQueue(cmd);
-
-                result.Append(cmd.getValue()).Append("  ");
             }
             QueryRes = result.ToString();
         }
@@ -220,14 +222,13 @@ namespace FlightSimulatorGui.Model
             if (error != null)
             {
                 ThrowNewError(error + "\r\nWill try to reconnect in 5 seconds");
-                DelayedExecutionService.DelayedExecute(() => InitRunBackground(), 5000);
+                DelayedExecutionService.DelayedExecute(() => InitRunBackground(), 3000);
             }
         }
 
         public String RunBackground()
         {
-            MyTcpClient client = new MyTcpClient();
-            NetworkStream stream = client.InitializeConnection(null, null);
+            NetworkStream stream = MyTcpClient.InitializeConnection(null, null);
             if (stream == null)
             {
                 return "Could not connect to the default server";
@@ -235,7 +236,7 @@ namespace FlightSimulatorGui.Model
             if (!_commandsQueueThread.IsAlive)
                 _commandsQueueThread.Start();
 
-            Thread clientThread = new Thread(() => client.CreateAndRunClient(stream));
+            Thread clientThread = new Thread(() => MyTcpClient.CreateAndRunClient(stream));
             clientThread.Start();
             return null;
         }
@@ -257,7 +258,7 @@ namespace FlightSimulatorGui.Model
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
 
-        public void ExitProgram()
+        public static void ExitProgram()
         {
             MyTcpClient.KillClient();
         }
@@ -271,8 +272,7 @@ namespace FlightSimulatorGui.Model
                 ThrowNewError(reply);
                 return reply;
             }
-            MyTcpClient client = new MyTcpClient();
-            NetworkStream stream = client.InitializeConnection(ip, port);
+            NetworkStream stream = MyTcpClient.InitializeConnection(ip, port);
             if (stream == null)
             {
                 reply = "Could not connect to the given IP and Port";
@@ -287,7 +287,7 @@ namespace FlightSimulatorGui.Model
                 if (MyTcpClient.ThreadAlreadyRunning)
                     MyTcpClient.KillClient();
                 MyTcpClient.M.WaitOne();
-                Thread clientThread = new Thread(() => client.CreateAndRunClient(stream));
+                Thread clientThread = new Thread(() => MyTcpClient.CreateAndRunClient(stream));
                 clientThread.Start();
                 MyTcpClient.ThreadAlreadyRunning = true;
                 reply = "Connected succefully to the new server";

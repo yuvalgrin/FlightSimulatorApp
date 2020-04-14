@@ -20,7 +20,7 @@
         <TextBox x:Name="tbInput" Grid.Row="0" Grid.ColumnSpan="3" TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Background="LightGray" BorderBrush="Black"></TextBox>
 
         <Label x:Name="lblOutput" Grid.Row="2" Grid.Column="0" Foreground="GreenYellow" FontSize="12" FontWeight="SemiBold" FontStyle="Italic">Output:</Label>
-        <Label x:Name="tbOutputData" Content="{Binding VM_QueryRes}" Foreground="GreenYellow" Grid.Row="2" Grid.Column="1"></Label>
+        <Label x:Name="tbOutputData" Content="{Binding VMQueryRes}" Foreground="GreenYellow" Grid.Row="2" Grid.Column="1"></Label>
         <Button x:Name="btnData" Grid.Row="2" Grid.Column="2" Click="btnData_Click" Background="DarkGreen" Foreground="GreenYellow">Submit</Button>
 
 

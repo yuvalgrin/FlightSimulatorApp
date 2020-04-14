@@ -6,32 +6,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Configuration;
 using System.Threading;
+using System.Text;
+using System.Globalization;
 
-public class MyTcpClient
+public static class MyTcpClient
 {
-    public MyTcpClient()
-    {
-    }
-
     private static bool _runClient = true;
-    public static bool RunClient
-    {
-        get { return _runClient; }
-    }
+    public static bool RunClient{ get { return _runClient; } }
+    private static bool _threadAlreadyRunning = true;
+    public static bool ThreadAlreadyRunning { get { return _threadAlreadyRunning; } set { _threadAlreadyRunning = value; } }
+    private static AutoResetEvent _m = new AutoResetEvent(false);
+    public static AutoResetEvent M { get { return _m; } set { _m = value; } }
+    
     private static string _ip = String.Empty;
     private static int _port = 0;
-    public static AutoResetEvent M = new AutoResetEvent(false);
-    public static bool ThreadAlreadyRunning = true;
 
-
-
-    public NetworkStream InitializeConnection(string ip, string port)
+    public static NetworkStream InitializeConnection(string ip, string port)
     {
         Int32 connectionPort; string server;
         if (ip == null || port == null)
         {
-            connectionPort = int.Parse(ConfigurationSettings.AppSettings["ServerPort"]);
-            server = ConfigurationSettings.AppSettings["ServerIP"];
+            connectionPort = int.Parse(ConfigurationManager.AppSettings["ServerPort"], CultureInfo.InvariantCulture);
+            server = ConfigurationManager.AppSettings["ServerIP"];
         } else
         {
             bool isValidPort = int.TryParse(port, out connectionPort);
@@ -41,17 +37,18 @@ public class MyTcpClient
         }
         try
         {
-            if (connectionPort == MyTcpClient._port && server == MyTcpClient._ip)
+            if (connectionPort == MyTcpClient._port && server == MyTcpClient._ip && ip == null && port == null)
             {
                 return null;
             }
-            MyTcpClient._port = connectionPort;
-            MyTcpClient._ip = server;
             TcpClient tcpClient = new TcpClient(server, connectionPort);
             NetworkStream stream = tcpClient.GetStream();
+            MyTcpClient._port = connectionPort;
+            MyTcpClient._ip = server;
+            tcpClient.Close();
             return stream;
         }
-        catch (Exception e)
+        catch (Exception e)  when (e is ArgumentNullException || e is ArgumentOutOfRangeException || e is SocketException)
         {
             return null;
         }
@@ -59,24 +56,29 @@ public class MyTcpClient
 
 
     //create a tcp server with the default _port and _ip
-    public void CreateAndRunClient(NetworkStream stream)
+    public static void CreateAndRunClient(NetworkStream stream)
     {
-        
-        
         try
         {
+            if (stream == null)
+                return;
+
             Byte[] data = null;
             // Get a client stream for reading and writing.
             //  Stream stream = client.GetStream();
             if (!_runClient)
-                throw new Exception("runclient problem");
+            {
+                FlightSimulatorModel.Get().ThrowNewError("Oops! you got runclient problem");
+                return;
+            }
             while (_runClient)
             {
                 // Translate the passed message into ASCII and store it as a Byte array.
-                Command c = chooseCommand();
+                Command c = ChooseCommand();
                 if (c == null)
                     continue;
                 data = System.Text.Encoding.ASCII.GetBytes(c.execute());
+                
                 // Send the message to the connected TcpServer. 
                 stream.Write(data, 0, data.Length);
                 data = new Byte[256];
@@ -98,16 +100,13 @@ public class MyTcpClient
         }
         catch (IOException e)
         {
-            stream.Close();
+            if (stream != null)
+                stream.Close();
             //MyTcpClient.client.Close();
             ThreadAlreadyRunning = false;
-            FlightSimulatorModel.Get().ThrowNewError("Connection to the server was lost\r\n Please insert IP and Port in the connection tab");
+            FlightSimulatorModel.Get().ThrowNewError("Connection to the server was lost\r\nPlease insert IP and Port in the connection tab\r\n"+e.Message);
             _ip = String.Empty;
             _port = 0;
-        }
-        catch (Exception e)
-        {
-            FlightSimulatorModel.Get().ThrowNewError(e.Message);
         }
         finally
         {
@@ -117,7 +116,7 @@ public class MyTcpClient
         
     }
 
-    private Command chooseCommand()
+    private static Command ChooseCommand()
     {
         if (FlightSimulatorModel.Get().PriorityQueue.Count != 0)
             return FlightSimulatorModel.Get().PriorityQueue.Dequeue();
