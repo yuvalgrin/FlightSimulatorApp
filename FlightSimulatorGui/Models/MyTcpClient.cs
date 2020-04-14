@@ -45,7 +45,7 @@ public static class MyTcpClient
             NetworkStream stream = tcpClient.GetStream();
             MyTcpClient._port = connectionPort;
             MyTcpClient._ip = server;
-            tcpClient.Close();
+            //tcpClient.Close();
             return stream;
         }
         catch (Exception e)  when (e is ArgumentNullException || e is ArgumentOutOfRangeException || e is SocketException)
