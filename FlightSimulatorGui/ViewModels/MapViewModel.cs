@@ -1,4 +1,4 @@
-﻿using FlightSimulatorGui.Model;
+﻿using FlightSimulatorApp.Model;
 using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using FlightSimulatorGui.server;
+using FlightSimulatorApp.server;
 
-namespace FlightSimulatorGui.ViewModel
+namespace FlightSimulatorApp.ViewModel
 {
     public class MapViewModel : BaseNotify
     {

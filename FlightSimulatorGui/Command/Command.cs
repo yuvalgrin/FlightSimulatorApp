@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using FlightSimulatorGui.Model;
+using FlightSimulatorApp.Model;
 public abstract class Command
 {
 	public abstract String execute();

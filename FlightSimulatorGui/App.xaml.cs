@@ -1,5 +1,5 @@
-﻿using FlightSimulatorGui.Model;
-using FlightSimulatorGui.ViewModel;
+﻿using FlightSimulatorApp.Model;
+using FlightSimulatorApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace FlightSimulatorGui
+namespace FlightSimulatorApp
 {
     /// <summary>
     /// Interaction logic for App.xaml

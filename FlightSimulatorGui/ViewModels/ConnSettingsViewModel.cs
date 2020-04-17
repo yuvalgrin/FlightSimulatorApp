@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightSimulatorGui.ViewModel
+namespace FlightSimulatorApp.ViewModel
 {
     public class ConnSettingsViewModel : BaseNotify
     {

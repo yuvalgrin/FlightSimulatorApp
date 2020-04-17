@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Sockets;
-using FlightSimulatorGui.Model;
+using FlightSimulatorApp.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Configuration;

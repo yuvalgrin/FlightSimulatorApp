@@ -1,8 +1,8 @@
-﻿using FlightSimulatorGui.ViewModel;
+﻿using FlightSimulatorApp.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace FlightSimulatorGui.Views
+namespace FlightSimulatorApp.Views
 {
     public partial class Sliders : UserControl
     {

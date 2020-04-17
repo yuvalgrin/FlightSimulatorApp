@@ -9,14 +9,14 @@ using System.Threading;
 using System.ComponentModel;
 using Microsoft.Maps.MapControl.WPF;
 using System.Net.Sockets;
-using FlightSimulatorGui.Model;
+using FlightSimulatorApp.Model;
 using System.Configuration;
 using System.IO;
-using FlightSimulatorGui.server;
+using FlightSimulatorApp.server;
 using System.Windows;
-using FlightSimulatorGui.Models;
+using FlightSimulatorApp.Models;
 
-namespace FlightSimulatorGui.Model
+namespace FlightSimulatorApp.Model
 {
     // Hold the data from FS.
     // Hold and update queue of queries to be sent

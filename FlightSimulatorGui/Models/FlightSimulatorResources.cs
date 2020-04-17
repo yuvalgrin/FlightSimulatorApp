@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightSimulatorGui.Models
+namespace FlightSimulatorApp.Models
 {
     public static class FlightSimulatorResources
     {

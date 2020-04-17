@@ -1,4 +1,4 @@
-﻿using FlightSimulatorGui.Model;
+﻿using FlightSimulatorApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightSimulatorGui.ViewModel
+namespace FlightSimulatorApp.ViewModel
 {
     public class SlidersViewModel : BaseNotify
     {

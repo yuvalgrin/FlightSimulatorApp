@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FlightSimulatorGui.server
+namespace FlightSimulatorApp.server
 {
     public static class DelayedExecutionService
     {

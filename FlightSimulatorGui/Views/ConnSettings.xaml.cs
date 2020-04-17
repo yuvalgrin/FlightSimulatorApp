@@ -1,4 +1,4 @@
-﻿using FlightSimulatorGui.ViewModel;
+﻿using FlightSimulatorApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FlightSimulatorGui.Views
+namespace FlightSimulatorApp.Views
 {
     public partial class ConnSettings : UserControl
     {

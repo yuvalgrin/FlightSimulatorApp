@@ -1,5 +1,5 @@
-﻿using FlightSimulatorGui.Model;
-using FlightSimulatorGui.server;
+﻿using FlightSimulatorApp.Model;
+using FlightSimulatorApp.server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FlightSimulatorGui
+namespace FlightSimulatorApp
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -13,10 +13,10 @@ using System.Windows.Documents;
 using System.Windows.Navigation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
-using FlightSimulatorGui.ViewModel;
+using FlightSimulatorApp.ViewModel;
 using System.Globalization;
 
-namespace FlightSimulatorGui.Views
+namespace FlightSimulatorApp.Views
 {
     public partial class Joystick : UserControl
     {
