@@ -1,0 +1,15 @@
+316384205, Daniel Eisenberg
+311511513, Yuval Grinberg
+
+
+We have implemented the MVVM design pattern in our project.
+The controls are set in a directory named Views and each one has a separate .xaml file, similarly there is a directory named ViewModels where we hold ViewModel for every View. 
+The Model use's the ViewModels as if they are View, and also all of the Views use their respective ViewModel as their model.
+
+
+Special customizations for the bonus points:
+- Design the simulator with a real flight simulator theme using dark colors for the background and punky green on the text and buttons to create a flight atmosphere.
+- If we could not initially connect to the server we will auto retry every 5 seconds until the connection is made.
+- Support sending multi line commands in the control room
+- Error messages are shown in a temporary displayed text designed carefully to keep the flight simulator theme.
+- Centralizing the map view onto the airplane for every move he makes.

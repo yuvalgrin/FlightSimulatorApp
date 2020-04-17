@@ -25,20 +25,20 @@ namespace FlightSimulatorApp.Views
         {
             InitializeComponent();
             this.DataContext = (Application.Current as App).MapViewModel;
-            InitTimer();
+            initTimer();
         }
         
         /* This timer will centerize the into the airplane pushpin once every 2 seconds
          */
-        public void InitTimer()
+        public void initTimer()
         {
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += TimerTick;
+            timer.Tick += timerTick;
             timer.Start();
         }
 
-        public void TimerTick(object sender, EventArgs e)
+        public void timerTick(object sender, EventArgs e)
         {
             myMap.SetView(new Location(pin.Location.Latitude, pin.Location.Longitude), myMap.ZoomLevel) ;
         }

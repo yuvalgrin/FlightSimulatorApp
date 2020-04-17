@@ -99,11 +99,23 @@ namespace FlightSimulatorApp.Model
             this._priorityQueue = new Queue<Command>();
             this._queue = new Queue<Command>();
             // map that holds the values of the FS
-            this._flightData = new Dictionary<string, string>();
-            foreach (string key in FlightSimulatorResources.FullNameToShort.Keys)
+            this._flightData = new Dictionary<string, string>()
             {
-                this._flightData[key] = "0.0";
-            }
+                {"/instrumentation/airspeed-indicator/indicated-speed-kt", "0.0"},
+                {"/instrumentation/altimeter/indicated-altitude-ft", "0.0"},
+                {"/instrumentation/attitude-indicator/internal-pitch-deg", "0.0"},
+                {"/instrumentation/attitude-indicator/internal-roll-deg", "0.0"},
+                {"/instrumentation/gps/indicated-altitude-ft", "0.0"},
+                {"/instrumentation/gps/indicated-ground-speed-kt", "0.0"},
+                {"/instrumentation/gps/indicated-vertical-speed", "0.0"},
+                {"/instrumentation/heading-indicator/indicated-heading-deg", "0.0"},
+                {"/controls/flight/aileron", "0.0"},
+                {"/controls/flight/elevator", "0.0"},
+                {"/controls/flight/rudder", "0.0"},
+                {"/controls/engines/current-engine/throttle", "0.0"},
+                {"/position/latitude-deg", "0.0"},
+                {"/position/longitude-deg", "0.0"}
+            };
         }
 
         public static FlightSimulatorModel Get()
@@ -169,19 +181,16 @@ namespace FlightSimulatorApp.Model
             ConnRes = SwitchServer(ip, port);
         }
 
-        // Add the command to queue only when connected to a server
+        // If set command had value more than max (same for less than min) put the closest valid value
         public void AddCommandToQueue(Command c)
         {
-            if (MyTcpClient.RunClient && _commandsQueueThread.IsAlive)
-                this._queue.Enqueue(c);
+            this._queue.Enqueue(c);
         }
 
-        // Add the command to queue only when connected to a server
-        // This queue is prioritized for control room commands
+        // If set command had value more than max (same for less than min) put the closest valid value
         public void AddCommandToPriorityQueue(Command c)
         {
-            if (MyTcpClient.RunClient && _commandsQueueThread.IsAlive)
-                this._priorityQueue.Enqueue(c);
+            this._priorityQueue.Enqueue(c);
         }
 
         public string GetDataByKey(string key)
@@ -192,8 +201,6 @@ namespace FlightSimulatorApp.Model
         {
             _flightData[key] = value;
         }
-
-        // Sends commands to queue with a time interval
         public void SendCommandsToQueue()
         {
             while (MyTcpClient.RunClient)
@@ -207,7 +214,7 @@ namespace FlightSimulatorApp.Model
             }
         }
 
-        //Init the first connection to the server wrapper
+
         public void InitRunBackground()
         {
             ErrorEnabled = 0;
@@ -219,7 +226,6 @@ namespace FlightSimulatorApp.Model
             }
         }
 
-        //Init the first connection to the server logic
         public String RunBackground()
         {
             NetworkStream stream = MyTcpClient.InitializeConnection(null, null);
@@ -235,7 +241,28 @@ namespace FlightSimulatorApp.Model
             return null;
         }
 
-        // Connect to a different server
+        void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            ThrowNewError(e.Exception.Message);
+            e.Handled = true;
+        }
+
+        public void ThrowNewError(String msg)
+        {
+            ErrorMsg = msg;
+        }
+
+        public void NotifyPropertyChanged(string propName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
+
+        public static void ExitProgram()
+        {
+            MyTcpClient.KillClient();
+        }
+
         public string SwitchServer(string ip, string port)
         {
             string reply = String.Empty;
@@ -259,36 +286,13 @@ namespace FlightSimulatorApp.Model
 
                 if (MyTcpClient.ThreadAlreadyRunning)
                     MyTcpClient.KillClient();
-                MyTcpClient.Mutex.WaitOne();
+                MyTcpClient.M.WaitOne();
                 Thread clientThread = new Thread(() => MyTcpClient.CreateAndRunClient(stream));
                 clientThread.Start();
                 MyTcpClient.ThreadAlreadyRunning = true;
                 reply = "Connected succefully to the new server";
             }
             return reply;
-        }
-
-        // Catch all the errors
-        void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            ThrowNewError(e.Exception.Message);
-            e.Handled = true;
-        }
-
-        public void ThrowNewError(String msg)
-        {
-            ErrorMsg = msg;
-        }
-
-        public void NotifyPropertyChanged(string propName)
-        {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-
-        public static void ExitProgram()
-        {
-            MyTcpClient.KillClient();
         }
     }
 }

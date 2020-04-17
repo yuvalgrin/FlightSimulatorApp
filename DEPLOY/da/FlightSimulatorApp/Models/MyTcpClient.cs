@@ -16,7 +16,7 @@ public static class MyTcpClient
     private static bool _threadAlreadyRunning = true;
     public static bool ThreadAlreadyRunning { get { return _threadAlreadyRunning; } set { _threadAlreadyRunning = value; } }
     private static AutoResetEvent _m = new AutoResetEvent(false);
-    public static AutoResetEvent Mutex { get { return _m; } set { _m = value; } }
+    public static AutoResetEvent M { get { return _m; } set { _m = value; } }
     
     private static string _ip = String.Empty;
     private static int _port = 0;
@@ -37,19 +37,15 @@ public static class MyTcpClient
         }
         try
         {
-            //Already connected to this ip port
-            if (connectionPort == MyTcpClient._port && server == MyTcpClient._ip)
+            if (connectionPort == MyTcpClient._port && server == MyTcpClient._ip && ip == null && port == null)
+            {
                 return null;
-
+            }
             TcpClient tcpClient = new TcpClient(server, connectionPort);
             NetworkStream stream = tcpClient.GetStream();
-
-            if (stream != null)
-            {
-                // Save the details because we openend a connection successfully
-                MyTcpClient._port = connectionPort;
-                MyTcpClient._ip = server;
-            }
+            MyTcpClient._port = connectionPort;
+            MyTcpClient._ip = server;
+            //tcpClient.Close();
             return stream;
         }
         catch (Exception e)  when (e is ArgumentNullException || e is ArgumentOutOfRangeException || e is SocketException)
@@ -115,7 +111,7 @@ public static class MyTcpClient
         finally
         {
             _runClient = true;
-            Mutex.Set();
+            M.Set();
         }
         
     }

@@ -23,10 +23,10 @@ namespace FlightSimulatorApp.Views
         public delegate void OnScreenJoystickEventHandler(Joystick sender, VirtualJoystickEventArgs args);
         public event OnScreenJoystickEventHandler Moved;
 
-        private Storyboard _centKnob;
-        private Point _clickPoint;
-        private Double _canWidth;
-        private Double _canHeight;
+        private Storyboard centerKnob;
+        private Point clickPoint;
+        private Double canWidth;
+        private Double canHeight;
 
         public static readonly DependencyProperty RudderProperty =
         DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick), null);
@@ -66,7 +66,7 @@ namespace FlightSimulatorApp.Views
             Moved += notifyKnobMove;
             this.DataContext = (Application.Current as App).JoystickViewModel;
 
-            _centKnob = Knob.Resources["CenterKnob"] as Storyboard;
+            centerKnob = Knob.Resources["CenterKnob"] as Storyboard;
         }
 
         private void centerKnob_Completed(object sender, EventArgs e)
@@ -86,16 +86,16 @@ namespace FlightSimulatorApp.Views
 
         private void Knob_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _clickPoint = e.GetPosition(Base);
+            clickPoint = e.GetPosition(Base);
             Knob.CaptureMouse();
-            _centKnob.Stop();
+            centerKnob.Stop();
         }
 
         private void Knob_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _centKnob.Begin();
-            _canWidth = Base.ActualWidth - KnobBase.ActualWidth;
-            _canHeight = Base.ActualHeight - KnobBase.ActualHeight;
+            centerKnob.Begin();
+            canWidth = Base.ActualWidth - KnobBase.ActualWidth;
+            canHeight = Base.ActualHeight - KnobBase.ActualHeight;
             Knob.ReleaseMouseCapture();
         }
 
@@ -107,14 +107,14 @@ namespace FlightSimulatorApp.Views
 
             Point deltaPoint = calcDeltaPoint(e.GetPosition(Base));
 
-            Double distance = CalcDist(deltaPoint);
+            Double distance = calcDist(deltaPoint);
             if (Double.IsNaN(distance) || distance == 0)
                 return;
 
-            Rudder = Math.Round(2.1 * deltaPoint.X / _canWidth, 2);
-            Elevator = Math.Round(-2.1 * deltaPoint.Y / _canHeight, 2);
+            Rudder = Math.Round(2.1 * deltaPoint.X / canWidth, 2);
+            Elevator = Math.Round(-2.1 * deltaPoint.Y / canHeight, 2);
 
-            SetKnobPosition(deltaPoint);
+            setKnobPosition(deltaPoint);
 
             if (Moved != null)
                 Moved(this, new VirtualJoystickEventArgs { Rudder = Rudder, Elevator = Elevator });
@@ -122,24 +122,24 @@ namespace FlightSimulatorApp.Views
 
         private Point calcDeltaPoint(Point curP)
         {
-            double deltaX = curP.X - _clickPoint.X;
-            double deltaY = curP.Y - _clickPoint.Y;
+            double deltaX = curP.X - clickPoint.X;
+            double deltaY = curP.Y - clickPoint.Y;
             return new Point(deltaX, deltaY);
         }
 
-        private void SetKnobPosition(Point p)
+        private void setKnobPosition(Point p)
         {
             knobPosition.X = p.X;
             knobPosition.Y = p.Y;
         }
 
-        private Double CalcDist(Point deltaPoint)
+        private Double calcDist(Point deltaPoint)
         {
             double delta = deltaPoint.Y * deltaPoint.Y + deltaPoint.X * deltaPoint.X;
             double distance = Math.Round(Math.Sqrt(delta));
-            if (distance >= _canHeight / 2)
+            if (distance >= canHeight / 2)
                 return Double.NaN;
-            if (distance >= _canWidth / 2)
+            if (distance >= canWidth / 2)
                 return Double.NaN;
             return distance;
         }

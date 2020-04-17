@@ -236,7 +236,7 @@
 
 
 
-                    <Storyboard x:Key="CenterKnob" Name="_centKnob" Completed="centerKnob_Completed">
+                    <Storyboard x:Key="CenterKnob" Name="centerKnob" Completed="centerKnob_Completed">
 
 
 
