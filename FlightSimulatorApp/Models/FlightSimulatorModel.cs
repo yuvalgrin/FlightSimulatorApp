@@ -210,6 +210,9 @@ namespace FlightSimulatorApp.Model
         //Init the first connection to the server wrapper
         public void InitRunBackground()
         {
+            if (_commandsQueueThread.IsAlive)
+                return;
+
             ErrorEnabled = 0;
             String error = RunBackground();
             if (error != null)
