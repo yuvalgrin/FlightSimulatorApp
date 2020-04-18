@@ -9,7 +9,7 @@ namespace FlightSimulatorApp.server
 {
     public static class DelayedExecutionService
     {
-        public static void DelayedExecute(Action action, int delay = 5000)
+        public static void DelayedExecute(Action action, int delay = 7000)
         {
             new Thread(() =>
             {

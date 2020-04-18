@@ -24,19 +24,20 @@ public static class MyTcpClient
     public static NetworkStream InitializeConnection(string ip, string port)
     {
         Int32 connectionPort; string server;
-        if (ip == null || port == null)
-        {
-            connectionPort = int.Parse(ConfigurationManager.AppSettings["ServerPort"], CultureInfo.InvariantCulture);
-            server = ConfigurationManager.AppSettings["ServerIP"];
-        } else
-        {
-            bool isValidPort = int.TryParse(port, out connectionPort);
-            server = ip;
-            if (!isValidPort)
-                return null;
-        }
         try
         {
+            if (ip == null || port == null)
+            {
+                connectionPort = int.Parse(ConfigurationManager.AppSettings["ServerPort"], CultureInfo.InvariantCulture);
+                server = ConfigurationManager.AppSettings["ServerIP"];
+            } else
+            {
+                bool isValidPort = int.TryParse(port, out connectionPort);
+                server = ip;
+                if (!isValidPort)
+                    return null;
+            }
+
             //Already connected to this ip port
             if (connectionPort == MyTcpClient._port && server == MyTcpClient._ip)
                 return null;
@@ -52,7 +53,7 @@ public static class MyTcpClient
             }
             return stream;
         }
-        catch (Exception e)  when (e is ArgumentNullException || e is ArgumentOutOfRangeException || e is SocketException)
+        catch (Exception)
         {
             return null;
         }
@@ -95,20 +96,19 @@ public static class MyTcpClient
                 stream.ReadTimeout = 15000;
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                responseData = responseData.Substring(0, responseData.Length - 1);
+                if (responseData.Length > 0)
+                    responseData = responseData.Substring(0, responseData.Length - 1);
                 FlightSimulatorModel.Get().UpdateValueMap(c.path(), responseData);
             }
             // Close everything
             stream.Close();
-            //MyTcpClient.client.Close();
         }
-        catch (IOException e)
+        catch (Exception)
         {
             if (stream != null)
                 stream.Close();
-            //MyTcpClient.client.Close();
             ThreadAlreadyRunning = false;
-            FlightSimulatorModel.Get().ThrowNewError("Connection to the server was lost\r\nPlease insert IP and Port in the connection tab\r\n"+e.Message);
+            FlightSimulatorModel.Get().ThrowNewError("Connection to the server was lost\r\nPlease insert IP and Port in the connection tab");
             _ip = String.Empty;
             _port = 0;
         }

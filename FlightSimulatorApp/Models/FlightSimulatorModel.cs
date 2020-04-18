@@ -177,9 +177,10 @@ namespace FlightSimulatorApp.Model
             {
                 if (MyTcpClient.ThreadAlreadyRunning && _commandsQueueThread.IsAlive)
                     this._queue.Enqueue(c);
-            } finally
+            }
+            catch (Exception)
             {
-                // Error during enqueue operation
+                ThrowNewError("Error during enqueue operation");
             }
         }
 
@@ -191,9 +192,9 @@ namespace FlightSimulatorApp.Model
             {
                 if (MyTcpClient.ThreadAlreadyRunning && _commandsQueueThread.IsAlive)
                     this._priorityQueue.Enqueue(c);
-            } finally
+            } catch (Exception)
             {
-                // Error during enqueue operation
+                ThrowNewError("Error during enqueue operation");
             }
         }
 
