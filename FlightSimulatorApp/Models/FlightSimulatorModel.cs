@@ -210,15 +210,12 @@ namespace FlightSimulatorApp.Model
         //Init the first connection to the server wrapper
         public void InitRunBackground()
         {
-            if (_commandsQueueThread.IsAlive)
-                return;
-
             ErrorEnabled = 0;
             String error = RunBackground();
             if (error != null)
             {
-                ThrowNewError(error + "\r\nWill try to reconnect in 5 seconds");
-                DelayedExecutionService.DelayedExecute(() => InitRunBackground(), 3000);
+                ThrowNewError(error + "\r\nPlease insert your required ip and port.");
+                //DelayedExecutionService.DelayedExecute(() => InitRunBackground(), 3000);
             }
         }
 
