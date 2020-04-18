@@ -172,16 +172,28 @@ namespace FlightSimulatorApp.Model
         // Add the command to queue only when connected to a server
         public void AddCommandToQueue(Command c)
         {
-            if (MyTcpClient.RunClient && _commandsQueueThread.IsAlive)
-                this._queue.Enqueue(c);
+            try
+            {
+                if (MyTcpClient.ThreadAlreadyRunning && _commandsQueueThread.IsAlive)
+                    this._queue.Enqueue(c);
+            } finally
+            {
+                // Error during enqueue operation
+            }
         }
 
         // Add the command to queue only when connected to a server
         // This queue is prioritized for control room commands
         public void AddCommandToPriorityQueue(Command c)
         {
-            if (MyTcpClient.RunClient && _commandsQueueThread.IsAlive)
-                this._priorityQueue.Enqueue(c);
+            try
+            {
+                if (MyTcpClient.ThreadAlreadyRunning && _commandsQueueThread.IsAlive)
+                    this._priorityQueue.Enqueue(c);
+            } finally
+            {
+                // Error during enqueue operation
+            }
         }
 
         public string GetDataByKey(string key)
