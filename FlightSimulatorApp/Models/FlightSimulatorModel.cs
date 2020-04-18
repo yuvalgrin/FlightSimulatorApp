@@ -232,6 +232,7 @@ namespace FlightSimulatorApp.Model
 
             Thread clientThread = new Thread(() => MyTcpClient.CreateAndRunClient(stream));
             clientThread.Start();
+            MyTcpClient.ThreadAlreadyRunning = true;
             return null;
         }
 
@@ -258,8 +259,10 @@ namespace FlightSimulatorApp.Model
                     _commandsQueueThread.Start();
 
                 if (MyTcpClient.ThreadAlreadyRunning)
+                {
                     MyTcpClient.KillClient();
-                MyTcpClient.Mutex.WaitOne();
+                    MyTcpClient.Mutex.WaitOne();
+                }
                 Thread clientThread = new Thread(() => MyTcpClient.CreateAndRunClient(stream));
                 clientThread.Start();
                 MyTcpClient.ThreadAlreadyRunning = true;

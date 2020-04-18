@@ -13,7 +13,7 @@ public static class MyTcpClient
 {
     private static bool _runClient = true;
     public static bool RunClient{ get { return _runClient; } }
-    private static bool _threadAlreadyRunning = true;
+    private static bool _threadAlreadyRunning = false;
     public static bool ThreadAlreadyRunning { get { return _threadAlreadyRunning; } set { _threadAlreadyRunning = value; } }
     private static AutoResetEvent _m = new AutoResetEvent(false);
     public static AutoResetEvent Mutex { get { return _m; } set { _m = value; } }
