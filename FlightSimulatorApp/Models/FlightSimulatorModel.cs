@@ -15,6 +15,7 @@ using System.IO;
 using FlightSimulatorApp.server;
 using System.Windows;
 using FlightSimulatorApp.Models;
+using System.Collections.Concurrent;
 
 namespace FlightSimulatorApp.Model
 {
@@ -26,18 +27,18 @@ namespace FlightSimulatorApp.Model
         private static FlightSimulatorModel _instance = null;
         private Thread _commandsQueueThread;
 
-        private Queue<Command> _priorityQueue;
-        public Queue<Command> PriorityQueue
+        private ConcurrentQueue<Command> _priorityQueue;
+        public ConcurrentQueue<Command> PriorityQueue
         {
             get { return _priorityQueue; }
         }
-        private Queue<Command> _queue;
-        public Queue<Command> Queue
+        private ConcurrentQueue<Command> _queue;
+        public ConcurrentQueue<Command> Queue
         {
             get { return _queue; }
         }
-        private Dictionary<string, string> _flightData;
-        public Dictionary<string, string> FlightData
+        private ConcurrentDictionary<string, string> _flightData;
+        public ConcurrentDictionary<string, string> FlightData
         {
             get { return _flightData; }
         }
@@ -96,10 +97,10 @@ namespace FlightSimulatorApp.Model
             //Init the thread that sends commands to queue
             this._commandsQueueThread = new Thread(SendCommandsToQueue);
             //holds commands coming from gui
-            this._priorityQueue = new Queue<Command>();
-            this._queue = new Queue<Command>();
+            this._priorityQueue = new ConcurrentQueue<Command>();
+            this._queue = new ConcurrentQueue<Command>();
             // map that holds the values of the FS
-            this._flightData = new Dictionary<string, string>();
+            this._flightData = new ConcurrentDictionary<string, string>();
             foreach (string key in FlightSimulatorResources.FullNameToShort.Keys)
             {
                 this._flightData[key] = "0.0";

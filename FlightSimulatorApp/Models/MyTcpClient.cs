@@ -122,12 +122,13 @@ public static class MyTcpClient
 
     private static Command ChooseCommand()
     {
+        Command c = null;
         if (FlightSimulatorModel.Get().PriorityQueue.Count != 0)
-            return FlightSimulatorModel.Get().PriorityQueue.Dequeue();
+            FlightSimulatorModel.Get().PriorityQueue.TryDequeue(out c);
         else if (FlightSimulatorModel.Get().Queue.Count != 0)
-            return FlightSimulatorModel.Get().Queue.Dequeue();
-        else
-            return null;
+            FlightSimulatorModel.Get().Queue.TryDequeue(out c);
+
+        return c;
     }
 
     //the function that will be run in a thread

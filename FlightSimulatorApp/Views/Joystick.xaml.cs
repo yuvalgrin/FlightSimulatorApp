@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using FlightSimulatorApp.ViewModel;
 using System.Globalization;
+using System.Windows.Threading;
 
 namespace FlightSimulatorApp.Views
 {
@@ -23,6 +24,7 @@ namespace FlightSimulatorApp.Views
         public delegate void OnScreenJoystickEventHandler(Joystick sender, VirtualJoystickEventArgs args);
         public event OnScreenJoystickEventHandler Moved;
 
+        private DispatcherTimer _timer = new DispatcherTimer();
         private Storyboard _centKnob;
         private Point _clickPoint;
         private Double _canWidth;
@@ -65,7 +67,11 @@ namespace FlightSimulatorApp.Views
             InitializeComponent();
             Moved += notifyKnobMove;
             this.DataContext = (Application.Current as App).JoystickViewModel;
-
+            _timer.Interval = TimeSpan.FromMilliseconds(100);
+            _timer.Tick +=
+                delegate (Object sender, EventArgs e) {
+                    _timer.Stop();
+                };
             _centKnob = Knob.Resources["CenterKnob"] as Storyboard;
         }
 
@@ -75,13 +81,16 @@ namespace FlightSimulatorApp.Views
             Elevator = 0;
         }
 
-        public static void notifyKnobMove(object sender, VirtualJoystickEventArgs e)
+        public void notifyKnobMove(object sender, VirtualJoystickEventArgs e)
         {
-            if (e != null)
+            if (e != null && !_timer.IsEnabled)
             {
                 (Application.Current as App).JoystickViewModel.JoyRudderUpdate(e.Rudder);
                 (Application.Current as App).JoystickViewModel.JoyElevatorUpdate(e.Elevator);
             }
+
+            if (!_timer.IsEnabled)
+                _timer.Start();
         }
 
         private void Knob_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
